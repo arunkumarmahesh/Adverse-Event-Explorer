@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Table, Accordion, Icon } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 

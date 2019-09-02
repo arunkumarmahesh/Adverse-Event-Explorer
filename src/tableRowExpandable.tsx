@@ -1,7 +1,10 @@
 import React, { FC, useState, MouseEvent } from "react";
 import { Table } from "semantic-ui-react";
 import _ from "lodash";
-import { TableCellAccordion } from "./tableCellAccordion";
+import {
+  TableCellAccordion,
+  Props as TableCellAccordionProps
+} from "./tableCellAccordion";
 import { TableCellPercentage } from "./tableCellPercentage";
 import { TableCellChart } from "./tableCellChart";
 import { TableRow } from "./tableRow";
@@ -26,12 +29,17 @@ export const TableRowExpandable: FC<Props> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  const handleClick = (e: MouseEvent<HTMLDivElement>, titleProps: any) => {
+  const handleClick = (
+    e: MouseEvent<HTMLDivElement>,
+    titleProps: TableCellAccordionProps
+  ) => {
     const { index } = titleProps;
     setActiveIndex(activeIndex === index ? -1 : index);
   };
 
   const countedByGroups = _.countBy(data[1], groupVariable);
+
+  // console.log("countedByGroups", countedByGroups);
   return (
     <>
       <Table.Row>

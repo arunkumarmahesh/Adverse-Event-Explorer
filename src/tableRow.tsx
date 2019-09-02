@@ -1,4 +1,4 @@
-import React, { FC, useState, MouseEvent } from "react";
+import React, { FC } from "react";
 import { Table } from "semantic-ui-react";
 import _ from "lodash";
 import { TableCellPercentage } from "./tableCellPercentage";
@@ -18,10 +18,12 @@ export const TableRow: FC<Props> = ({
   groupsTotal,
   groupVariable
 }) => {
+  const groupItems = _.countBy(data[1], groupVariable);
+
   return (
     <Table.Row style={{ background: "#efefef" }}>
       <Table.Cell style={{ paddingLeft: "35px" }}>{data[0]}</Table.Cell>
-      {Object.entries(_.countBy(data[1], groupVariable)).map((data, key) => (
+      {Object.entries(groupItems).map((data, key) => (
         <TableCellPercentage
           key={key}
           partialCount={data[1]}

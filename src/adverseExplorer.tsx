@@ -13,22 +13,33 @@ export const AdverseExplorer: FC<Props> = ({ datas }) => {
   // Events
   const groupVariable = "ARM"; // has to be changeable between ARM, SEX, RACE and NONE
   const subGroupVariable = "AEDECOD";
-  const groups: any = _.chain(datas) // has to be changeable between Events and Participants
+  const groups: { [key: string]: number } = _.chain(datas) // has to be changeable between Events and Participants
     .filter(data => data.AEBODSYS !== "")
     .countBy(groupVariable)
     .value();
+
   const groupsTotal = _.sum(Object.values(groups).map((key: any) => key));
 
-  const aebodsys = _.chain(datas) // has to changeable, filterable and searchable
+  const aebodsysUnsorted = _.chain(datas) // has to be changeable, filterable and searchable
     .filter(data => data.AEBODSYS !== "")
     .groupBy("AEBODSYS")
     .value();
+  // console.log("aebodsysUnsorted", aebodsysUnsorted);
+
+  const aebodsySorted: { [key: string]: {} } = {};
+  _(aebodsysUnsorted)
+    .keys()
+    .sort()
+    .each(function(key) {
+      aebodsySorted[key] = aebodsysUnsorted[key];
+    });
+  console.log("aebodsySorted", aebodsySorted);
 
   return (
     <Table celled padded>
       <TableHeader groups={groups} groupsTotal={groupsTotal} />
       <Table.Body>
-        {Object.entries(aebodsys).map((data, key) => (
+        {Object.entries(aebodsySorted).map((data, key) => (
           <TableRowExpandable
             key={key}
             index={key}
