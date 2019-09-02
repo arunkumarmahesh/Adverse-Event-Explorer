@@ -20,10 +20,19 @@ export const TableRow: FC<Props> = ({
 }) => {
   const groupItems = _.countBy(data[1], groupVariable);
 
+  // COMPUTE GROUP VALUES
+  // 1. set values of groups to 0
+  const subGroupsZero = _.mapValues(groups, () => 0);
+  // 2. count available groups
+  const subGroupsCounted = _.countBy(data[1], groupVariable);
+  // 3. merge groups to have for every group a value even if it is 0
+  const subGroupsMerged = { ...subGroupsZero, ...subGroupsCounted };
+  console.log("subGroupsMerged", subGroupsMerged);
+
   return (
     <Table.Row style={{ background: "#efefef" }}>
       <Table.Cell style={{ paddingLeft: "35px" }}>{data[0]}</Table.Cell>
-      {Object.entries(groupItems).map((data, key) => (
+      {Object.entries(subGroupsMerged).map((data, key) => (
         <TableCellPercentage
           key={key}
           partialCount={data[1]}

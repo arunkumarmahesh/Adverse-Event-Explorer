@@ -9,8 +9,6 @@ export interface Props {
 }
 
 export const TableHeader: FC<Props> = ({ groups, groupsTotal }) => {
-  console.log("groups", groups); // {Placebo: 120, Treatment A: 120, Treatment B: 117} when ARM
-  console.log("groupsTotal", groupsTotal); // 357 when events
   const groupSize = _.size(groups) + 1;
   console.log("groupSize", groupSize); // 4 when ARM
 

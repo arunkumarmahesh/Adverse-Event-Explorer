@@ -37,9 +37,15 @@ export const TableRowExpandable: FC<Props> = ({
     setActiveIndex(activeIndex === index ? -1 : index);
   };
 
-  const countedByGroups = _.countBy(data[1], groupVariable);
+  // COMPUTE GROUP VALUES
+  // 1. set values of groups to 0
+  const groupsZero = _.mapValues(groups, () => 0);
+  // 2. count available groups
+  const groupsCounted = _.countBy(data[1], groupVariable);
+  // 3. merge groups to have for every group a value even if it is 0
+  const groupsMerged = { ...groupsZero, ...groupsCounted };
+  console.log("groupsZero", groupsMerged);
 
-  // console.log("countedByGroups", countedByGroups);
   return (
     <>
       <Table.Row>
@@ -49,7 +55,7 @@ export const TableRowExpandable: FC<Props> = ({
           activeIndex={activeIndex}
           handleClick={handleClick}
         />
-        {Object.entries(countedByGroups).map((data, key) => (
+        {Object.entries(groupsMerged).map((data, key) => (
           <TableCellPercentage
             key={key}
             partialCount={data[1]}

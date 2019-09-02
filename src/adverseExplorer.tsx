@@ -17,8 +17,10 @@ export const AdverseExplorer: FC<Props> = ({ datas }) => {
     .filter(data => data.AEBODSYS !== "")
     .countBy(groupVariable)
     .value();
+  console.log("groups", groups);
 
-  const groupsTotal = _.sum(Object.values(groups).map((key: any) => key));
+  const groupsTotal = _.sum(Object.values(groups).map((key: number) => key));
+  console.log("groupsTotal", groupsTotal);
 
   const aebodsysUnsorted = _.chain(datas) // has to be changeable, filterable and searchable
     .filter(data => data.AEBODSYS !== "")
