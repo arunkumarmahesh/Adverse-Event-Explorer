@@ -10,24 +10,24 @@ export interface Props {
   groups: { [key: string]: number };
   groupsTotal: number;
   groupVariable: string;
+  colors: string[];
 }
 
 export const TableRow: FC<Props> = ({
   data,
   groups,
   groupsTotal,
-  groupVariable
+  groupVariable,
+  colors
 }) => {
-  const groupItems = _.countBy(data[1], groupVariable);
-
-  // COMPUTE GROUP VALUES
-  // 1. set values of groups to 0
+  // COMPUTE SUBGROUP VALUES
+  // 1. set values of subgroups to 0
   const subGroupsZero = _.mapValues(groups, () => 0);
-  // 2. count available groups
+  // 2. count available subgroups
   const subGroupsCounted = _.countBy(data[1], groupVariable);
-  // 3. merge groups to have for every group a value even if it is 0
+  // 3. merge subgroups to have for every subgroup a value even if it is 0
   const subGroupsMerged = { ...subGroupsZero, ...subGroupsCounted };
-  console.log("subGroupsMerged", subGroupsMerged);
+  // console.log("subGroupsMerged", subGroupsMerged);
 
   return (
     <Table.Row style={{ background: "#efefef" }}>
@@ -37,11 +37,13 @@ export const TableRow: FC<Props> = ({
           key={key}
           partialCount={data[1]}
           totalCount={groups[data[0]]}
+          style={{ color: colors[key] }}
         />
       ))}
       <TableCellPercentage
         partialCount={_.size(data[1])}
         totalCount={groupsTotal}
+        style={{ color: colors[3] }}
       />
       <TableCellChart />
     </Table.Row>

@@ -6,9 +6,10 @@ import "semantic-ui-css/semantic.min.css";
 export interface Props {
   groups: { [key: string]: number };
   groupsTotal: number;
+  colors: string[];
 }
 
-export const TableHeader: FC<Props> = ({ groups, groupsTotal }) => {
+export const TableHeader: FC<Props> = ({ groups, groupsTotal, colors }) => {
   const groupSize = _.size(groups) + 1;
   console.log("groupSize", groupSize); // 4 when ARM
 
@@ -20,13 +21,13 @@ export const TableHeader: FC<Props> = ({ groups, groupsTotal }) => {
         <Table.HeaderCell rowSpan="2">AE Rate by group</Table.HeaderCell>
       </Table.Row>
       <Table.Row>
-        {Object.entries(groups).map(data => (
-          <Table.HeaderCell key={data[0]}>
+        {Object.entries(groups).map((data, key) => (
+          <Table.HeaderCell key={data[0]} style={{ color: colors[key] }}>
             {data[0]} <br />
             n={data[1]}
           </Table.HeaderCell>
         ))}
-        <Table.HeaderCell>
+        <Table.HeaderCell style={{ color: colors[3] }}>
           Total <br />
           n={groupsTotal}
         </Table.HeaderCell>

@@ -17,6 +17,7 @@ export interface Props {
   groupsTotal: number;
   groupVariable: string;
   subGroupVariable: string;
+  colors: string[];
 }
 
 export const TableRowExpandable: FC<Props> = ({
@@ -25,7 +26,8 @@ export const TableRowExpandable: FC<Props> = ({
   groups,
   groupsTotal,
   groupVariable,
-  subGroupVariable
+  subGroupVariable,
+  colors
 }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -44,8 +46,8 @@ export const TableRowExpandable: FC<Props> = ({
   const groupsCounted = _.countBy(data[1], groupVariable);
   // 3. merge groups to have for every group a value even if it is 0
   const groupsMerged = { ...groupsZero, ...groupsCounted };
-  console.log("groupsZero", groupsMerged);
-
+  // console.log("groupsZero", groupsMerged);
+  console.log("colors[key]", colors[0]);
   return (
     <>
       <Table.Row>
@@ -60,11 +62,13 @@ export const TableRowExpandable: FC<Props> = ({
             key={key}
             partialCount={data[1]}
             totalCount={groups[data[0]]}
+            style={{ color: colors[key] }}
           />
         ))}
         <TableCellPercentage
           partialCount={_.size(data[1])}
           totalCount={groupsTotal}
+          style={{ color: colors[3] }}
         />
         <TableCellChart />
       </Table.Row>
@@ -77,6 +81,7 @@ export const TableRowExpandable: FC<Props> = ({
               groups={groups}
               groupsTotal={groupsTotal}
               groupVariable={groupVariable}
+              colors={colors}
             />
           )
         )}

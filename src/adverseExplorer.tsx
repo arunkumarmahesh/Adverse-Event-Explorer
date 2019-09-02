@@ -12,6 +12,7 @@ export interface Props {
 export const AdverseExplorer: FC<Props> = ({ datas }) => {
   // Events
   const groupVariable = "ARM"; // has to be changeable between ARM, SEX, RACE and NONE
+  const colors = ["green", "red", "blue", "orange"];
   const subGroupVariable = "AEDECOD";
   const groups: { [key: string]: number } = _.chain(datas) // has to be changeable between Events and Participants
     .filter(data => data.AEBODSYS !== "")
@@ -39,7 +40,7 @@ export const AdverseExplorer: FC<Props> = ({ datas }) => {
 
   return (
     <Table celled padded>
-      <TableHeader groups={groups} groupsTotal={groupsTotal} />
+      <TableHeader groups={groups} groupsTotal={groupsTotal} colors={colors} />
       <Table.Body>
         {Object.entries(aebodsySorted).map((data, key) => (
           <TableRowExpandable
@@ -50,6 +51,7 @@ export const AdverseExplorer: FC<Props> = ({ datas }) => {
             groupsTotal={groupsTotal}
             groupVariable={groupVariable}
             subGroupVariable={subGroupVariable}
+            colors={colors}
           />
         ))}
       </Table.Body>
