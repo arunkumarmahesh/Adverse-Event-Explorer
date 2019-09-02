@@ -47,7 +47,16 @@ export const TableRowExpandable: FC<Props> = ({
   // 3. merge groups to have for every group a value even if it is 0
   const groupsMerged = { ...groupsZero, ...groupsCounted };
   // console.log("groupsZero", groupsMerged);
-  console.log("colors[key]", colors[0]);
+
+  const subGroups = _.groupBy(data[1], subGroupVariable);
+  const subGroupsSorted: { [key: string]: {} } = {};
+  _(subGroups)
+    .keys()
+    .sort()
+    .each(function(key) {
+      subGroupsSorted[key] = subGroups[key];
+    });
+
   return (
     <>
       <Table.Row>
@@ -73,18 +82,16 @@ export const TableRowExpandable: FC<Props> = ({
         <TableCellChart />
       </Table.Row>
       {activeIndex === index &&
-        Object.entries(_.groupBy(data[1], subGroupVariable)).map(
-          (data, key) => (
-            <TableRow
-              key={key}
-              data={data}
-              groups={groups}
-              groupsTotal={groupsTotal}
-              groupVariable={groupVariable}
-              colors={colors}
-            />
-          )
-        )}
+        Object.entries(subGroupsSorted).map((data, key) => (
+          <TableRow
+            key={key}
+            data={data}
+            groups={groups}
+            groupsTotal={groupsTotal}
+            groupVariable={groupVariable}
+            colors={colors}
+          />
+        ))}
     </>
   );
 };

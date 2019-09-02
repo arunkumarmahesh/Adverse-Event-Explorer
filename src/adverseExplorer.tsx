@@ -36,7 +36,6 @@ export const AdverseExplorer: FC<Props> = ({ datas }) => {
     .each(function(key) {
       aebodsySorted[key] = aebodsysUnsorted[key];
     });
-  console.log("aebodsySorted", aebodsySorted);
 
   return (
     <Table celled padded>
