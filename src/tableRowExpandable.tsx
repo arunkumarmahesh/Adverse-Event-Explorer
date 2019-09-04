@@ -6,7 +6,7 @@ import {
   Props as TableCellAccordionProps
 } from "./tableCellAccordion";
 import { TableCellPercentage } from "./tableCellPercentage";
-import { TableCellChart } from "./tableCellChart";
+import { TableCellBar } from "./tableCellBar";
 import { TableRow } from "./tableRow";
 import "semantic-ui-css/semantic.min.css";
 
@@ -15,6 +15,7 @@ export interface Props {
   data: any;
   groups: { [key: string]: number };
   groupsTotal: number;
+  groupsHeighestValue: number;
   groupVariable: string;
   subGroupVariable: string;
   colors: string[];
@@ -25,6 +26,7 @@ export const TableRowExpandable: FC<Props> = ({
   data,
   groups,
   groupsTotal,
+  groupsHeighestValue,
   groupVariable,
   subGroupVariable,
   colors
@@ -46,7 +48,6 @@ export const TableRowExpandable: FC<Props> = ({
   const groupsCounted = _.countBy(data[1], groupVariable);
   // 3. merge groups to have for every group a value even if it is 0
   const groupsMerged = { ...groupsZero, ...groupsCounted };
-  // console.log("groupsZero", groupsMerged);
 
   const subGroups = _.groupBy(data[1], subGroupVariable);
   const subGroupsSorted: { [key: string]: {} } = {};
@@ -79,7 +80,14 @@ export const TableRowExpandable: FC<Props> = ({
           totalCount={groupsTotal}
           style={{ color: colors[3] }}
         />
-        <TableCellChart />
+        <TableCellBar
+          data={groupsMerged}
+          groupsTotal={groupsTotal}
+          groupsHeighestValue={groupsHeighestValue}
+        />
+        <Table.Cell>
+          <a href="#">details</a>
+        </Table.Cell>
       </Table.Row>
       {activeIndex === index &&
         Object.entries(subGroupsSorted).map((data, key) => (
@@ -88,6 +96,7 @@ export const TableRowExpandable: FC<Props> = ({
             data={data}
             groups={groups}
             groupsTotal={groupsTotal}
+            groupsHeighestValue={groupsHeighestValue}
             groupVariable={groupVariable}
             colors={colors}
           />

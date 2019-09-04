@@ -2,13 +2,14 @@ import React, { FC } from "react";
 import { Table } from "semantic-ui-react";
 import _ from "lodash";
 import { TableCellPercentage } from "./tableCellPercentage";
-import { TableCellChart } from "./tableCellChart";
+import { TableCellBar } from "./tableCellBar";
 import "semantic-ui-css/semantic.min.css";
 
 export interface Props {
   data: any;
   groups: { [key: string]: number };
   groupsTotal: number;
+  groupsHeighestValue: number;
   groupVariable: string;
   colors: string[];
 }
@@ -17,6 +18,7 @@ export const TableRow: FC<Props> = ({
   data,
   groups,
   groupsTotal,
+  groupsHeighestValue,
   groupVariable,
   colors
 }) => {
@@ -45,7 +47,12 @@ export const TableRow: FC<Props> = ({
         totalCount={groupsTotal}
         style={{ color: colors[3] }}
       />
-      <TableCellChart />
+      <TableCellBar
+        data={subGroupsMerged}
+        groupsTotal={groupsTotal}
+        groupsHeighestValue={groupsHeighestValue}
+      />
+      <Table.Cell />
     </Table.Row>
   );
 };

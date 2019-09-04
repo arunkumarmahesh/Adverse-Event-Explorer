@@ -22,9 +22,13 @@ export const TableCellAccordion: FC<Props> = ({
           active={activeIndex === index}
           index={index}
           onClick={handleClick}
+          style={{
+            display: "flex",
+            alignItems: "center"
+          }}
         >
           <Icon name="dropdown" />
-          {title}
+          <div style={{ width: "150px" }}>{title}</div>
         </Accordion.Title>
       </Accordion>
     </Table.Cell>

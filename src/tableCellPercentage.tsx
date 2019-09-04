@@ -17,7 +17,7 @@ export const TableCellPercentage: FC<Props> = ({
   };
 
   return (
-    <Table.Cell {...rest}>
+    <Table.Cell textAlign="center" {...rest}>
       {computePercentage(partialCount, totalCount)}
     </Table.Cell>
   );

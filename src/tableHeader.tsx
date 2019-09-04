@@ -11,18 +11,38 @@ export interface Props {
 
 export const TableHeader: FC<Props> = ({ groups, groupsTotal, colors }) => {
   const groupSize = _.size(groups) + 1;
-  console.log("groupSize", groupSize); // 4 when ARM
+  // console.log("groupSize", groupSize); // 4 when ARM
 
   return (
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell rowSpan="2">Category</Table.HeaderCell>
-        <Table.HeaderCell colSpan={groupSize}>Groups</Table.HeaderCell>
-        <Table.HeaderCell rowSpan="2">AE Rate by group</Table.HeaderCell>
+        <Table.HeaderCell
+          rowSpan="2"
+          textAlign="center"
+          style={{ width: "200px" }}
+        >
+          Category
+        </Table.HeaderCell>
+
+        <Table.HeaderCell colSpan={groupSize} textAlign="center">
+          Groups
+        </Table.HeaderCell>
+        <Table.HeaderCell
+          rowSpan="2"
+          textAlign="center"
+          style={{ maxWidth: "600px", minWidth: "300px" }}
+        >
+          AE Rate by group
+        </Table.HeaderCell>
+        <Table.HeaderCell rowSpan="2" textAlign="center"></Table.HeaderCell>
       </Table.Row>
       <Table.Row>
         {Object.entries(groups).map((data, key) => (
-          <Table.HeaderCell key={data[0]} style={{ color: colors[key] }}>
+          <Table.HeaderCell
+            key={data[0]}
+            style={{ color: colors[key] }}
+            textAlign="center"
+          >
             {data[0]} <br />
             n={data[1]}
           </Table.HeaderCell>
