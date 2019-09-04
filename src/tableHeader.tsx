@@ -27,11 +27,7 @@ export const TableHeader: FC<Props> = ({ groups, groupsTotal, colors }) => {
         <Table.HeaderCell colSpan={groupSize} textAlign="center">
           Groups
         </Table.HeaderCell>
-        <Table.HeaderCell
-          rowSpan="2"
-          textAlign="center"
-          style={{ maxWidth: "600px", minWidth: "300px" }}
-        >
+        <Table.HeaderCell rowSpan="2" textAlign="center">
           AE Rate by group
         </Table.HeaderCell>
         <Table.HeaderCell rowSpan="2" textAlign="center"></Table.HeaderCell>

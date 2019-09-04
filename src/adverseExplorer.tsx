@@ -1,11 +1,9 @@
-import React, { FC, useState } from "react";
+import React, { FC, FormEvent, SyntheticEvent, useState } from "react";
 import { Table } from "semantic-ui-react";
 import { TableHeader } from "./tableHeader";
 import { TableRowExpandable } from "./tableRowExpandable";
+import { Filter } from "./filter";
 import _ from "lodash";
-import { Select } from "semantic-ui-react";
-import { Radio } from "semantic-ui-react";
-
 import "semantic-ui-css/semantic.min.css";
 
 export interface Props {
@@ -13,15 +11,73 @@ export interface Props {
 }
 
 export const AdverseExplorer: FC<Props> = ({ datas }) => {
-  const [groupVariable, setGroupVariable] = useState<string>("ARM");
   const [summarizedBy, setSummarizedBy] = useState<string>("Participants");
+  const [groupVariable, setGroupVariable] = useState<string>("ARM");
+  const [serious, setSerious] = useState<string[]>(["N", "Y"]);
+  const [severity, setSeverity] = useState<string[]>([
+    "MODERATE",
+    "SEVERE",
+    "MILD"
+  ]);
+  const [relationship, setRelationship] = useState<string[]>([
+    "UNLIKELY RELATED",
+    "PROBABLY RELATED",
+    "NOT RELATED",
+    "POSSIBLY RELATED",
+    "DEFINITELY RELATED"
+  ]);
+  const [outcome, setOutcome] = useState<string[]>([
+    "RECOVERED",
+    "RESOLVED, RECOVERED",
+    "RESOLVED WITHOUT SEQUELAE",
+    "RESOLVED WITH SEQUELAE"
+  ]);
+  const handleSummarizedByChange = (
+    e: FormEvent<HTMLInputElement>,
+    { value }: any // Semantic UI CheckboxProps are any too
+  ) => setSummarizedBy(value);
+  const handleGroupVariableChange = (
+    e: SyntheticEvent<HTMLElement>,
+    { value }: any // Semantic UI DropdownProps are any too
+  ) => setGroupVariable(value);
+  const handleSeriousChange = (
+    e: FormEvent<HTMLInputElement>,
+    { value }: any // Semantic UI CheckboxProps are any too
+  ) => setSerious(addOrRemoveItem(serious, value));
+  const handleSeverityChange = (
+    e: FormEvent<HTMLInputElement>,
+    { value }: any // Semantic UI CheckboxProps are any too
+  ) => setSeverity(addOrRemoveItem(severity, value));
+  const handleRelationshipChange = (
+    e: FormEvent<HTMLInputElement>,
+    { value }: any // Semantic UI CheckboxProps are any too
+  ) => setRelationship(addOrRemoveItem(relationship, value));
+  const handleOutcomeChange = (
+    e: FormEvent<HTMLInputElement>,
+    { value }: any // Semantic UI CheckboxProps are any too
+  ) => setOutcome(addOrRemoveItem(outcome, value));
+
+  const addOrRemoveItem = (array: string[], value: string) => {
+    if (array.includes(value)) {
+      // remove
+      return array.filter(item => item !== value);
+    } else {
+      // add
+      return [...array, value];
+    }
+  };
+
+  console.log("serious", serious);
+  console.log("severity", severity);
+  console.log("relationship", relationship);
+  console.log("outcome", outcome);
 
   // Events
-
   const colors = ["green", "red", "blue", "orange"];
   const subGroupVariable = "AEDECOD";
   const groups: { [key: string]: number } = _.chain(datas) // has to be changeable between Events and Participants
     .filter(data => data.AEBODSYS !== "")
+    /*    .filter(data => data.AEREL === "NOT RELATED") */
     .countBy(groupVariable)
     .value();
   // console.log("groups", groups);
@@ -54,44 +110,33 @@ export const AdverseExplorer: FC<Props> = ({ datas }) => {
   });
   // console.log("#", groupsHeighestValue);
 
-  const groupOptions = [
+  // Serious = AESER
+  // Severity = AESEV
+  // Relationship = AEREL
+  // Outcome = AEOUT
+
+  const groupVariableOptions = [
     { key: "RACE", value: "RACE", text: "RACE" },
     { key: "SEX", value: "SEX", text: "SEX" },
     { key: "ARM", value: "ARM", text: "ARM" },
     { key: "NONE", value: "NONE", text: "NONE" }
   ];
 
-  const handleGroupVariableChange = (e: any, { value }: any) =>
-    setGroupVariable(value);
-  const handleSummarizedByChange = (e: any, { value }: any) =>
-    setSummarizedBy(value);
-  console.log("asasdsa", summarizedBy);
-
-  // Serious = AESER
-  // Severity = AESEV
-  // Relationship = AEREL
-  // Outcome = AEOUT
   return (
     <div>
-      <div>
-        <Radio
-          label="Participants"
-          onChange={handleSummarizedByChange}
-          value="Participants"
-          checked={summarizedBy === "Participants" ? true : false}
-        />
-        <Radio
-          label="Events"
-          onChange={handleSummarizedByChange}
-          value="Events"
-          checked={summarizedBy === "Events" ? true : false}
-        />
-      </div>
-      <Select
-        placeholder="Select Group Variable"
-        options={groupOptions}
-        onChange={handleGroupVariableChange}
-        value={groupVariable}
+      <Filter
+        groupVariable={groupVariable}
+        summarizedBy={summarizedBy}
+        serious={serious}
+        severity={severity}
+        relationship={relationship}
+        outcome={outcome}
+        handleGroupVariableChange={handleGroupVariableChange}
+        handleSummarizedByChange={handleSummarizedByChange}
+        handleSeriousChange={handleSeriousChange}
+        handleSeverityChange={handleSeverityChange}
+        handleRelationshipChange={handleRelationshipChange}
+        handleOutcomeChange={handleOutcomeChange}
       />
       <Table>
         <TableHeader
