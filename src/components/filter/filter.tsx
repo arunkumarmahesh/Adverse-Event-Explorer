@@ -1,10 +1,7 @@
 import React, { FC, FormEvent, SyntheticEvent } from "react";
-import { FilterSummarizedBy } from "./filterSummarizedBy";
-import { FilterGroupVariable } from "./filterGroupVariable";
-import { FilterSerious } from "./filterSerious";
-import { FilterSeverity } from "./filterSeverity";
-import { FilterRelationship } from "./filterRelationship";
-import { FilterOutcome } from "./filterOutcome";
+import { CheckboxBlock } from "./checkboxBlock";
+import { RadioBlock } from "./radioBlock";
+import { SelectBlock } from "./selectBlock";
 
 export interface Props {
   groupVariable: string;
@@ -55,42 +52,27 @@ export const Filter: FC<Props> = ({
 }) => {
   return (
     <div>
-      <div>
-        <FilterSummarizedBy
-          summarizedBy={summarizedBy}
-          handleSummarizedByChange={handleSummarizedByChange}
-        />
-      </div>
-      <div>
-        <FilterGroupVariable
-          groupVariable={groupVariable}
-          handleGroupVariableChange={handleGroupVariableChange}
-        />
-      </div>
-      <div>
-        <FilterSerious
-          serious={serious}
-          handleSeriousChange={handleSeriousChange}
-        />
-      </div>
-      <div>
-        <FilterSeverity
-          severity={severity}
-          handleSeverityChange={handleSeverityChange}
-        />
-      </div>
-      <div>
-        <FilterRelationship
-          relationship={relationship}
-          handlerelationshipChange={handleRelationshipChange}
-        />
-      </div>
-      <div>
-        <FilterOutcome
-          outcome={outcome}
-          handleOutcomeChange={handleOutcomeChange}
-        />
-      </div>
+      <CheckboxBlock
+        label="Summarized by:"
+        options={["Participants", "Events"]}
+        checked={}
+        handleChange={}
+      />
+      <SelectBlock
+        label="Group Variable:"
+        options={}
+        selected={}
+        HandleChange={}
+      />
+      <CheckboxBlock label="Serious?" options={} checked={} handleChange={} />
+      <CheckboxBlock label="Severity" options={} checked={} handleChange={} />
+      <CheckboxBlock
+        label="Relationship"
+        options={}
+        checked={}
+        handleChange={}
+      />
+      <CheckboxBlock label="Outcome" options={} checked={} handleChange={} />
     </div>
   );
 };
