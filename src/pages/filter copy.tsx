@@ -1,7 +1,9 @@
 import React, { FC, FormEvent, SyntheticEvent } from "react";
-import { CheckboxBlock } from "./checkboxBlock";
-import { RadioBlock } from "./radioBlock";
-import { SelectBlock } from "./selectBlock";
+import { connect, useSelector } from "react-redux";
+import { CheckboxBlock } from "../components/checkboxBlock";
+import { RadioBlock } from "../components/radioBlock";
+import { SelectBlock } from "../components/selectBlock";
+import { groupVariableOptions } from "../store/initialState";
 
 export interface Props {
   groupVariable: string;
@@ -52,7 +54,7 @@ export const Filter: FC<Props> = ({
 }) => {
   return (
     <div>
-      <CheckboxBlock
+      <RadioBlock
         label="Summarized by:"
         options={["Participants", "Events"]}
         checked={}
@@ -60,8 +62,8 @@ export const Filter: FC<Props> = ({
       />
       <SelectBlock
         label="Group Variable:"
-        options={}
-        selected={}
+        options={groupVariableOptions}
+        selected=
         HandleChange={}
       />
       <CheckboxBlock label="Serious?" options={} checked={} handleChange={} />

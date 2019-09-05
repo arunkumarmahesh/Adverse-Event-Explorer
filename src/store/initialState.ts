@@ -21,6 +21,8 @@ export type Outcome =
   | "RESOLVED WITHOUT SEQUELAE"
   | "RESOLVED WITH SEQUELAE";
 
+export const summarizedByOptions: SummarizedBy[] = ["Participants", "Events"];
+
 export const seriousOptions: Serious[] = ["N", "Y"];
 
 export const severityOptions: Severity[] = ["MODERATE", "SEVERE", "MILD"];

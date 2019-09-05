@@ -1,6 +1,6 @@
 import React, { FC, SyntheticEvent } from "react";
 import { Select } from "semantic-ui-react";
-import { SelectOptions } from "../../store/initialState";
+import { SelectOptions } from "../store/initialState";
 
 export interface Props {
   label: string;

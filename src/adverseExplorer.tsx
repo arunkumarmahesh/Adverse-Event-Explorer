@@ -2,7 +2,7 @@ import React, { FC, FormEvent, SyntheticEvent, useState } from "react";
 import { Table } from "semantic-ui-react";
 import { TableHeader } from "./tableHeader";
 import { TableRowExpandable } from "./tableRowExpandable";
-import { Filter } from "./components/filter/filter";
+import { Filter } from "./pages/filter";
 import _ from "lodash";
 import "semantic-ui-css/semantic.min.css";
 
