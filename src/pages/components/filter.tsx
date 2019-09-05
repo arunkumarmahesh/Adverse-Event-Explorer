@@ -1,25 +1,11 @@
 import React, { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { CheckboxBlock } from "../components/checkboxBlock";
-import { RadioBlock } from "../components/radioBlock";
-import { SelectBlock } from "../components/selectBlock";
-import {
-  AppState,
-  summarizedByOptions,
-  groupVariableOptions,
-  seriousOptions,
-  severityOptions,
-  relationshipOptions,
-  outcomeOptions
-} from "../store/initialState";
-import {
-  SET_SUMMARIZED_BY,
-  SET_GROUP_VARIABLE,
-  SET_SERIOUS,
-  SET_SEVERITY,
-  SET_RELATIONSHIP,
-  SET_OUTCOME
-} from "../store/actions";
+import { CheckboxBlock } from "../../components/checkboxBlock";
+import { RadioBlock } from "../../components/radioBlock";
+import { SelectBlock } from "../../components/selectBlock";
+import { AppState } from "../../utils/types";
+import * as c from "../../store/constants";
+import * as o from "../../utils/options";
 
 export interface Props {}
 
@@ -36,50 +22,50 @@ export const Filter: FC<Props> = () => {
     <div>
       <RadioBlock
         label="Summarized by:"
-        options={summarizedByOptions}
+        options={o.summarizedByOptions}
         checked={summarizedBy}
         handleChange={(e, { value }) =>
-          dispatch({ type: SET_SUMMARIZED_BY, payload: value })
+          dispatch({ type: c.SET_SUMMARIZED_BY, payload: value })
         }
       />
       <SelectBlock
         label="Group Variable:"
-        options={groupVariableOptions}
+        options={o.groupVariableOptions}
         selected={groupVariable}
         handleChange={(e, { value }) =>
-          dispatch({ type: SET_GROUP_VARIABLE, payload: value })
+          dispatch({ type: c.SET_GROUP_VARIABLE, payload: value })
         }
       />
       <CheckboxBlock
         label="Serious?"
-        options={seriousOptions}
+        options={o.seriousOptions}
         checked={serious}
         handleChange={(e, { value }) =>
-          dispatch({ type: SET_SERIOUS, payload: value })
+          dispatch({ type: c.SET_SERIOUS, payload: value })
         }
       />
       <CheckboxBlock
         label="Severity"
-        options={severityOptions}
+        options={o.severityOptions}
         checked={severity}
         handleChange={(e, { value }) =>
-          dispatch({ type: SET_SEVERITY, payload: value })
+          dispatch({ type: c.SET_SEVERITY, payload: value })
         }
       />
       <CheckboxBlock
         label="Relationship"
-        options={relationshipOptions}
+        options={o.relationshipOptions}
         checked={relationship}
         handleChange={(e, { value }) =>
-          dispatch({ type: SET_RELATIONSHIP, payload: value })
+          dispatch({ type: c.SET_RELATIONSHIP, payload: value })
         }
       />
       <CheckboxBlock
         label="Outcome"
-        options={outcomeOptions}
+        options={o.outcomeOptions}
         checked={outcome}
         handleChange={(e, { value }) =>
-          dispatch({ type: SET_OUTCOME, payload: value })
+          dispatch({ type: c.SET_OUTCOME, payload: value })
         }
       />
     </div>
