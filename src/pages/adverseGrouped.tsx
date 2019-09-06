@@ -4,9 +4,8 @@ import _ from "lodash";
 import { Table } from "semantic-ui-react";
 import { AppState } from "../utils/types";
 import { Filter } from "./components/filter";
-import { useHeaderGroups } from "../hooks/useHeaderGroups";
+import { useHeaderFooterGroups } from "../hooks/useHeaderFooterGroups";
 import { useBodyGroups } from "../hooks/useBodyGroups";
-import { useFooterGroups } from "../hooks/useFooterGroups";
 import { useFilter } from "../hooks/useFilter";
 import { useSummarize } from "../hooks/useSummarize";
 import { TableHeader } from "../components/tableHeader";
@@ -22,12 +21,8 @@ export const AdverseGrouped: FC = () => {
     headerGroupsTotal,
     footerGroups,
     footerGroupsTotal
-  ] = useHeaderGroups(filteredDatas);
+  ] = useHeaderFooterGroups(filteredDatas);
   const bodyGroups = useBodyGroups(filteredDatas, headerGroups);
-  //const [footerGroups, footerGroupsTotal] = useFooterGroups(filteredDatas);
-
-  console.log("footerGroups", footerGroups);
-  console.log("footerGroupsTotal", footerGroupsTotal);
 
   return (
     <div>

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { AppState, Data, Groups } from "../utils/types";
 import _ from "lodash";
 
-export function useHeaderGroups(
+export function useHeaderFooterGroups(
   datas: Data[]
 ): [Groups, number, Groups, number] {
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
