@@ -6,7 +6,7 @@ export function useBodySubGroups(key: String, headerGroups: Groups) {
   const datas = useSelector((state: AppState) => state.datas);
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
   const headerGroupsZero = _.mapValues(headerGroups, () => 0);
-  console.log("key:", key);
+
   const unordered = _.chain(datas)
     .filter(data => data.AEBODSYS === key)
     .groupBy("AEDECOD")
@@ -26,6 +26,6 @@ export function useBodySubGroups(key: String, headerGroups: Groups) {
     .each(function(key) {
       ordered[key] = unordered[key];
     });
-  console.log("ordered", ordered);
+
   return ordered;
 }

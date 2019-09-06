@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { AppState, Data } from "../utils/types";
-import _ from "lodash";
 
 export function useFilter(datas: Data[]) {
   const serious = useSelector((state: AppState) => state.serious);

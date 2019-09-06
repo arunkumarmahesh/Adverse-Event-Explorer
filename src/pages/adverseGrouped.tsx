@@ -41,7 +41,7 @@ export const AdverseGrouped: FC = () => {
             }
           })}
         </Table.Body>
-        <TableFooter groups={headerGroups} total={total} />
+        <TableFooter headerGroups={headerGroups} total={total} />
       </Table>
     </div>
   );

@@ -28,7 +28,7 @@ export const TableRowExpandable: FC<Props> = ({
   const [activeIndex, setActiveIndex] = useState(-1);
   const colors = useSelector((state: AppState) => state.colors);
   const bodySubGroups = useBodySubGroups(data[0], headerGroups);
-  console.log("Ä", bodySubGroups);
+
   const handleClick = (
     e: MouseEvent<HTMLDivElement>,
     titleProps: TableCellAccordionProps
@@ -62,7 +62,7 @@ export const TableRowExpandable: FC<Props> = ({
         />
         <Table.Cell />
         <Table.Cell>
-          <a href="#">details</a>
+          <span>details</span>
         </Table.Cell>
       </Table.Row>
       {activeIndex === index &&
