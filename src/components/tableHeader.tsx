@@ -19,6 +19,7 @@ export const TableHeader: FC<Props> = ({ groups, total }) => {
       <Table.Row>
         <Table.HeaderCell
           rowSpan="2"
+          colSpan="2"
           textAlign="center"
           style={{ width: "200px" }}
         >
@@ -31,7 +32,6 @@ export const TableHeader: FC<Props> = ({ groups, total }) => {
         <Table.HeaderCell rowSpan="2" textAlign="center">
           AE Rate by group
         </Table.HeaderCell>
-        <Table.HeaderCell rowSpan="2" textAlign="center"></Table.HeaderCell>
       </Table.Row>
       <Table.Row>
         {Object.entries(groups).map((data, key) => (

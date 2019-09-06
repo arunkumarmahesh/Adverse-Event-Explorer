@@ -21,6 +21,7 @@ export const TableRow: FC<Props> = ({
   return (
     <Table.Row style={{ background: "#efefef" }}>
       <Table.Cell style={{ paddingLeft: "35px" }}>{data[0]}</Table.Cell>
+      <Table.Cell style={{ maxWidth: "50px", padding: "0px" }} />
       {Object.entries(data[1]).map((value: any, key) => (
         <TableCellPercentage
           key={key}

@@ -1,6 +1,6 @@
 import React, { FC, useState, MouseEvent } from "react";
 import { useSelector } from "react-redux";
-import { Table } from "semantic-ui-react";
+import { Table, Icon } from "semantic-ui-react";
 import _ from "lodash";
 import {
   TableCellAccordion,
@@ -41,11 +41,17 @@ export const TableRowExpandable: FC<Props> = ({
     <>
       <Table.Row>
         <TableCellAccordion
+          style={{ width: "120px" }}
           title={data[0]}
           index={index}
           activeIndex={activeIndex}
           handleClick={handleClick}
         />
+        <Table.Cell style={{ maxWidth: "50px", padding: "0px" }}>
+          <a>
+            <Icon name="users" />
+          </a>
+        </Table.Cell>
         {Object.entries(data[1]).map((value: any, key: number) => (
           <TableCellPercentage
             key={key}
@@ -61,9 +67,6 @@ export const TableRowExpandable: FC<Props> = ({
           totalCount={headerGroupsTotal}
         />
         <Table.Cell />
-        <Table.Cell>
-          <span>details</span>
-        </Table.Cell>
       </Table.Row>
       {activeIndex === index &&
         Object.entries(bodySubGroups).map((data, key) => (

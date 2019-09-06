@@ -24,7 +24,11 @@ export const TableFooter: FC<Props> = ({
   return (
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell textAlign="center" style={{ width: "200px" }}>
+        <Table.HeaderCell
+          textAlign="center"
+          colSpan="2"
+          style={{ width: "200px" }}
+        >
           All
         </Table.HeaderCell>
         {Object.entries(footerGroups).map((value, key) => {
@@ -43,7 +47,6 @@ export const TableFooter: FC<Props> = ({
           partialCount={footerGroupsTotal}
           totalCount={headerGroupsTotal}
         />
-        <Table.HeaderCell textAlign="center"></Table.HeaderCell>
         <Table.HeaderCell textAlign="center"></Table.HeaderCell>
       </Table.Row>
     </Table.Header>
