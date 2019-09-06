@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { AppState } from "../utils/types";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
+import CsvDownload from "react-json-to-csv";
 
 export interface Props extends RouteComponentProps<{ id: string }> {}
 
@@ -56,6 +57,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
           ))}
         </Table.Body>
       </Table>
+      <CsvDownload filename={`${category}.csv`} data={sortedDatas} />
     </div>
   );
 };
