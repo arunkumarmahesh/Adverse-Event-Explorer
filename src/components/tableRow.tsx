@@ -4,7 +4,6 @@ import { Table } from "semantic-ui-react";
 import _ from "lodash";
 import { TableCellPercentage } from "./tableCellPercentage";
 import { Groups, AppState } from "../utils/types";
-import { TableCellBar } from "./tableCellBar";
 import "semantic-ui-css/semantic.min.css";
 
 export interface Props {

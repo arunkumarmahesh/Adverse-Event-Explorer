@@ -6,6 +6,7 @@ import { SelectBlock } from "../../components/selectBlock";
 import { AppState } from "../../utils/types";
 import * as c from "../../store/constants";
 import * as o from "../../utils/options";
+import { Search } from "semantic-ui-react";
 
 export interface Props {}
 
@@ -20,54 +21,68 @@ export const Filter: FC<Props> = () => {
 
   return (
     <div>
-      <RadioBlock
-        label="Summarized by:"
-        options={o.summarizedByOptions}
-        checked={summarizedBy}
-        handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_SUMMARIZED_BY, payload: value })
-        }
-      />
-      <SelectBlock
-        label="Group Variable:"
-        options={o.groupVariableOptions}
-        selected={groupVariable}
-        handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_GROUP_VARIABLE, payload: value })
-        }
-      />
-      <CheckboxBlock
-        label="Serious?"
-        options={o.seriousOptions}
-        checked={serious}
-        handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_SERIOUS, payload: value })
-        }
-      />
-      <CheckboxBlock
-        label="Severity"
-        options={o.severityOptions}
-        checked={severity}
-        handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_SEVERITY, payload: value })
-        }
-      />
-      <CheckboxBlock
-        label="Relationship"
-        options={o.relationshipOptions}
-        checked={relationship}
-        handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_RELATIONSHIP, payload: value })
-        }
-      />
-      <CheckboxBlock
-        label="Outcome"
-        options={o.outcomeOptions}
-        checked={outcome}
-        handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_OUTCOME, payload: value })
-        }
-      />
+      <div className="filter">
+        <RadioBlock
+          label="Summarized by:"
+          options={o.summarizedByOptions}
+          checked={summarizedBy}
+          handleChange={(e, { value }) =>
+            dispatch({ type: c.SET_SUMMARIZED_BY, payload: value })
+          }
+        />
+        <SelectBlock
+          label="Group Variable:"
+          options={o.groupVariableOptions}
+          selected={groupVariable}
+          handleChange={(e, { value }) =>
+            dispatch({ type: c.SET_GROUP_VARIABLE, payload: value })
+          }
+        />
+        <SelectBlock
+          label="Prevalence:"
+          options={o.groupVariableOptions}
+          selected={groupVariable}
+          handleChange={(e, { value }) =>
+            dispatch({ type: c.SET_GROUP_VARIABLE, payload: value })
+          }
+        />
+        <Search />
+      </div>
+      <br />
+      <div className="filter">
+        <CheckboxBlock
+          label="Serious?"
+          options={o.seriousOptions}
+          checked={serious}
+          handleChange={(e, { value }) =>
+            dispatch({ type: c.SET_SERIOUS, payload: value })
+          }
+        />
+        <CheckboxBlock
+          label="Severity"
+          options={o.severityOptions}
+          checked={severity}
+          handleChange={(e, { value }) =>
+            dispatch({ type: c.SET_SEVERITY, payload: value })
+          }
+        />
+        <CheckboxBlock
+          label="Relationship"
+          options={o.relationshipOptions}
+          checked={relationship}
+          handleChange={(e, { value }) =>
+            dispatch({ type: c.SET_RELATIONSHIP, payload: value })
+          }
+        />
+        <CheckboxBlock
+          label="Outcome"
+          options={o.outcomeOptions}
+          checked={outcome}
+          handleChange={(e, { value }) =>
+            dispatch({ type: c.SET_OUTCOME, payload: value })
+          }
+        />
+      </div>
     </div>
   );
 };

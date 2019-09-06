@@ -1,8 +1,8 @@
-import React, { FC, SyntheticEvent } from "react";
+import React, { FC, SyntheticEvent, HTMLAttributes } from "react";
 import { Select } from "semantic-ui-react";
 import { SelectOptions } from "../utils/types";
 
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   label: string;
   placeholder?: string;
   options: SelectOptions[];
@@ -18,10 +18,11 @@ export const SelectBlock: FC<Props> = ({
   placeholder,
   options,
   selected,
-  handleChange
+  handleChange,
+  ...rest
 }) => {
   return (
-    <div>
+    <div {...rest}>
       <div>{label}</div>
       <Select
         placeholder={placeholder}
