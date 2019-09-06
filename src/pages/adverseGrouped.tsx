@@ -1,0 +1,50 @@
+import React, { FC } from "react";
+import { useSelector } from "react-redux";
+import _ from "lodash";
+import { Table } from "semantic-ui-react";
+import { AppState } from "../utils/types";
+import { Filter } from "./components/filter";
+import { useHeaderGroups } from "../hooks/useHeaderGroups";
+import { useBodyGroups } from "../hooks/useBodyGroups";
+import { useFilter } from "../hooks/useFilter";
+import { useSummarize } from "../hooks/useSummarize";
+import { TableHeader } from "../components/tableHeader";
+import { TableRowExpandable } from "../components/tableRowExpandable";
+
+export const AdverseGrouped: FC = () => {
+  const datas = useSelector((state: AppState) => state.datas);
+  const summarizedDatas = useSummarize(datas);
+  const filteredDatas = useFilter(summarizedDatas);
+  const [headerGroups, total] = useHeaderGroups(filteredDatas);
+  const bodyGroups = useBodyGroups(filteredDatas, headerGroups);
+
+  console.log("bodyGroups", bodyGroups);
+  console.log("summarizedDatas length", summarizedDatas.length);
+  console.log("filteredDatas length", filteredDatas.length);
+
+  return (
+    <div>
+      <h1>Adverse Explorer</h1>
+      <hr />
+      <Filter />
+      <Table>
+        <TableHeader groups={headerGroups} total={total} />
+        <Table.Body>
+          {Object.entries(bodyGroups).map((data, key) => {
+            if (data[0]) {
+              return (
+                <TableRowExpandable
+                  key={key}
+                  index={key}
+                  data={data}
+                  headerGroups={headerGroups}
+                  headerGroupsTotal={total}
+                />
+              );
+            }
+          })}
+        </Table.Body>
+      </Table>
+    </div>
+  );
+};

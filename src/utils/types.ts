@@ -30,6 +30,7 @@ export type SelectOptions = {
 export interface AppState {
   datas: any[];
   groupVariable: GroupVariable;
+  subGroupVariable: "AEDECOD";
   summarizedBy: SummarizedBy;
   serious: Serious[];
   severity: Severity[];
@@ -74,3 +75,36 @@ export interface SetOutcome {
   type: typeof c.SET_OUTCOME;
   payload: Outcome;
 }
+
+export type Groups = { [key: string]: number };
+
+export type Data = {
+  USUBJID: string;
+  SITE: string;
+  SITEID: string;
+  AGE: number | string;
+  SEX: string;
+  RACE: string;
+  ARM: string;
+  ARMCD: string;
+  SBJTSTAT: string;
+  RFSTDTC: string;
+  RFENDTC: string;
+  RFENDY: number | string;
+  SAFFL: string;
+  SAFFN: number | string;
+  ASEQ: number | string;
+  ASTDT: string;
+  ASTDY: number | string;
+  AENDT: string;
+  AENDY: number | string;
+  AETERM: string;
+  AEDECOD: string;
+  AEBODSYS: string;
+  AESER: string;
+  AEONGO: string;
+  AESEV: string;
+  AEREL: string;
+  AEOUT: string;
+  AESEQ: number | string;
+};

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
 
-export const AdverseDetails: FC = () => {
+export const Search: FC = () => {
   return <span />;
 };

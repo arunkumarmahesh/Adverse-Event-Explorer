@@ -5,12 +5,12 @@ import "semantic-ui-css/semantic.min.css";
 
 export interface Props {
   groups: { [key: string]: number };
-  groupsTotal: number;
-  colors: string[];
+  total: number;
 }
 
-export const TableHeader: FC<Props> = ({ groups, groupsTotal, colors }) => {
+export const TableHeader: FC<Props> = ({ groups, total }) => {
   const groupSize = _.size(groups) + 1;
+  const colors = ["green", "red", "blue", "orange"];
   // console.log("groupSize", groupSize); // 4 when ARM
 
   return (
@@ -43,9 +43,9 @@ export const TableHeader: FC<Props> = ({ groups, groupsTotal, colors }) => {
             n={data[1]}
           </Table.HeaderCell>
         ))}
-        <Table.HeaderCell style={{ color: colors[3] }}>
-          Total <br />
-          n={groupsTotal}
+        <Table.HeaderCell textAlign="center">
+          {"Total"} <br />
+          n={total}
         </Table.HeaderCell>
       </Table.Row>
     </Table.Header>
