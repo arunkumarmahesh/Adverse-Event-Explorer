@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { CheckboxBlock } from "../../components/checkboxBlock";
 import { RadioBlock } from "../../components/radioBlock";
 import { SelectBlock } from "../../components/selectBlock";
+import { SearchBlock } from "../../components/searchBlock";
 import { AppState } from "../../utils/types";
 import * as c from "../../store/constants";
 import * as o from "../../utils/options";
-import { Search } from "semantic-ui-react";
 
 export interface Props {}
 
@@ -39,14 +39,14 @@ export const Filter: FC<Props> = () => {
           }
         />
         <SelectBlock
-          label="Prevalence:"
-          options={o.groupVariableOptions}
-          selected={groupVariable}
+          label="Filter by prevalence:"
+          options={o.prevalenceOptions}
+          selected="0"
           handleChange={(e, { value }) =>
             dispatch({ type: c.SET_GROUP_VARIABLE, payload: value })
           }
         />
-        <Search />
+        <SearchBlock label="Search by category:" />
       </div>
       <br />
       <div className="filter">

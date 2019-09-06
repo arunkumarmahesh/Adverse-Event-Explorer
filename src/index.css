@@ -25,3 +25,7 @@ code {
 .radio, .checkbox {
   display: block !important;
 }
+
+.ui.selection.dropdown {
+  min-width: 9rem;
+}

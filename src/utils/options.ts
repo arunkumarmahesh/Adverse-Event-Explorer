@@ -27,3 +27,12 @@ export const groupVariableOptions: t.SelectOptions[] = [
   { key: "ARM", value: "ARM", text: "ARM" },
   { key: "NONE", value: "NONE", text: "NONE" }
 ];
+
+// TODO: automate this with a function given the highest prevalence value floored
+export const prevalenceOptions: t.SelectOptions[] = [
+  { key: "0", value: "0", text: "≥ 0%" },
+  { key: "1", value: "1", text: "≥ 1%" },
+  { key: "2", value: "2", text: "≥ 2%" },
+  { key: "3", value: "3", text: "≥ 3%" },
+  { key: "4", value: "4", text: "≥ 4%" }
+];
