@@ -4,10 +4,10 @@ import _ from "lodash";
 import {
   TableCellAccordion,
   Props as TableCellAccordionProps
-} from "./tableCellAccordion";
-import { TableCellPercentage } from "./tableCellPercentage";
-import { TableCellBar } from "./tableCellBar";
-import { TableRow } from "./tableRow";
+} from "./src/components/tableCellAccordion";
+import { TableCellPercentage } from "./src/components/tableCellPercentage";
+import { TableCellBar } from "./src/components/tableCellBar";
+import { TableRow } from "./src/components/tableRow";
 import "semantic-ui-css/semantic.min.css";
 
 export interface Props {
@@ -89,7 +89,7 @@ export const TableRowExpandable: FC<Props> = ({
           <a href="#">details</a>
         </Table.Cell>
       </Table.Row>
-      {activeIndex === index &&
+      {/*     {activeIndex === index &&
         Object.entries(subGroupsSorted).map((data, key) => (
           <TableRow
             key={key}
@@ -100,7 +100,7 @@ export const TableRowExpandable: FC<Props> = ({
             groupVariable={groupVariable}
             colors={colors}
           />
-        ))}
+        ))} */}
     </>
   );
 };

@@ -30,7 +30,6 @@ export type SelectOptions = {
 export interface AppState {
   datas: any[];
   groupVariable: GroupVariable;
-  subGroupVariable: "AEDECOD";
   summarizedBy: SummarizedBy;
   serious: Serious[];
   severity: Severity[];

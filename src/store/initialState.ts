@@ -5,7 +5,6 @@ import datas from "../data.json";
 export const initialState: t.AppState = {
   datas: datas,
   groupVariable: "ARM",
-  subGroupVariable: "AEDECOD",
   summarizedBy: "Participants",
   serious: o.seriousOptions,
   severity: o.severityOptions,

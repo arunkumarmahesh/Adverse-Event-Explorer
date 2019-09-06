@@ -18,10 +18,6 @@ export const AdverseGrouped: FC = () => {
   const [headerGroups, total] = useHeaderGroups(filteredDatas);
   const bodyGroups = useBodyGroups(filteredDatas, headerGroups);
 
-  console.log("bodyGroups", bodyGroups);
-  console.log("summarizedDatas length", summarizedDatas.length);
-  console.log("filteredDatas length", filteredDatas.length);
-
   return (
     <div>
       <h1>Adverse Explorer</h1>
