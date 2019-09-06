@@ -7,8 +7,6 @@ import { Groups, AppState } from "../utils/types";
 import { TableCellBar } from "./tableCellBar";
 import "semantic-ui-css/semantic.min.css";
 
-const colors = ["green", "red", "blue", "orange"];
-
 export interface Props {
   data: { [key: string]: any };
   headerGroups: Groups;
