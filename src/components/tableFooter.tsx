@@ -26,14 +26,18 @@ export const TableFooter: FC<Props> = ({ headerGroups, total }) => {
         <Table.HeaderCell textAlign="center" style={{ width: "200px" }}>
           All
         </Table.HeaderCell>
-        {Object.entries(footerGroups).map((value, key) => (
-          <TableHeaderCellPercentage
-            key={key}
-            partialCount={value[1]}
-            totalCount={headerGroups[1]} // use group total
-            style={{ color: colors[key] }}
-          />
-        ))}
+        {Object.entries(footerGroups).map((value, key) => {
+          console.log("ö", value);
+          console.log("ä", value);
+          return (
+            <TableHeaderCellPercentage
+              key={key}
+              partialCount={value[1]}
+              totalCount={headerGroups[value[0]]} // use group total
+              style={{ color: colors[key] }}
+            />
+          );
+        })}
         <TableHeaderCellPercentage
           partialCount={0}
           totalCount={headerGroups[1]}
