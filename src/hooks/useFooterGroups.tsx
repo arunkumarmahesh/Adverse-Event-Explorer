@@ -1,26 +1,26 @@
 import { useSelector } from "react-redux";
-import { AppState } from "../utils/types";
-import { Data } from "../utils/types";
+import { AppState, Data, Groups } from "../utils/types";
 import _ from "lodash";
 
-export function useFooterGroups(datas: Data[]) {
-  const summarizedBy = useSelector((state: AppState) => state.summarizedBy);
+export function useFooterGroups(datas: Data[]): [Groups, number] {
+  const groupVariable = useSelector((state: AppState) => state.groupVariable);
 
-  if (summarizedBy === "Events") {
-    return _(datas)
-      .filter(data => data.AEBODSYS !== "")
-      .countBy("ARM")
-      .value();
+  let footerGroups: Groups = {};
+  let footerGroupsTotal = 0;
+
+  datas.forEach((data: any) => {
+    if (data.AEBODSYS !== "") {
+      footerGroups[data[groupVariable]] = footerGroups[data[groupVariable]]
+        ? footerGroups[data[groupVariable]] + 1
+        : 1;
+
+      footerGroupsTotal = footerGroupsTotal + 1;
+    }
+  });
+
+  if (!footerGroups["Screen Failure"]) {
+    footerGroups = { ...footerGroups, ...{ "Screen Failure": 0 } };
   }
 
-  if (summarizedBy === "Participants") {
-    const withoutScreenFailure = _(datas)
-      .filter(data => data.AEBODSYS !== "")
-      .uniqBy("USUBJID")
-      .countBy("ARM")
-      .value();
-
-    return { ...withoutScreenFailure, ...{ "Screen Failure": 0 } };
-  }
-  return datas;
+  return [footerGroups, footerGroupsTotal];
 }

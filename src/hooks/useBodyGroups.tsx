@@ -13,7 +13,6 @@ export function useBodyGroups(datas: Data[], headerGroups: Groups) {
         ...headerGroupsZero,
         ..._.countBy(value, groupVariable)
       };
-      // TODO: add total computing
       return merged;
     })
     .value();
@@ -25,6 +24,6 @@ export function useBodyGroups(datas: Data[], headerGroups: Groups) {
     .each(function(key) {
       ordered[key] = unordered[key];
     });
-
+  console.log("***", ordered);
   return ordered;
 }

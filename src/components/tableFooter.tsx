@@ -4,21 +4,22 @@ import _ from "lodash";
 import { Table } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { AppState } from "../utils/types";
-import { useFooterGroups } from "../hooks/useFooterGroups";
 import { TableHeaderCellPercentage } from "./tableHeaderCellPercentage";
 
 export interface Props {
+  footerGroups: { [key: string]: number };
+  footerGroupsTotal: number;
   headerGroups: { [key: string]: number };
-  total: number;
+  headerGroupsTotal: number;
 }
 
-export const TableFooter: FC<Props> = ({ headerGroups, total }) => {
+export const TableFooter: FC<Props> = ({
+  footerGroups,
+  footerGroupsTotal,
+  headerGroups,
+  headerGroupsTotal
+}) => {
   const colors = useSelector((state: AppState) => state.colors);
-  const datas = useSelector((state: AppState) => state.datas);
-  const footerGroups = useFooterGroups(datas);
-
-  console.log("footerGroups", footerGroups);
-  console.log("headerGroups", headerGroups);
 
   return (
     <Table.Header>
@@ -28,19 +29,19 @@ export const TableFooter: FC<Props> = ({ headerGroups, total }) => {
         </Table.HeaderCell>
         {Object.entries(footerGroups).map((value, key) => {
           console.log("ö", value);
-          console.log("ä", value);
+          console.log("ä", headerGroupsTotal);
           return (
             <TableHeaderCellPercentage
               key={key}
               partialCount={value[1]}
-              totalCount={headerGroups[value[0]]} // use group total
+              totalCount={headerGroups[value[0]]}
               style={{ color: colors[key] }}
             />
           );
         })}
         <TableHeaderCellPercentage
-          partialCount={0}
-          totalCount={headerGroups[1]}
+          partialCount={footerGroupsTotal}
+          totalCount={headerGroupsTotal}
         />
         <Table.HeaderCell textAlign="center"></Table.HeaderCell>
         <Table.HeaderCell textAlign="center"></Table.HeaderCell>

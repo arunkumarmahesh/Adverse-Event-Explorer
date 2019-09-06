@@ -14,7 +14,7 @@ export const TableCellPercentage: FC<Props> = ({
   ...rest
 }) => {
   const computePercentage = (part: number, total: number) => {
-    return `${((part / total) * 100).toFixed(1)}%`;
+    return total > 0 ? `${((part / total) * 100).toFixed(1)}%` : "0%";
   };
 
   return (

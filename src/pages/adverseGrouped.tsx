@@ -6,6 +6,7 @@ import { AppState } from "../utils/types";
 import { Filter } from "./components/filter";
 import { useHeaderGroups } from "../hooks/useHeaderGroups";
 import { useBodyGroups } from "../hooks/useBodyGroups";
+import { useFooterGroups } from "../hooks/useFooterGroups";
 import { useFilter } from "../hooks/useFilter";
 import { useSummarize } from "../hooks/useSummarize";
 import { TableHeader } from "../components/tableHeader";
@@ -16,8 +17,12 @@ export const AdverseGrouped: FC = () => {
   const datas = useSelector((state: AppState) => state.datas);
   const summarizedDatas = useSummarize(datas);
   const filteredDatas = useFilter(summarizedDatas);
-  const [headerGroups, total] = useHeaderGroups(filteredDatas);
+  const [headerGroups, headerGroupsTotal] = useHeaderGroups(filteredDatas);
   const bodyGroups = useBodyGroups(filteredDatas, headerGroups);
+  const [footerGroups, footerGroupsTotal] = useFooterGroups(filteredDatas);
+
+  console.log("footerGroups", footerGroups);
+  console.log("footerGroupsTotal", footerGroupsTotal);
 
   return (
     <div>
@@ -25,7 +30,7 @@ export const AdverseGrouped: FC = () => {
       <hr />
       <Filter />
       <Table>
-        <TableHeader groups={headerGroups} total={total} />
+        <TableHeader groups={headerGroups} total={headerGroupsTotal} />
         <Table.Body>
           {Object.entries(bodyGroups).map((data, key) => {
             if (data[0]) {
@@ -35,13 +40,18 @@ export const AdverseGrouped: FC = () => {
                   index={key}
                   data={data}
                   headerGroups={headerGroups}
-                  headerGroupsTotal={total}
+                  headerGroupsTotal={headerGroupsTotal}
                 />
               );
             }
           })}
         </Table.Body>
-        <TableFooter headerGroups={headerGroups} total={total} />
+        <TableFooter
+          footerGroups={footerGroups}
+          footerGroupsTotal={footerGroupsTotal}
+          headerGroups={headerGroups}
+          headerGroupsTotal={headerGroupsTotal}
+        />
       </Table>
     </div>
   );

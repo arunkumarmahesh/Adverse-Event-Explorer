@@ -5,8 +5,8 @@ import _ from "lodash";
 export function useHeaderGroups(datas: Data[]): [Groups, number] {
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
 
-  const headerGroups: Groups = {};
-  let total = 0;
+  let headerGroups: Groups = {};
+  let headerGroupsTotal = 0;
 
   datas.forEach((data: Data) => {
     if (groupVariable !== "NONE") {
@@ -14,8 +14,12 @@ export function useHeaderGroups(datas: Data[]): [Groups, number] {
         ? headerGroups[data[groupVariable]] + 1
         : 1;
     }
-    total = total + 1;
+    headerGroupsTotal = headerGroupsTotal + 1;
   });
-  // console.log("headerGroups total", headerGroups["Total"]);
-  return [headerGroups, total];
+
+  if (!headerGroups["Screen Failure"]) {
+    headerGroups = { ...headerGroups, ...{ "Screen Failure": 0 } };
+  }
+
+  return [headerGroups, headerGroupsTotal];
 }
