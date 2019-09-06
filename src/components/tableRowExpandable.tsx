@@ -11,6 +11,8 @@ import { TableRow } from "./tableRow";
 import { useBodySubGroups } from "../hooks/useBodySubGroups";
 import "semantic-ui-css/semantic.min.css";
 import { Groups, AppState } from "../utils/types";
+import { CellPopup } from "./cellPopup";
+import { Link } from "react-router-dom";
 
 export interface Props {
   index: number;
@@ -48,9 +50,11 @@ export const TableRowExpandable: FC<Props> = ({
           handleClick={handleClick}
         />
         <Table.Cell style={{ maxWidth: "50px", padding: "0px" }}>
-          <a>
-            <Icon name="users" />
-          </a>
+          <CellPopup content="details view">
+            <Link to={`/${data[0]}`}>
+              <Icon name="users" />
+            </Link>
+          </CellPopup>
         </Table.Cell>
         {Object.entries(data[1]).map((value: any, key: number) => (
           <TableCellPercentage
