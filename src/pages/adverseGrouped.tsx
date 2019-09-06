@@ -17,9 +17,14 @@ export const AdverseGrouped: FC = () => {
   const datas = useSelector((state: AppState) => state.datas);
   const summarizedDatas = useSummarize(datas);
   const filteredDatas = useFilter(summarizedDatas);
-  const [headerGroups, headerGroupsTotal] = useHeaderGroups(filteredDatas);
+  const [
+    headerGroups,
+    headerGroupsTotal,
+    footerGroups,
+    footerGroupsTotal
+  ] = useHeaderGroups(filteredDatas);
   const bodyGroups = useBodyGroups(filteredDatas, headerGroups);
-  const [footerGroups, footerGroupsTotal] = useFooterGroups(filteredDatas);
+  //const [footerGroups, footerGroupsTotal] = useFooterGroups(filteredDatas);
 
   console.log("footerGroups", footerGroups);
   console.log("footerGroupsTotal", footerGroupsTotal);
