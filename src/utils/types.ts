@@ -29,6 +29,7 @@ export type SelectOptions = {
 
 export interface AppState {
   datas: any[];
+  colors: string[];
   groupVariable: GroupVariable;
   summarizedBy: SummarizedBy;
   serious: Serious[];

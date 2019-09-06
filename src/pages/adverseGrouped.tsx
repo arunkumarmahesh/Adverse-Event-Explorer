@@ -10,6 +10,7 @@ import { useFilter } from "../hooks/useFilter";
 import { useSummarize } from "../hooks/useSummarize";
 import { TableHeader } from "../components/tableHeader";
 import { TableRowExpandable } from "../components/tableRowExpandable";
+import { TableFooter } from "../components/tableFooter";
 
 export const AdverseGrouped: FC = () => {
   const datas = useSelector((state: AppState) => state.datas);
@@ -40,6 +41,7 @@ export const AdverseGrouped: FC = () => {
             }
           })}
         </Table.Body>
+        <TableFooter groups={headerGroups} total={total} />
       </Table>
     </div>
   );

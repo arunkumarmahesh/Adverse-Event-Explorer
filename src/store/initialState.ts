@@ -4,6 +4,7 @@ import datas from "../data.json";
 
 export const initialState: t.AppState = {
   datas: datas,
+  colors: ["green", "red", "blue", "orange"],
   groupVariable: "ARM",
   summarizedBy: "Participants",
   serious: o.seriousOptions,

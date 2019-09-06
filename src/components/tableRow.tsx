@@ -1,8 +1,9 @@
 import React, { FC } from "react";
+import { useSelector } from "react-redux";
 import { Table } from "semantic-ui-react";
 import _ from "lodash";
 import { TableCellPercentage } from "./tableCellPercentage";
-import { Groups } from "../utils/types";
+import { Groups, AppState } from "../utils/types";
 import { TableCellBar } from "./tableCellBar";
 import "semantic-ui-css/semantic.min.css";
 
@@ -19,6 +20,7 @@ export const TableRow: FC<Props> = ({
   headerGroups,
   headerGroupsTotal
 }) => {
+  const colors = useSelector((state: AppState) => state.colors);
   return (
     <Table.Row style={{ background: "#efefef" }}>
       <Table.Cell style={{ paddingLeft: "35px" }}>{data[0]}</Table.Cell>

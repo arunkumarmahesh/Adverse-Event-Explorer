@@ -1,5 +1,6 @@
 import React, { FC, HTMLAttributes } from "react";
-import { Table, Popup } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
+import { CellPopup } from "./cellPopup";
 import "semantic-ui-css/semantic.min.css";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -17,20 +18,10 @@ export const TableCellPercentage: FC<Props> = ({
   };
 
   return (
-    <Popup
-      content={`${partialCount}/${totalCount}`}
-      size="tiny"
-      inverted={true}
-      offset="0, -10px"
-      mouseEnterDelay={500}
-      pinned={true}
-      position="top center"
-      trigger={
-        <Table.Cell textAlign="center" {...rest}>
-          {computePercentage(partialCount, totalCount)}
-        </Table.Cell>
-      }
-    />
+    <CellPopup content={`${partialCount}/${totalCount}`}>
+      <Table.Cell textAlign="center" {...rest}>
+        {computePercentage(partialCount, totalCount)}
+      </Table.Cell>
+    </CellPopup>
   );
 };
-/* <Table.Cell>{computePercentage(data[1], armEvents[data[0]])}</Table.Cell> */

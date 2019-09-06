@@ -1,4 +1,5 @@
 import React, { FC, useState, MouseEvent } from "react";
+import { useSelector } from "react-redux";
 import { Table } from "semantic-ui-react";
 import _ from "lodash";
 import {
@@ -9,9 +10,7 @@ import { TableCellPercentage } from "./tableCellPercentage";
 import { TableRow } from "./tableRow";
 import { useBodySubGroups } from "../hooks/useBodySubGroups";
 import "semantic-ui-css/semantic.min.css";
-import { Groups } from "../utils/types";
-
-const colors = ["green", "red", "blue", "orange"];
+import { Groups, AppState } from "../utils/types";
 
 export interface Props {
   index: number;
@@ -27,6 +26,7 @@ export const TableRowExpandable: FC<Props> = ({
   headerGroupsTotal
 }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const colors = useSelector((state: AppState) => state.colors);
   const bodySubGroups = useBodySubGroups(data[0], headerGroups);
   console.log("Ä", bodySubGroups);
   const handleClick = (

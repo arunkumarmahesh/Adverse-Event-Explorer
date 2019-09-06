@@ -1,7 +1,9 @@
 import React, { FC } from "react";
+import { useSelector } from "react-redux";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import { AppState } from "../utils/types";
 
 export interface Props {
   groups: { [key: string]: number };
@@ -10,8 +12,7 @@ export interface Props {
 
 export const TableHeader: FC<Props> = ({ groups, total }) => {
   const groupSize = _.size(groups) + 1;
-  const colors = ["green", "red", "blue", "orange"];
-  // console.log("groupSize", groupSize); // 4 when ARM
+  const colors = useSelector((state: AppState) => state.colors);
 
   return (
     <Table.Header>
