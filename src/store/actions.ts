@@ -17,6 +17,22 @@ export const setGroupVariable = (
   };
 };
 
+export const setPrevalenceRange = (
+  payload: [number, number]
+): t.SetPrevalenceRange => {
+  return {
+    type: c.SET_PREVALENCE_RANGE,
+    payload
+  };
+};
+
+export const setAgeRange = (payload: [number, number]): t.SetAgeRange => {
+  return {
+    type: c.SET_AGE_RANGE,
+    payload
+  };
+};
+
 export const setSerious = (payload: t.Serious): t.SetSerious => {
   return {
     type: c.SET_SERIOUS,

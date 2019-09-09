@@ -32,6 +32,8 @@ export interface AppState {
   colors: string[];
   groupVariable: GroupVariable;
   summarizedBy: SummarizedBy;
+  prevalenceRange: [number, number];
+  ageRange: [number, number];
   serious: Serious[];
   severity: Severity[];
   relationship: Relationship[];
@@ -41,6 +43,8 @@ export interface AppState {
 export type ActionTypes =
   | SetSummarizedBy
   | SetGroupVariable
+  | SetPrevalenceRange
+  | SetAgeRange
   | SetSerious
   | SetSeverity
   | SetRelationship
@@ -54,6 +58,16 @@ export interface SetSummarizedBy {
 export interface SetGroupVariable {
   type: typeof c.SET_GROUP_VARIABLE;
   payload: GroupVariable;
+}
+
+export interface SetPrevalenceRange {
+  type: typeof c.SET_PREVALENCE_RANGE;
+  payload: [number, number];
+}
+
+export interface SetAgeRange {
+  type: typeof c.SET_AGE_RANGE;
+  payload: [number, number];
 }
 
 export interface SetSerious {

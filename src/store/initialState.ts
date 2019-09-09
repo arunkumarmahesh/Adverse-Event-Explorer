@@ -7,6 +7,8 @@ export const initialState: t.AppState = {
   colors: ["green", "red", "blue", "orange"],
   groupVariable: "ARM",
   summarizedBy: "Participants",
+  prevalenceRange: [0, 100],
+  ageRange: [0, 100],
   serious: o.seriousOptions,
   severity: o.severityOptions,
   relationship: o.relationshipOptions,

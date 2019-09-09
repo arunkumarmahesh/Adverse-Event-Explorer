@@ -21,6 +21,12 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
       case c.SET_GROUP_VARIABLE:
         draft.groupVariable = action.payload;
         return draft;
+      case c.SET_PREVALENCE_RANGE:
+        draft.prevalenceRange = action.payload;
+        return draft;
+      case c.SET_AGE_RANGE:
+        draft.ageRange = action.payload;
+        return draft;
       case c.SET_SERIOUS:
         draft.serious = addOrRemoveItem<t.Serious>(
           draft.serious,
