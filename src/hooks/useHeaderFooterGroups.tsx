@@ -56,10 +56,10 @@ export function useHeaderFooterGroups(datas: Data[]): void {
     total: footerGroupsTotal
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     dispatch({ type: c.SET_HEADER_VALUES, payload: headerValues });
     dispatch({ type: c.SET_FOOTER_VALUES, payload: footerValues });
     dispatch({ type: c.SET_AGE_RANGE_ALL, payload: [minAge, maxAge] });
     dispatch({ type: c.SET_AGE_RANGE_SELECTED, payload: [minAge, maxAge] });
-  }, [minAge, maxAge]);
+  }, [[minAge, maxAge]]); */
 }

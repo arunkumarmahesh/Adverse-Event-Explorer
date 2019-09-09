@@ -11,6 +11,7 @@ import { useSummarize } from "../hooks/useSummarize";
 import { TableHeader } from "../components/tableHeader";
 import { TableRowExpandable } from "../components/tableRowExpandable";
 import { TableFooter } from "../components/tableFooter";
+import { useMinMax } from "../hooks/useMinMax";
 
 export const AdverseGrouped: FC = () => {
   const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
@@ -18,6 +19,7 @@ export const AdverseGrouped: FC = () => {
   const filteredDatas = useFilter(summarizedDatas);
   useHeaderFooterGroups(filteredDatas);
   const mainGroups = useMainGroups(filteredDatas);
+  useMinMax(mainGroups);
 
   return (
     <div>

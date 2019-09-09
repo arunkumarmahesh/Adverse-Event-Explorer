@@ -13,5 +13,6 @@ export function useSummarize(datas: Data[]): Data[] {
   if (summarizedBy === "Participants") {
     return _.uniqBy(datas, "USUBJID");
   }
+
   return datas;
 }

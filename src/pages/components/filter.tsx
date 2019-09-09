@@ -43,6 +43,7 @@ export const Filter: FC<Props> = () => {
       });
     }
   };
+  console.log("ageRangeAll", ageRangeAll);
   const ageRangeSettings = {
     start: ageRangeSelected,
     min: ageRangeAll[0],
@@ -93,7 +94,8 @@ export const Filter: FC<Props> = () => {
             value={prevalenceRangeSelected[0]}
             disabled={true}
           />{" "}
-          -{" "}
+          {prevalenceRangeSelected[0]}-{prevalenceRangeSelected[1]} |{" "}
+          {prevalenceRangeAll[0]}-{prevalenceRangeAll[1]}
           <Input
             placeholder="to"
             value={prevalenceRangeSelected[1]}
@@ -102,6 +104,7 @@ export const Filter: FC<Props> = () => {
         </div>
         <div>
           <div>Filter by age:</div>
+          {}
           <Slider
             value={ageRangeSelected}
             discrete={true}
@@ -113,8 +116,9 @@ export const Filter: FC<Props> = () => {
             placeholder="from"
             value={ageRangeSelected[0]}
             disabled={true}
-          />{" "}
-          -{" "}
+          />
+          {ageRangeSelected[0]}-{ageRangeSelected[1]} | {ageRangeAll[0]}-
+          {ageRangeAll[1]}
           <Input placeholder="to" value={ageRangeSelected[1]} disabled={true} />
         </div>
       </div>
