@@ -1,4 +1,4 @@
-import * as t from "./types";
+import * as t from "../types";
 
 export const summarizedByOptions: t.SummarizedBy[] = ["Participants", "Events"];
 

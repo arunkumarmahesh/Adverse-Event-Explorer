@@ -1,16 +1,18 @@
 import { useSelector } from "react-redux";
-import { AppState, Data, Groups } from "../utils/types";
+import { AppState } from "../types";
 import _ from "lodash";
 
-export function useBodyGroups(datas: Data[], headerGroups: Groups) {
+export function useSubGroups(key: String) {
+  const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
-  const headerGroupsZero = _.mapValues(headerGroups, () => 0);
+  const headerValues = useSelector((state: AppState) => state.headerValues);
 
-  const unordered = _.chain(datas)
-    .groupBy("AEBODSYS")
+  const unordered = _.chain(datasOriginal)
+    .filter(data => data.AEBODSYS === key)
+    .groupBy("AEDECOD")
     .mapValues(value => {
       const merged = {
-        ...headerGroupsZero,
+        ..._.mapValues(headerValues.groups, () => 0),
         ..._.countBy(value, groupVariable)
       };
       return merged;
@@ -24,6 +26,6 @@ export function useBodyGroups(datas: Data[], headerGroups: Groups) {
     .each(function(key) {
       ordered[key] = unordered[key];
     });
-  console.log("***", ordered);
+
   return ordered;
 }

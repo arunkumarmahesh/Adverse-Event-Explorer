@@ -6,46 +6,51 @@ import { CheckboxBlock } from "../../components/checkboxBlock";
 import { RadioBlock } from "../../components/radioBlock";
 import { SelectBlock } from "../../components/selectBlock";
 import { SearchBlock } from "../../components/searchBlock";
-import { AppState } from "../../utils/types";
+import { AppState } from "../../types";
 import * as c from "../../store/constants";
 import * as o from "../../utils/options";
-import { statement } from "@babel/template";
 
 export interface Props {}
 
 export const Filter: FC<Props> = () => {
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
   const summarizedBy = useSelector((state: AppState) => state.summarizedBy);
-  const prevalenceRange = useSelector(
-    (state: AppState) => state.prevalenceRange
+  const prevalenceRangeAll = useSelector(
+    (state: AppState) => state.prevalenceRangeAll
   );
-  const ageRange = useSelector((state: AppState) => state.ageRange);
+  const prevalenceRangeSelected = useSelector(
+    (state: AppState) => state.prevalenceRangeSelected
+  );
+  const ageRangeAll = useSelector((state: AppState) => state.ageRangeAll);
+  const ageRangeSelected = useSelector(
+    (state: AppState) => state.ageRangeSelected
+  );
   const serious = useSelector((state: AppState) => state.serious);
   const severity = useSelector((state: AppState) => state.severity);
   const relationship = useSelector((state: AppState) => state.relationship);
   const outcome = useSelector((state: AppState) => state.outcome);
   const dispatch = useDispatch();
 
-  const prevalenceSettings = {
-    start: prevalenceRange,
-    min: 0,
-    max: 100,
+  const prevalenceRangeSettings = {
+    start: prevalenceRangeSelected,
+    min: prevalenceRangeAll[0],
+    max: prevalenceRangeAll[1],
     step: 1,
     onChange: (value: [number, number]) => {
       dispatch({
-        type: c.SET_PREVALENCE_RANGE,
+        type: c.SET_PREVALENCE_RANGE_SELECTED,
         payload: value
       });
     }
   };
-  const ageSettings = {
-    start: ageRange,
-    min: 0,
-    max: 100,
+  const ageRangeSettings = {
+    start: ageRangeSelected,
+    min: ageRangeAll[0],
+    max: ageRangeAll[1],
     step: 1,
     onChange: (value: [number, number]) => {
       dispatch({
-        type: c.SET_AGE_RANGE,
+        type: c.SET_AGE_RANGE_SELECTED,
         payload: value
       });
     }
@@ -70,7 +75,6 @@ export const Filter: FC<Props> = () => {
             dispatch({ type: c.SET_GROUP_VARIABLE, payload: value })
           }
         />
-
         <SearchBlock label="Search by category:" />
       </div>
       <br />
@@ -78,31 +82,40 @@ export const Filter: FC<Props> = () => {
         <div>
           <p>Filter by prevalence:</p>
           <Slider
-            value={prevalenceRange}
+            value={prevalenceRangeSelected}
             discrete={true}
             multiple={true}
             color="red"
-            settings={prevalenceSettings}
+            settings={prevalenceRangeSettings}
           />
           <Input
             placeholder="from"
-            value={prevalenceRange[0]}
+            value={prevalenceRangeSelected[0]}
             disabled={true}
           />{" "}
           -{" "}
-          <Input placeholder="to" value={prevalenceRange[1]} disabled={true} />
+          <Input
+            placeholder="to"
+            value={prevalenceRangeSelected[1]}
+            disabled={true}
+          />
         </div>
         <div>
           <div>Filter by age:</div>
           <Slider
-            value={ageRange}
+            value={ageRangeSelected}
             discrete={true}
             multiple={true}
             color="red"
-            settings={ageSettings}
+            settings={ageRangeSettings}
           />
-          <Input placeholder="from" value={ageRange[0]} disabled={true} /> -{" "}
-          <Input placeholder="to" value={ageRange[1]} disabled={true} />
+          <Input
+            placeholder="from"
+            value={ageRangeSelected[0]}
+            disabled={true}
+          />{" "}
+          -{" "}
+          <Input placeholder="to" value={ageRangeSelected[1]} disabled={true} />
         </div>
       </div>
       <br />

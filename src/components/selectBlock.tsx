@@ -1,6 +1,6 @@
 import React, { FC, SyntheticEvent, HTMLAttributes } from "react";
 import { Select } from "semantic-ui-react";
-import { SelectOptions } from "../utils/types";
+import { SelectOptions } from "../types";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   label: string;

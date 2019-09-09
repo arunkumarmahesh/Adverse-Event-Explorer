@@ -3,23 +3,12 @@ import { useSelector } from "react-redux";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import { AppState } from "../utils/types";
+import { AppState } from "../types";
 import { TableHeaderCellPercentage } from "./tableHeaderCellPercentage";
 
-export interface Props {
-  footerGroups: { [key: string]: number };
-  footerGroupsTotal: number;
-  headerGroups: { [key: string]: number };
-  headerGroupsTotal: number;
-}
-
-export const TableFooter: FC<Props> = ({
-  footerGroups,
-  footerGroupsTotal,
-  headerGroups,
-  headerGroupsTotal
-}) => {
+export const TableFooter: FC = () => {
   const colors = useSelector((state: AppState) => state.colors);
+  const footerValues = useSelector((state: AppState) => state.footerValues);
 
   return (
     <Table.Header>
@@ -31,22 +20,14 @@ export const TableFooter: FC<Props> = ({
         >
           All
         </Table.HeaderCell>
-        {Object.entries(footerGroups).map((value, key) => {
-          console.log("ö", value);
-          console.log("ä", headerGroupsTotal);
-          return (
-            <TableHeaderCellPercentage
-              key={key}
-              partialCount={value[1]}
-              totalCount={headerGroups[value[0]]}
-              style={{ color: colors[key] }}
-            />
-          );
-        })}
-        <TableHeaderCellPercentage
-          partialCount={footerGroupsTotal}
-          totalCount={headerGroupsTotal}
-        />
+        {Object.entries(footerValues.groups).map((value, key) => (
+          <TableHeaderCellPercentage
+            key={key}
+            partialCount={value[1]}
+            style={{ color: colors[key] }}
+          />
+        ))}
+        <TableHeaderCellPercentage partialCount={footerValues.total} />
         <Table.HeaderCell textAlign="center"></Table.HeaderCell>
       </Table.Row>
     </Table.Header>

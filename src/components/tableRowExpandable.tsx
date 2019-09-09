@@ -8,28 +8,21 @@ import {
 } from "./tableCellAccordion";
 import { TableCellPercentage } from "./tableCellPercentage";
 import { TableRow } from "./tableRow";
-import { useBodySubGroups } from "../hooks/useBodySubGroups";
+import { useSubGroups } from "../hooks/useSubGroups";
 import "semantic-ui-css/semantic.min.css";
-import { Groups, AppState } from "../utils/types";
+import { AppState } from "../types";
 import { CellPopup } from "./cellPopup";
 import { Link } from "react-router-dom";
 
 export interface Props {
   index: number;
   data: { [key: string]: any };
-  headerGroups: Groups;
-  headerGroupsTotal: number;
 }
 
-export const TableRowExpandable: FC<Props> = ({
-  index,
-  data,
-  headerGroups,
-  headerGroupsTotal
-}) => {
+export const TableRowExpandable: FC<Props> = ({ index, data }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const colors = useSelector((state: AppState) => state.colors);
-  const bodySubGroups = useBodySubGroups(data[0], headerGroups);
+  const bodySubGroups = useSubGroups(data[0]);
 
   const handleClick = (
     e: MouseEvent<HTMLDivElement>,
@@ -60,7 +53,6 @@ export const TableRowExpandable: FC<Props> = ({
           <TableCellPercentage
             key={key}
             partialCount={value[1]}
-            totalCount={headerGroups[value[0]]}
             style={{ color: colors[key] }}
           />
         ))}
@@ -68,18 +60,12 @@ export const TableRowExpandable: FC<Props> = ({
           partialCount={_(data[1])
             .map()
             .sum()}
-          totalCount={headerGroupsTotal}
         />
         <Table.Cell />
       </Table.Row>
       {activeIndex === index &&
         Object.entries(bodySubGroups).map((data, key) => (
-          <TableRow
-            key={key}
-            data={data}
-            headerGroups={headerGroups}
-            headerGroupsTotal={headerGroupsTotal}
-          />
+          <TableRow key={key} data={data} />
         ))}
     </>
   );

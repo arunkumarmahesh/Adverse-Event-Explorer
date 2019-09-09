@@ -1,7 +1,7 @@
-import React, { FC, useState, MouseEvent } from "react";
+import React, { FC, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { useSelector } from "react-redux";
-import { AppState } from "../utils/types";
+import { AppState } from "../types";
 import _ from "lodash";
 import { Table, Search } from "semantic-ui-react";
 import CsvDownload from "react-json-to-csv";
@@ -12,12 +12,15 @@ import Fuse from "fuse.js";
 export interface Props extends RouteComponentProps<{ id: string }> {}
 
 export const AdverseDetails: FC<Props> = ({ match }) => {
-  const allDatas = useSelector((state: AppState) => state.datas);
-  const datas = _.filter(allDatas, data => data.AEBODSYS === match.params.id);
+  const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
+  const datas = _.filter(
+    datasOriginal,
+    data => data.AEBODSYS === match.params.id
+  );
   const datasSize = _.size(datas);
   const [currentDatas, setCurrentDatas] = useState(datas);
   const currentDataSize = _.size(currentDatas);
-  const keys = _.keys(allDatas[0]);
+  const keys = _.keys(datasOriginal[0]);
   const [column, setColumn] = useState();
   const [direction, setDirection] = useState();
 
