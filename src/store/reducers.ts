@@ -1,16 +1,25 @@
 import produce from "immer";
 import { Reducer } from "redux";
+import _ from "lodash";
 import { initialState } from "./initialState";
 import * as t from "../types";
 import * as c from "./constants";
 
-const addOrRemoveItem = <T>(array: T[], value: T): T[] => {
+const addOrRemoveFilterItem = <T>(array: T[], value: T): T[] => {
   if (array.includes(value)) {
     return array.filter(item => item !== value);
   } else {
     return [...array, value];
   }
 };
+
+/* const addOrRemoveSortColumn = (obj: t.DetailSort | {}, value: t.DetailSort) => {
+  if (_.includes(obj, value[0])) {
+    return _.filter(obj, item => item[0] !== value[0]);
+  } else {
+    return { ...obj, ...value };
+  }
+}; */
 
 export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
   (draft: t.AppState = initialState, action: t.ActionTypes) => {
@@ -43,28 +52,34 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
         draft.ageRangeSelected = action.payload;
         return draft;
       case c.SET_SERIOUS:
-        draft.serious = addOrRemoveItem<t.Serious>(
+        draft.serious = addOrRemoveFilterItem<t.Serious>(
           draft.serious,
           action.payload
         );
         return draft;
       case c.SET_SEVERITY:
-        draft.severity = addOrRemoveItem<t.Severity>(
+        draft.severity = addOrRemoveFilterItem<t.Severity>(
           draft.severity,
           action.payload
         );
         return draft;
       case c.SET_RELATIONSHIP:
-        draft.relationship = addOrRemoveItem<t.Relationship>(
+        draft.relationship = addOrRemoveFilterItem<t.Relationship>(
           draft.relationship,
           action.payload
         );
         return draft;
       case c.SET_OUTCOME:
-        draft.outcome = addOrRemoveItem<t.Outcome>(
+        draft.outcome = addOrRemoveFilterItem<t.Outcome>(
           draft.outcome,
           action.payload
         );
+        return draft;
+      case c.SET_DETAIL_DATAS:
+        draft.detailDatas = action.payload;
+        return draft;
+      case c.SET_DETAIL_SORT:
+        draft.detailSort = { ...draft.detailSort, ...action.payload };
         return draft;
       default:
         return draft;

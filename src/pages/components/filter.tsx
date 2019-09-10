@@ -43,7 +43,7 @@ export const Filter: FC<Props> = () => {
       });
     }
   };
-  console.log("ageRangeAll", ageRangeAll);
+
   const ageRangeSettings = {
     start: ageRangeSelected,
     min: ageRangeAll[0],

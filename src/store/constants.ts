@@ -13,3 +13,5 @@ export const SET_SERIOUS = "SET_SERIOUS";
 export const SET_SEVERITY = "SET_SEVERITY";
 export const SET_RELATIONSHIP = "SET_RELATIONSHIP";
 export const SET_OUTCOME = "SET_OUTCOME";
+export const SET_DETAIL_DATAS = "SET_DETAIL_DATAS";
+export const SET_DETAIL_SORT = "SET_DETAIL_SORT";

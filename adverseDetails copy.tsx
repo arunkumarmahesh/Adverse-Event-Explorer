@@ -1,42 +1,49 @@
 import React, { FC, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
+import { AppState } from "./src/types";
 import _ from "lodash";
-import Fuse from "fuse.js";
 import { Table, Search } from "semantic-ui-react";
 import CsvDownload from "react-json-to-csv";
-import { AppState } from "../types";
-import { Header } from "../components/header";
+import { Header } from "./src/components/header";
 import { Link } from "react-router-dom";
-import * as c from "../store/constants";
-import * as o from "../utils/options";
-import { useDetailDatas } from "../hooks/useDetailDatas";
+import Fuse from "fuse.js";
 
 export interface Props extends RouteComponentProps<{ id: string }> {}
 
 export const AdverseDetails: FC<Props> = ({ match }) => {
   const dispatch = useDispatch();
-  const [datas, datasSize] = useDetailDatas(match.params.id);
+  const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
+  const datas = _.filter(
+    datasOriginal,
+    data => data.AEBODSYS === match.params.id
+  );
+  const detailSortColumns = useSelector(
+    (state: AppState) => state.detailSortColumns
+  );
+  const datasSize = _.size(datas);
   const [currentDatas, setCurrentDatas] = useState(datas);
   const currentDataSize = _.size(currentDatas);
-  const headerTopics = _.keys(datas[0]);
-  let detailSort = useSelector((state: AppState) => state.detailSort);
-  const fuse = new Fuse(datas, o.fuseOptions);
+  const headerTopics = _.keys(datasOriginal[0]);
+  const [column, setColumn] = useState();
+  const [direction, setDirection] = useState();
+
+  const options = {
+    keys: ["AETERM", "AEDECOD", "AESEV", "AEREL", "AEOUT"],
+    threshold: 0
+  };
+  const fuse = new Fuse(datas, options);
 
   const handleSort = (clickedColumn: string) => {
-    dispatch({
-      type: c.SET_DETAIL_SORT,
-      payload: {
-        [clickedColumn]:
-          detailSort![clickedColumn] && detailSort![clickedColumn] === "asc"
-            ? "desc"
-            : "asc"
-      }
-    });
+    if (column !== clickedColumn) {
+      setColumn(clickedColumn);
+      setDirection("ascending");
+      setCurrentDatas(_.sortBy(currentDatas, [clickedColumn]));
+      return;
+    }
 
-    setCurrentDatas(
-      _.orderBy(currentDatas, _.keys(detailSort), _.values(detailSort))
-    );
+    setCurrentDatas(currentDatas.reverse());
+    setDirection(direction === "ascending" ? "descending" : "ascending");
   };
 
   const handleSearch = (e: any) => {
@@ -47,14 +54,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
     }
   };
 
-  const checkSorting = (item: string): any => {
-    if (!!detailSort![item]) {
-      return detailSort![item] === "asc" ? "ascending" : "descending";
-    } else {
-      return undefined;
-    }
-  };
-
+  console.log("curentDatas", currentDatas);
   return (
     <div>
       <Header />
@@ -69,28 +69,17 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
       <div>Click column headers to sort.</div>
       <Table sortable>
         <Table.Header>
-          {headerTopics.map((item: string, key: number) => {
-            console.log(
-              "ä",
-              !!detailSort![item]
-                ? detailSort![item][1] === "asc"
-                  ? "ascending"
-                  : "descending"
-                : undefined
-            );
-            console.log("ö", detailSort![item]);
-            return (
-              <Table.HeaderCell
-                key={key}
-                sorted={checkSorting(item)}
-                onClick={() => {
-                  handleSort(item);
-                }}
-              >
-                {item}
-              </Table.HeaderCell>
-            );
-          })}
+          {headerTopics.map((item: string, key: number) => (
+            <Table.HeaderCell
+              key={key}
+              sorted={column === item ? direction : undefined}
+              onClick={() => {
+                handleSort(item);
+              }}
+            >
+              {item}
+            </Table.HeaderCell>
+          ))}
         </Table.Header>
         <Table.Body>
           {currentDatas.length >= 1 ? (

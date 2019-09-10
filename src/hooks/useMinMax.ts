@@ -32,7 +32,4 @@ export function useMinMax(mainGroups: any) {
       payload: [groupsLowestValue, groupsHeighestValue]
     });
   }, [[groupsLowestValue, groupsHeighestValue]]);
-
-  // SET_PREVALENCE_RANGE_ALL
-  console.log("lsakdlsakdlaskd", groupsHeighestValue, groupsLowestValue);
 }

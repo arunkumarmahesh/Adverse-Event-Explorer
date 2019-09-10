@@ -16,7 +16,9 @@ export type ActionTypes =
   | SetSerious
   | SetSeverity
   | SetRelationship
-  | SetOutcome;
+  | SetOutcome
+  | SetDetailDatas
+  | SetDetailSort;
 
 export interface SetSummarizedDatas {
   type: typeof c.SET_SUMMARIZED_DATAS;
@@ -91,4 +93,14 @@ export interface SetRelationship {
 export interface SetOutcome {
   type: typeof c.SET_OUTCOME;
   payload: t.Outcome;
+}
+
+export interface SetDetailDatas {
+  type: typeof c.SET_DETAIL_DATAS;
+  payload: t.Data[];
+}
+
+export interface SetDetailSort {
+  type: typeof c.SET_DETAIL_SORT;
+  payload: t.DetailSort;
 }

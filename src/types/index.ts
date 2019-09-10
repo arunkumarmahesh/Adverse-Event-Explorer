@@ -39,6 +39,10 @@ export type GroupedDatas = {
   [key: string]: Groups;
 };
 
+export type DetailSort = {
+  [key: string]: "asc" | "desc";
+};
+
 export type Data = {
   USUBJID: string;
   SITE: string;

@@ -99,3 +99,13 @@ export const setOutcome = (payload: t.Outcome): t.SetOutcome => ({
   type: c.SET_OUTCOME,
   payload
 });
+
+export const setDetailDatas = (payload: any[]): t.SetDetailDatas => ({
+  type: c.SET_DETAIL_DATAS,
+  payload
+});
+
+export const setDetailSort = (payload: t.DetailSort): t.SetDetailSort => ({
+  type: c.SET_DETAIL_SORT,
+  payload
+});

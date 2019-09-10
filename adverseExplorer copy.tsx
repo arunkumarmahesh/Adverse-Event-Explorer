@@ -67,11 +67,6 @@ export const AdverseExplorer: FC<Props> = ({ datas }) => {
     }
   };
 
-  /*   console.log("serious", serious);
-  console.log("severity", severity);
-  console.log("relationship", relationship);
-  console.log("outcome", outcome); */
-
   // Events
   const colors = ["green", "red", "blue", "orange"];
   const subGroupVariable = "AEDECOD";
