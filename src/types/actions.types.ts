@@ -18,6 +18,7 @@ export type ActionTypes =
   | SetRelationship
   | SetOutcome
   | SetDetailDatas
+  | SetDetailSearch
   | SetDetailSort;
 
 export interface SetSummarizedDatas {
@@ -99,6 +100,11 @@ export interface SetDetailDatas {
   type: typeof c.SET_DETAIL_DATAS;
   key: string;
   payload: t.StoredDatas;
+}
+
+export interface SetDetailSearch {
+  type: typeof c.SET_DETAIL_SEARCH;
+  payload: string;
 }
 
 export interface SetDetailSort {

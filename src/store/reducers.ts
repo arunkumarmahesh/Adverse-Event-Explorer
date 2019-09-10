@@ -13,14 +13,6 @@ const addOrRemoveFilterItem = <T>(array: T[], value: T): T[] => {
   }
 };
 
-/* const addOrRemoveSortColumn = (obj: t.DetailSort | {}, value: t.DetailSort) => {
-  if (_.includes(obj, value[0])) {
-    return _.filter(obj, item => item[0] !== value[0]);
-  } else {
-    return { ...obj, ...value };
-  }
-}; */
-
 export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
   (draft: t.AppState = initialState, action: t.ActionTypes) => {
     switch (action.type) {
@@ -77,6 +69,9 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
         return draft;
       case c.SET_DETAIL_DATAS:
         draft.detailDatas[action.key] = action.payload;
+        return draft;
+      case c.SET_DETAIL_SEARCH:
+        draft.detailSearch = action.payload;
         return draft;
       case c.SET_DETAIL_SORT:
         draft.detailSort = action.payload;

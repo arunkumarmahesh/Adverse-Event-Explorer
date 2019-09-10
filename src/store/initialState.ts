@@ -27,5 +27,6 @@ export const initialState: t.AppState = {
   relationship: o.relationshipOptions,
   outcome: o.outcomeOptions,
   detailDatas: {},
+  detailSearch: undefined,
   detailSort: {}
 };
