@@ -1,60 +1,63 @@
 import React, { FC, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { AppState } from "./src/types";
 import _ from "lodash";
+import Fuse from "fuse.js";
 import { Table, Search } from "semantic-ui-react";
 import CsvDownload from "react-json-to-csv";
+import { AppState } from "./src/types";
 import { Header } from "./src/components/header";
 import { Link } from "react-router-dom";
-import Fuse from "fuse.js";
+import * as c from "./src/store/constants";
+import * as o from "./src/utils/options";
+import { useDetailDatas } from "./src/hooks/useDetailDatas";
 
 export interface Props extends RouteComponentProps<{ id: string }> {}
 
 export const AdverseDetails: FC<Props> = ({ match }) => {
   const dispatch = useDispatch();
-  const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
-  const datas = _.filter(
-    datasOriginal,
-    data => data.AEBODSYS === match.params.id
-  );
-  const detailSortColumns = useSelector(
-    (state: AppState) => state.detailSortColumns
-  );
-  const datasSize = _.size(datas);
+  const [datas, datasSize] = useDetailDatas(match.params.id);
   const [currentDatas, setCurrentDatas] = useState(datas);
   const currentDataSize = _.size(currentDatas);
-  const headerTopics = _.keys(datasOriginal[0]);
-  const [column, setColumn] = useState();
-  const [direction, setDirection] = useState();
-
-  const options = {
-    keys: ["AETERM", "AEDECOD", "AESEV", "AEREL", "AEOUT"],
-    threshold: 0
-  };
-  const fuse = new Fuse(datas, options);
+  const headerTopics = _.keys(datas[0]);
+  const detailSort = useSelector((state: AppState) => state.detailSort);
+  const fuse = new Fuse(datas, o.fuseOptions);
 
   const handleSort = (clickedColumn: string) => {
-    if (column !== clickedColumn) {
-      setColumn(clickedColumn);
-      setDirection("ascending");
-      setCurrentDatas(_.sortBy(currentDatas, [clickedColumn]));
-      return;
-    }
+    const sort = {
+      ...detailSort,
+      ...{
+        [clickedColumn]: detailSort![clickedColumn] === "desc" ? "asc" : "desc"
+      }
+    };
 
-    setCurrentDatas(currentDatas.reverse());
-    setDirection(direction === "ascending" ? "descending" : "ascending");
+    setCurrentDatas(_.orderBy(currentDatas, _.keys(sort), _.values(sort)));
+    dispatch({
+      type: c.SET_DETAIL_SORT,
+      payload: sort
+    });
   };
 
   const handleSearch = (e: any) => {
     if (e.currentTarget.value.length >= 2) {
+      dispatch({
+        type: c.SET_DETAIL_SEARCH,
+        payload: e.currentTarget.value
+      });
       setCurrentDatas(fuse.search(e.currentTarget.value));
     } else {
       setCurrentDatas(datas);
     }
   };
 
-  console.log("curentDatas", currentDatas);
+  const checkSorting = (item: string): any => {
+    if (!!detailSort![item]) {
+      return detailSort![item] === "asc" ? "ascending" : "descending";
+    } else {
+      return undefined;
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -69,21 +72,23 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
       <div>Click column headers to sort.</div>
       <Table sortable>
         <Table.Header>
-          {headerTopics.map((item: string, key: number) => (
-            <Table.HeaderCell
-              key={key}
-              sorted={column === item ? direction : undefined}
-              onClick={() => {
-                handleSort(item);
-              }}
-            >
-              {item}
-            </Table.HeaderCell>
-          ))}
+          {headerTopics.map((item: string, key: number) => {
+            return (
+              <Table.HeaderCell
+                key={key}
+                sorted={checkSorting(item)}
+                onClick={() => {
+                  handleSort(item);
+                }}
+              >
+                {item}
+              </Table.HeaderCell>
+            );
+          })}
         </Table.Header>
         <Table.Body>
           {currentDatas.length >= 1 ? (
-            currentDatas.map((item: string, key: number) => (
+            currentDatas.map((item: any, key: number) => (
               <Table.Row key={key}>
                 {Object.values(item).map((entry: string, key: number) => (
                   <Table.Cell key={key}>

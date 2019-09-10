@@ -4,23 +4,22 @@ import _ from "lodash";
 import Fuse from "fuse.js";
 import * as c from "../store/constants";
 import * as o from "../utils/options";
+import * as t from "../types";
 import { AppState } from "../types";
 
-export function useDetailDatasCurrent() {
+export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
   const dispatch = useDispatch();
-  const detailDatas = useSelector(
-    (state: AppState) => state.detailDatas["original"].datas
-  );
+
   const searchTerm = useSelector((state: AppState) => state.detailSearch);
 
   let searchedDatas = null;
 
   if (searchTerm) {
-    const fuse = new Fuse(detailDatas, o.fuseOptions);
+    const fuse = new Fuse(datas, o.fuseOptions);
     searchedDatas = fuse.search(searchTerm);
   }
 
-  const unsortedDatas = searchedDatas || detailDatas;
+  const unsortedDatas = searchedDatas || datas;
 
   const detailSort = useSelector((state: AppState) => state.detailSort);
 
@@ -44,4 +43,6 @@ export function useDetailDatasCurrent() {
       size: currentDatasSize
     }
   });
+
+  return [currentDatas, currentDatasSize];
 }

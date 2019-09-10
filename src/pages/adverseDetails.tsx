@@ -16,11 +16,11 @@ export interface Props extends RouteComponentProps<{ id: string }> {}
 
 export const AdverseDetails: FC<Props> = ({ match }) => {
   const dispatch = useDispatch();
-  useDetailDatas(match.params.id);
-  useDetailDatasCurrent();
-  const datas = useSelector((state: AppState) => state.detailDatas);
-  const headerTopics = _.keys(datas["original"].datas[0]);
+  const [datasDetail, datasDetailsSize] = useDetailDatas(match.params.id);
+  const [currentDatas, currentDatasSize] = useDetailDatasCurrent(datasDetail);
+  const headerTopics = _.keys(datasDetail[0]);
   const detailSort = useSelector((state: AppState) => state.detailSort);
+  const searchTerm = useSelector((state: AppState) => state.detailSearch);
 
   const handleSort = (clickedColumn: string) => {
     dispatch({
@@ -44,7 +44,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
     }
   };
 
-  const checkSorting = (item: string): any => {
+  const setSortIcon = (item: string): any => {
     if (!!detailSort![item]) {
       return detailSort![item] === "asc" ? "ascending" : "descending";
     } else {
@@ -52,17 +52,20 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
     }
   };
 
-  console.log("currentDatas", datas["current"].datas);
   return (
     <div>
       <Header />
       <Link to="/">back</Link>
       <div>
-        <strong>{`Details for ${datas["original"].size} ${match.params.id} records`}</strong>
+        <strong>{`Details for ${datasDetailsSize} ${match.params.id} records`}</strong>
       </div>
-      <Search onSearchChange={handleSearch} showNoResults={false} />
+      <Search
+        onSearchChange={handleSearch}
+        showNoResults={false}
+        value={searchTerm}
+      />
 
-      <div>{`${datas["current"].size}/${datas["original"].size} records displayed`}</div>
+      <div>{`${currentDatasSize}/${datasDetailsSize} records displayed`}</div>
 
       <div>Click column headers to sort.</div>
       <Table sortable>
@@ -71,7 +74,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
             return (
               <Table.HeaderCell
                 key={key}
-                sorted={checkSorting(item)}
+                sorted={setSortIcon(item)}
                 onClick={() => {
                   handleSort(item);
                 }}
@@ -82,8 +85,8 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
           })}
         </Table.Header>
         <Table.Body>
-          {datas["current"].datas.length >= 1 ? (
-            datas["current"].datas.map((item: t.Data, key: number) => (
+          {currentDatas.length >= 1 ? (
+            currentDatas.map((item: t.Data, key: number) => (
               <Table.Row key={key}>
                 {Object.values(item).map((entry: any, key: number) => (
                   <Table.Cell key={key}>
@@ -99,10 +102,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
           )}
         </Table.Body>
       </Table>
-      <CsvDownload
-        filename={`${match.params.id}.csv`}
-        data={datas["current"].datas}
-      />
+      <CsvDownload filename={`${match.params.id}.csv`} data={currentDatas} />
     </div>
   );
 };
