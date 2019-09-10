@@ -97,7 +97,8 @@ export interface SetOutcome {
 
 export interface SetDetailDatas {
   type: typeof c.SET_DETAIL_DATAS;
-  payload: t.Data[];
+  key: string;
+  payload: t.StoredDatas;
 }
 
 export interface SetDetailSort {

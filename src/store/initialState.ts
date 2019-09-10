@@ -26,7 +26,6 @@ export const initialState: t.AppState = {
   severity: o.severityOptions,
   relationship: o.relationshipOptions,
   outcome: o.outcomeOptions,
-  detailDatas: [{}],
-  detailDatasCurrent: [{}],
+  detailDatas: {},
   detailSort: {}
 };

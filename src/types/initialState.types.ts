@@ -18,7 +18,11 @@ export interface AppState {
   severity: t.Severity[];
   relationship: t.Relationship[];
   outcome: t.Outcome[];
-  detailDatas: any[];
-  detailDatasCurrent: any[];
-  detailSort: t.DetailSort | undefined;
+  detailDatas: {
+    [key: string]: {
+      datas: t.Data[];
+      size: number;
+    };
+  };
+  detailSort?: t.DetailSort;
 }

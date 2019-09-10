@@ -20,23 +20,22 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const [currentDatas, setCurrentDatas] = useState(datas);
   const currentDataSize = _.size(currentDatas);
   const headerTopics = _.keys(datas[0]);
-  let detailSort = useSelector((state: AppState) => state.detailSort);
+  const detailSort = useSelector((state: AppState) => state.detailSort);
   const fuse = new Fuse(datas, o.fuseOptions);
 
   const handleSort = (clickedColumn: string) => {
+    const sort = {
+      ...detailSort,
+      ...{
+        [clickedColumn]: detailSort![clickedColumn] === "desc" ? "asc" : "desc"
+      }
+    };
+
+    setCurrentDatas(_.orderBy(currentDatas, _.keys(sort), _.values(sort)));
     dispatch({
       type: c.SET_DETAIL_SORT,
-      payload: {
-        [clickedColumn]:
-          detailSort![clickedColumn] && detailSort![clickedColumn] === "asc"
-            ? "desc"
-            : "asc"
-      }
+      payload: sort
     });
-
-    setCurrentDatas(
-      _.orderBy(currentDatas, _.keys(detailSort), _.values(detailSort))
-    );
   };
 
   const handleSearch = (e: any) => {
@@ -70,15 +69,6 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
       <Table sortable>
         <Table.Header>
           {headerTopics.map((item: string, key: number) => {
-            console.log(
-              "ä",
-              !!detailSort![item]
-                ? detailSort![item][1] === "asc"
-                  ? "ascending"
-                  : "descending"
-                : undefined
-            );
-            console.log("ö", detailSort![item]);
             return (
               <Table.HeaderCell
                 key={key}

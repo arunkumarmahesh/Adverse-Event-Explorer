@@ -100,8 +100,12 @@ export const setOutcome = (payload: t.Outcome): t.SetOutcome => ({
   payload
 });
 
-export const setDetailDatas = (payload: any[]): t.SetDetailDatas => ({
+export const setDetailDatas = (
+  key: string,
+  payload: t.StoredDatas
+): t.SetDetailDatas => ({
   type: c.SET_DETAIL_DATAS,
+  key,
   payload
 });
 

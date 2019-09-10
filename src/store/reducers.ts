@@ -76,10 +76,10 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
         );
         return draft;
       case c.SET_DETAIL_DATAS:
-        draft.detailDatas = action.payload;
+        draft.detailDatas[action.key] = action.payload;
         return draft;
       case c.SET_DETAIL_SORT:
-        draft.detailSort = { ...draft.detailSort, ...action.payload };
+        draft.detailSort = action.payload;
         return draft;
       default:
         return draft;
