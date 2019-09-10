@@ -45,6 +45,14 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
     }
   };
 
+  const setSortIcon = (item: string): any => {
+    if (!!detailSort![item]) {
+      return detailSort![item] === "asc" ? "ascending" : "descending";
+    } else {
+      return undefined;
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -62,12 +70,38 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
 
       <div>Click column headers to sort.</div>
       <Table sortable>
-        <TableHeaderSort
-          multiSort={detailSort}
-          headerTopics={headerTopics}
-          handleSort={handleSort}
-        />
-        <TableBodyDetails datas={currentDatas} />
+        <Table.Header>
+          {headerTopics.map((item: string, key: number) => {
+            return (
+              <Table.HeaderCell
+                key={key}
+                sorted={setSortIcon(item)}
+                onClick={() => {
+                  handleSort(item);
+                }}
+              >
+                {item}
+              </Table.HeaderCell>
+            );
+          })}
+        </Table.Header>
+        <Table.Body>
+          {currentDatas.length >= 1 ? (
+            currentDatas.map((item: t.Data, key: number) => (
+              <Table.Row key={key}>
+                {Object.values(item).map((entry: any, key: number) => (
+                  <Table.Cell key={key}>
+                    <div>{entry}</div>
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))
+          ) : (
+            <Table.Row>
+              <Table.Cell colSpan="4">No data selected.</Table.Cell>
+            </Table.Row>
+          )}
+        </Table.Body>
       </Table>
       <CsvDownload filename={`${match.params.id}.csv`} data={currentDatas} />
     </div>
