@@ -9,3 +9,4 @@ export {
 export { TableFooterGroups } from "./table/tableFooterGroups/tableFooterGroups";
 export { TableHeaderGroups } from "./table/tableHeaderGroups/tableHeaderGroups";
 export { TableHeaderSort } from "./table/tableHeaderSort/tableHeaderSort";
+export { SortButtons } from "./sortButtons";

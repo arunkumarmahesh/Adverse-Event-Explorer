@@ -11,7 +11,7 @@ import * as c from "../store/constants";
 import * as t from "../types";
 import { useDetailDatas } from "../hooks/useDetailDatas";
 import { useDetailDatasCurrent } from "../hooks/useDetailDatasCurrent";
-import { TableHeaderSort, TableBodyDetails } from "../components";
+import { TableHeaderSort, TableBodyDetails, SortButtons } from "../components";
 
 export interface Props extends RouteComponentProps<{ id: string }> {}
 
@@ -23,16 +23,30 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const detailSort = useSelector((state: AppState) => state.detailSort);
   const searchTerm = useSelector((state: AppState) => state.detailSearch);
 
-  const handleSort = (clickedColumn: string) => {
-    dispatch({
-      type: c.SET_DETAIL_SORT,
-      payload: {
+  const handleSort = (method: string, clickedColumn: string) => {
+    let sort = detailSort;
+
+    if (method === "update") {
+      sort = {
         ...detailSort,
         ...{
           [clickedColumn]:
             detailSort![clickedColumn] === "desc" ? "asc" : "desc"
         }
-      }
+      };
+    }
+
+    if (method === "deleteSingle") {
+      sort = _.omit(sort, clickedColumn);
+    }
+
+    if (method === "deleteAll") {
+      sort = {};
+    }
+
+    dispatch({
+      type: c.SET_DETAIL_SORT,
+      payload: sort
     });
   };
 
@@ -59,6 +73,8 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
       />
 
       <div>{`${currentDatasSize}/${datasDetailsSize} records displayed`}</div>
+
+      <SortButtons sortEntries={detailSort} handleSort={handleSort} />
 
       <div>Click column headers to sort.</div>
       <Table sortable>

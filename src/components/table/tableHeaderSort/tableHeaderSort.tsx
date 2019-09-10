@@ -1,38 +1,21 @@
 import React, { FC, HTMLAttributes } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
-import * as t from "../../../types";
-import * as c from "../../../store/constants";
 
 export interface Props extends HTMLAttributes<HTMLTableElement> {
   multiSort?: {
     [key: string]: "asc" | "desc";
   };
   headerTopics: string[];
-  handleSort: (clickedColumn: string) => void;
+  handleSort: (method: string, clickedColumn: string) => void;
 }
 
-export const TableHeaderSort: FC<Props> = ({ ...rest }) => {
-  const dispatch = useDispatch();
-  const multiSort = useSelector((state: t.AppState) => state.detailSort);
-  const datasDetail = useSelector(
-    (state: t.AppState) => state.detailDatas["original"].datas
-  );
-  const headerTopics = _.keys(datasDetail[0]);
-
-  const handleSort = (clickedColumn: string): void => {
-    dispatch({
-      type: c.SET_DETAIL_SORT,
-      payload: {
-        ...multiSort,
-        ...{
-          [clickedColumn]: multiSort![clickedColumn] === "desc" ? "asc" : "desc"
-        }
-      }
-    });
-  };
-
+export const TableHeaderSort: FC<Props> = ({
+  multiSort,
+  headerTopics,
+  handleSort,
+  ...rest
+}) => {
   const setSortIcon = (
     item: string
   ): "ascending" | "descending" | undefined => {
@@ -51,7 +34,7 @@ export const TableHeaderSort: FC<Props> = ({ ...rest }) => {
             key={key}
             sorted={setSortIcon(item)}
             onClick={() => {
-              handleSort(item);
+              handleSort("update", item);
             }}
           >
             {item}
