@@ -33,8 +33,6 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const searchTerm = useSelector((state: AppState) => state.detailSearch);
   const resultsPerPage = useSelector((state: AppState) => state.detailPages);
 
-  console.log("paginatedDatas", paginatedDatas);
-
   const handleSort = (method: string, clickedColumn: string) => {
     let sort = detailSort;
 

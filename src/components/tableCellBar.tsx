@@ -13,10 +13,6 @@ export const TableCellBar: FC<Props> = ({
   groupsTotal,
   groupsHeighestValue
 }) => {
-  /*   console.log("bar data", data);
-  console.log("bar groupsHeighestValue", groupsHeighestValue);
-  console.log("bar groupsTotal", groupsTotal);
- */
   return (
     <td style={{ height: "100px" }}>
       {/*       <ResponsiveBar

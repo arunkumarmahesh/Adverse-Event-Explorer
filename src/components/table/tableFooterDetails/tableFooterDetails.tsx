@@ -21,7 +21,6 @@ export const TableFooterDetails: FC<Props> = ({
 }) => {
   const pageCount = Math.floor(dataSize / resultsPerPage);
 
-  console.log("lsdklsakdlsakdla", currentPage);
   return (
     <Table.Footer>
       <Table.Row>
