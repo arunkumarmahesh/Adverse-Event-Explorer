@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
@@ -11,6 +11,7 @@ import * as c from "../store/constants";
 import * as t from "../types";
 import { useDetailDatas } from "../hooks/useDetailDatas";
 import { useDetailDatasCurrent } from "../hooks/useDetailDatasCurrent";
+import { useDetailDatasPaginated } from "../hooks/useDetailDatasPaginated";
 import {
   TableHeaderSort,
   TableBodyDetails,
@@ -24,12 +25,15 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const dispatch = useDispatch();
   const [datasDetail, datasDetailsSize] = useDetailDatas(match.params.id);
   const [currentDatas, currentDatasSize] = useDetailDatasCurrent(datasDetail);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const paginatedDatas = useDetailDatasPaginated(currentDatas, currentPage);
   const headerTopics = _.keys(datasDetail[0]);
   const cellCount = _.size(headerTopics);
   const detailSort = useSelector((state: AppState) => state.detailSort);
   const searchTerm = useSelector((state: AppState) => state.detailSearch);
+  const resultsPerPage = useSelector((state: AppState) => state.detailPages);
 
-  console.log(cellCount);
+  console.log("paginatedDatas", paginatedDatas);
 
   const handleSort = (method: string, clickedColumn: string) => {
     let sort = detailSort;
@@ -67,6 +71,17 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
     }
   };
 
+  const handleResultsPerPageChange = (e: any, { value }: any) => {
+    dispatch({
+      type: c.SET_DETAIL_PAGES,
+      payload: value
+    });
+  };
+
+  const handlePaginationChage = (e: any, { activePage }: any) => {
+    setCurrentPage(activePage);
+  };
+
   return (
     <div>
       <Header />
@@ -84,18 +99,22 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
 
       <SortButtons sortEntries={detailSort} handleSort={handleSort} />
 
-      <div>Click column headers to sort.</div>
+      {!detailSort && <div>Click column headers to sort.</div>}
+
       <Table sortable>
         <TableHeaderSort
           multiSort={detailSort}
           headerTopics={headerTopics}
           handleSort={handleSort}
         />
-        <TableBodyDetails datas={currentDatas} />
+        <TableBodyDetails datas={paginatedDatas} />
         <TableFooterDetails
-          cellCount={cellCount}
+          currentPage={currentPage}
+          columnCount={cellCount}
           dataSize={currentDatasSize}
-          pageSize={10}
+          resultsPerPage={resultsPerPage}
+          handleResultsPerPageChange={handleResultsPerPageChange}
+          handlePaginationChange={handlePaginationChage}
         />
       </Table>
       <CsvDownload filename={`${match.params.id}.csv`} data={currentDatas} />

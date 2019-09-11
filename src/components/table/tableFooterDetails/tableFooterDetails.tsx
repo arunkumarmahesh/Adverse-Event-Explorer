@@ -1,92 +1,43 @@
-import React, { FC, useState, SyntheticEvent } from "react";
-import { Table, Menu, Icon } from "semantic-ui-react";
-import { SelectBlock } from "../../selectBlock";
+import React, { FC, useState } from "react";
+import { Table, Pagination, Select } from "semantic-ui-react";
 import * as o from "../../../utils/options";
 
 export interface Props {
-  cellCount: number;
+  columnCount: number;
   dataSize: number;
-  pageSize: number;
+  resultsPerPage: number;
+  currentPage: number;
+  handleResultsPerPageChange: any;
+  handlePaginationChange: any;
 }
 
 export const TableFooterDetails: FC<Props> = ({
-  cellCount,
+  columnCount,
   dataSize,
-  pageSize
+  resultsPerPage,
+  currentPage,
+  handleResultsPerPageChange,
+  handlePaginationChange
 }) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [resultsPerPage, setResultsPerPage] = useState<string>("10");
-  const pageCount = Math.floor(dataSize / pageSize);
+  const pageCount = Math.floor(dataSize / resultsPerPage);
 
-  console.log("pageCount", pageCount);
-
-  const handlePrevClick = () => {
-    if (currentPage <= 2) {
-      setCurrentPage(currentPage - 1);
-    } else {
-      setCurrentPage(1);
-    }
-  };
-
-  const handleNextClick = () => {
-    if (currentPage < pageCount) {
-      setCurrentPage(currentPage + 1);
-    } else {
-      setCurrentPage(pageCount);
-    }
-  };
-
-  const renderPageItems = () => {
-    let i: number;
-    let children = [];
-    for (i = 1; i < pageCount + 1; i++) {
-      children.push(
-        <Menu.Item
-          key={i}
-          onClick={() => {
-            setCurrentPage(i);
-          }}
-        >
-          {i}
-        </Menu.Item>
-      );
-    }
-    return children;
-  };
-
+  console.log("lsdklsakdlsakdla", currentPage);
   return (
     <Table.Footer>
       <Table.Row>
         <Table.HeaderCell>
-          <SelectBlock
-            label=""
+          <Select
             options={o.resultsPerPageOptions}
-            selected={resultsPerPage}
-            handleChange={(e: any) => {
-              setResultsPerPage(e.currentTarget.value);
-            }}
+            onChange={handleResultsPerPageChange}
+            value={resultsPerPage.toString()}
           />
         </Table.HeaderCell>
-        <Table.HeaderCell colSpan={cellCount}>
-          <Menu pagination>
-            <Menu.Item
-              icon={true}
-              onClick={() => {
-                handlePrevClick();
-              }}
-            >
-              <Icon name="chevron left" />
-            </Menu.Item>
-            {renderPageItems()}
-            <Menu.Item
-              icon={true}
-              onClick={() => {
-                handleNextClick();
-              }}
-            >
-              <Icon name="chevron right" />
-            </Menu.Item>
-          </Menu>
+        <Table.HeaderCell colSpan={columnCount}>
+          <Pagination
+            activePage={currentPage}
+            totalPages={pageCount}
+            onPageChange={handlePaginationChange}
+          />
         </Table.HeaderCell>
       </Table.Row>
     </Table.Footer>

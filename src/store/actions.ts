@@ -118,3 +118,8 @@ export const setDetailSort = (payload: t.DetailSort): t.SetDetailSort => ({
   type: c.SET_DETAIL_SORT,
   payload
 });
+
+export const setDetailPages = (payload: number): t.SetDetailPages => ({
+  type: c.SET_DETAIL_PAGES,
+  payload
+});

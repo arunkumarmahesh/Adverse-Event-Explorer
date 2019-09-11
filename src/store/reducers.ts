@@ -76,6 +76,9 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
       case c.SET_DETAIL_SORT:
         draft.detailSort = action.payload;
         return draft;
+      case c.SET_DETAIL_PAGES:
+        draft.detailPages = action.payload;
+        return draft;
       default:
         return draft;
     }

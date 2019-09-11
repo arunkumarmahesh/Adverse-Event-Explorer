@@ -28,5 +28,6 @@ export const initialState: t.AppState = {
   outcome: o.outcomeOptions,
   detailDatas: {},
   detailSearch: undefined,
-  detailSort: {}
+  detailSort: {},
+  detailPages: 10
 };
