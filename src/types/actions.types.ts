@@ -110,7 +110,7 @@ export interface SetDetailSearch {
 
 export interface SetDetailSort {
   type: typeof c.SET_DETAIL_SORT;
-  payload: t.DetailSort;
+  payload: t.DetailSortItem[];
 }
 
 export interface SetDetailPages {

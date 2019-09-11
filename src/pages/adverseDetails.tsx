@@ -34,25 +34,26 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const resultsPerPage = useSelector((state: AppState) => state.detailPages);
 
   const handleSort = (method: string, clickedColumn: string) => {
-    let sort = detailSort;
+    let sort = detailSort || [];
+    const index = _.findIndex(detailSort, clickedColumn);
 
     if (method === "update") {
-      sort = {
-        ...detailSort,
-        ...{
-          [clickedColumn]:
-            detailSort![clickedColumn] === "desc" ? "asc" : "desc"
-        }
-      };
+      if (index !== -1) {
+        sort[index][clickedColumn] =
+          sort[index][clickedColumn] === "desc" ? "asc" : "desc";
+      } else {
+        sort.push({ [clickedColumn]: "desc" });
+      }
     }
 
     if (method === "deleteSingle") {
-      sort = _.omit(sort, clickedColumn);
+      delete sort[index];
     }
 
     if (method === "deleteAll") {
-      sort = {};
+      sort = [];
     }
+    console.log("adverseDetails sort", sort);
 
     dispatch({
       type: c.SET_DETAIL_SORT,
@@ -61,7 +62,6 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   };
 
   const handleSearch = (e: any) => {
-    console.log(e.currentTarget.value);
     if (e.currentTarget.value.length >= 2) {
       dispatch({
         type: c.SET_DETAIL_SEARCH,
@@ -80,8 +80,6 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const handlePaginationChage = (e: any, { activePage }: any) => {
     setCurrentPage(activePage);
   };
-
-  console.log("search", searchTerm);
 
   return (
     <div>

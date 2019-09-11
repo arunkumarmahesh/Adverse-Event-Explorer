@@ -25,6 +25,6 @@ export interface AppState {
     };
   };
   detailSearch?: string;
-  detailSort?: t.DetailSort;
+  detailSort: t.DetailSortItem[];
   detailPages: number;
 }

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Button, Icon, Ref } from "semantic-ui-react";
 import _ from "lodash";
-import * as t from "../types";
+import * as t from "./src/types";
 import {
   DragDropContext,
   Draggable,
@@ -22,7 +22,7 @@ export const SortButtons: FC<Props> = ({ sortEntries, handleSort }) => {
     }
     return "arrow down";
   };
-  console.log("sortButtons sortEntries", sortEntries);
+
   return (
     <>
       <DragDropContext onDragEnd={() => null}>
@@ -31,8 +31,7 @@ export const SortButtons: FC<Props> = ({ sortEntries, handleSort }) => {
             <Ref innerRef={provided.innerRef}>
               <div {...provided.droppableProps}>
                 {sortEntries &&
-                  sortEntries.map((item: any, key: number) => {
-                    console.log("sd", item);
+                  Object.entries(sortEntries).map((item: any, key: number) => {
                     return (
                       <Draggable
                         key={item[0]}
@@ -41,31 +40,30 @@ export const SortButtons: FC<Props> = ({ sortEntries, handleSort }) => {
                       >
                         {providedDraggable => (
                           <Ref innerRef={providedDraggable.innerRef}>
-                            <span
-                              className="sortButton"
+                            <Button.Group
+                              icon={true}
                               {...providedDraggable.draggableProps}
                             >
-                              <Icon
-                                name="grab"
+                              <Button
+                                icon="grab"
                                 {...providedDraggable.dragHandleProps}
                               />
-                              <span
-                                onClick={() => {
-                                  handleSort("update", item[0]);
-                                }}
-                                style={{ cursor: "pointer" }}
-                              >
-                                {item[0]}
-                                <Icon name={setSortIcon(item[1])} />
-                              </span>
-                              <Icon
-                                name="close"
+                              <Button
                                 onClick={() => {
                                   handleSort("deleteSingle", item[0]);
                                 }}
-                                style={{ cursor: "pointer" }}
+                              >
+                                <Icon name="close" />
+                              </Button>
+                              <Button
+                                content={item[0]}
+                                icon={`arrow ${setSortIcon(item[1])}`}
+                                labelPosition="right"
+                                onClick={() => {
+                                  handleSort("update", item[0]);
+                                }}
                               />
-                            </span>
+                            </Button.Group>
                           </Ref>
                         )}
                       </Draggable>

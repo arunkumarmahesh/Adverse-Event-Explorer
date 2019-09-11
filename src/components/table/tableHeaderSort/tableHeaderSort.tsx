@@ -1,11 +1,10 @@
 import React, { FC, HTMLAttributes } from "react";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
+import * as t from "../../../types";
 
 export interface Props extends HTMLAttributes<HTMLTableElement> {
-  multiSort?: {
-    [key: string]: "asc" | "desc";
-  };
+  multiSort?: t.DetailSortItem[];
   headerTopics: string[];
   handleSort: (method: string, clickedColumn: string) => void;
 }
@@ -16,11 +15,13 @@ export const TableHeaderSort: FC<Props> = ({
   handleSort,
   ...rest
 }) => {
+  console.log("TableHeaderSort multisort", multiSort);
   const setSortIcon = (
+    key: number,
     item: string
   ): "ascending" | "descending" | undefined => {
-    if (!!multiSort![item]) {
-      return multiSort![item] === "asc" ? "ascending" : "descending";
+    if (multiSort![key]) {
+      return multiSort![key][item] === "asc" ? "ascending" : "descending";
     } else {
       return undefined;
     }
@@ -33,7 +34,7 @@ export const TableHeaderSort: FC<Props> = ({
           return (
             <Table.HeaderCell
               key={key}
-              sorted={setSortIcon(item)}
+              sorted={setSortIcon(key, item)}
               onClick={() => {
                 handleSort("update", item);
               }}

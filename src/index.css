@@ -31,6 +31,6 @@ code {
   min-width: 9rem;
 }
 
-.test {
-  border: 1px solid black;
+.sortButton {
+  margin-right: 1rem
 }

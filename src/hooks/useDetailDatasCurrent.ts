@@ -24,12 +24,7 @@ export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
 
   let sortedDatas = null;
 
-  if (!_.isEmpty(detailSort))
-    sortedDatas = _.orderBy(
-      unsortedDatas,
-      _.keys(detailSort),
-      _.values(detailSort)
-    );
+  if (!_.isEmpty(detailSort)) sortedDatas = _.orderBy(unsortedDatas, [], []);
 
   const currentDatas = sortedDatas || unsortedDatas;
   const currentDatasSize = _.size(currentDatas);

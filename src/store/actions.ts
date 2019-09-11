@@ -114,7 +114,9 @@ export const setDetailSearch = (payload: string): t.SetDetailSearch => ({
   payload
 });
 
-export const setDetailSort = (payload: t.DetailSort): t.SetDetailSort => ({
+export const setDetailSort = (
+  payload: t.DetailSortItem[]
+): t.SetDetailSort => ({
   type: c.SET_DETAIL_SORT,
   payload
 });
