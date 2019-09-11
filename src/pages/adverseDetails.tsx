@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { Table, Search } from "semantic-ui-react";
+import { Table, Search, Button } from "semantic-ui-react";
 import CsvDownload from "react-json-to-csv";
 import { AppState } from "../types";
 import { Header } from "../components/header";
@@ -61,10 +61,11 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   };
 
   const handleSearch = (e: any) => {
+    console.log(e.currentTarget);
     if (e.currentTarget.value.length >= 2) {
       dispatch({
         type: c.SET_DETAIL_SEARCH,
-        payload: e.currentTarget.value
+        payload: e.currentTarget.value || e
       });
     }
   };
@@ -92,6 +93,16 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
         showNoResults={false}
         value={searchTerm}
       />
+      <Button
+        onClick={() =>
+          dispatch({
+            type: c.SET_DETAIL_SEARCH,
+            payload: ""
+          })
+        }
+      >
+        Delete Search
+      </Button>
 
       <div>{`${currentDatasSize}/${datasDetailsSize} records displayed`}</div>
 
