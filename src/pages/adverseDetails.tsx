@@ -61,11 +61,11 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   };
 
   const handleSearch = (e: any) => {
-    console.log(e.currentTarget);
+    console.log(e.currentTarget.value);
     if (e.currentTarget.value.length >= 2) {
       dispatch({
         type: c.SET_DETAIL_SEARCH,
-        payload: e.currentTarget.value || e
+        payload: e.currentTarget.value
       });
     }
   };
@@ -80,6 +80,8 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const handlePaginationChage = (e: any, { activePage }: any) => {
     setCurrentPage(activePage);
   };
+
+  console.log("search", searchTerm);
 
   return (
     <div>

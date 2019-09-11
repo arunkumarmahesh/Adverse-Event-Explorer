@@ -13,7 +13,7 @@ export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
 
   let searchedDatas = null;
 
-  if (searchTerm) {
+  if (searchTerm && searchTerm[0]) {
     const fuse = new Fuse(datas, o.fuseOptions);
     searchedDatas = fuse.search(searchTerm);
   }
