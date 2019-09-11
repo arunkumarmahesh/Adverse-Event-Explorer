@@ -13,7 +13,7 @@ export const TableBodyDetails: FC<Props> = ({ datas, ...rest }) => {
         datas.map((item: t.Data, key: number) => (
           <Table.Row key={key}>
             {Object.values(item).map((entry: ReactText, key: number) => (
-              <Table.Cell key={key}>
+              <Table.Cell key={key} style={{ whiteSpace: "nowrap" }}>
                 <div>{entry}</div>
               </Table.Cell>
             ))}
