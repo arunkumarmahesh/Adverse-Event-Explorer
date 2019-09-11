@@ -30,3 +30,7 @@ code {
 .ui.selection.dropdown {
   min-width: 9rem;
 }
+
+.test {
+  border: 1px solid black;
+}

@@ -11,7 +11,12 @@ import * as c from "../store/constants";
 import * as t from "../types";
 import { useDetailDatas } from "../hooks/useDetailDatas";
 import { useDetailDatasCurrent } from "../hooks/useDetailDatasCurrent";
-import { TableHeaderSort, TableBodyDetails, SortButtons } from "../components";
+import {
+  TableHeaderSort,
+  TableBodyDetails,
+  SortButtons,
+  TableFooterDetails
+} from "../components";
 
 export interface Props extends RouteComponentProps<{ id: string }> {}
 
@@ -20,8 +25,11 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const [datasDetail, datasDetailsSize] = useDetailDatas(match.params.id);
   const [currentDatas, currentDatasSize] = useDetailDatasCurrent(datasDetail);
   const headerTopics = _.keys(datasDetail[0]);
+  const cellCount = _.size(headerTopics);
   const detailSort = useSelector((state: AppState) => state.detailSort);
   const searchTerm = useSelector((state: AppState) => state.detailSearch);
+
+  console.log(cellCount);
 
   const handleSort = (method: string, clickedColumn: string) => {
     let sort = detailSort;
@@ -84,6 +92,11 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
           handleSort={handleSort}
         />
         <TableBodyDetails datas={currentDatas} />
+        <TableFooterDetails
+          cellCount={cellCount}
+          dataSize={currentDatasSize}
+          pageSize={10}
+        />
       </Table>
       <CsvDownload filename={`${match.params.id}.csv`} data={currentDatas} />
     </div>

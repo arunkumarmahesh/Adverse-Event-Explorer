@@ -28,19 +28,21 @@ export const TableHeaderSort: FC<Props> = ({
 
   return (
     <Table.Header {...rest}>
-      {headerTopics.map((item: string, key: number) => {
-        return (
-          <Table.HeaderCell
-            key={key}
-            sorted={setSortIcon(item)}
-            onClick={() => {
-              handleSort("update", item);
-            }}
-          >
-            {item}
-          </Table.HeaderCell>
-        );
-      })}
+      <Table.Row>
+        {headerTopics.map((item: string, key: number) => {
+          return (
+            <Table.HeaderCell
+              key={key}
+              sorted={setSortIcon(item)}
+              onClick={() => {
+                handleSort("update", item);
+              }}
+            >
+              {item}
+            </Table.HeaderCell>
+          );
+        })}
+      </Table.Row>
     </Table.Header>
   );
 };
