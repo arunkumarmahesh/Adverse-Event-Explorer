@@ -13,6 +13,7 @@ import * as t from "../types";
 import { useDetailDatas } from "../hooks/useDetailDatas";
 import { useDetailDatasCurrent } from "../hooks/useDetailDatasCurrent";
 import { useDetailDatasPaginated } from "../hooks/useDetailDatasPaginated";
+import { useScrollTop } from "../hooks/useScrollTop";
 import {
   TableHeaderSort,
   TableBodyDetails,
@@ -27,6 +28,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const [datasDetail, datasDetailsSize] = useDetailDatas(match.params.id);
   const [currentDatas, currentDatasSize] = useDetailDatasCurrent(datasDetail);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  useScrollTop(currentPage);
   const paginatedDatas = useDetailDatasPaginated(currentDatas, currentPage);
   const headerTopics = _.keys(datasDetail[0]);
   const cellCount = _.size(headerTopics);
@@ -88,7 +90,10 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
     });
   };
 
-  const handlePaginationChage = (e: any, { activePage }: any) => {
+  const handlePaginationChange = (e: any, { activePage }: any) => {
+    /*     console.log(el);
+    console.log(el.current);
+ */
     setCurrentPage(activePage);
   };
 
@@ -135,7 +140,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
           dataSize={currentDatasSize}
           resultsPerPage={resultsPerPage}
           handleResultsPerPageChange={handleResultsPerPageChange}
-          handlePaginationChange={handlePaginationChage}
+          handlePaginationChange={handlePaginationChange}
         />
       </Table>
       <CsvDownload filename={`${match.params.id}.csv`} data={currentDatas} />
