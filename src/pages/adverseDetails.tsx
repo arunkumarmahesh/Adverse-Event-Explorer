@@ -84,6 +84,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
     setCurrentPage(activePage);
   };
 
+  console.log("adverseDetails");
   return (
     <div>
       <Header />
