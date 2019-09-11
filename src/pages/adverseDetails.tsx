@@ -34,9 +34,17 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const searchTerm = useSelector((state: AppState) => state.detailSearch);
   const resultsPerPage = useSelector((state: AppState) => state.detailPages);
 
-  const handleSort = (method: string, clickedColumn: string) => {
+  const handleSort = (
+    method: string,
+    clickedColumn: string,
+    sortItems?: t.DetailSortItem[]
+  ) => {
     const newDetailSort = produce(detailSort, draft => {
       const index = _.findIndex(detailSort, { name: clickedColumn });
+
+      if (method === "reorder" && sortItems) {
+        return sortItems;
+      }
 
       if (method === "update") {
         if (index !== -1) {
@@ -110,7 +118,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
 
       <div>{`${currentDatasSize}/${datasDetailsSize} records displayed`}</div>
 
-      <SortButtons sortEntries={detailSort} handleSort={handleSort} />
+      <SortButtons sortItems={detailSort} handleSort={handleSort} />
 
       {!detailSort && <div>Click column headers to sort.</div>}
 

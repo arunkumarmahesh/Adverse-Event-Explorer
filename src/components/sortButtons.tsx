@@ -10,26 +10,59 @@ import {
 } from "react-beautiful-dnd";
 
 export interface Props {
-  sortEntries?: t.DetailSortItem[];
-  handleSort: (method: string, column: string) => void;
+  sortItems?: t.DetailSortItem[];
+  handleSort: (
+    method: string,
+    column: string,
+    sortItems?: t.DetailSortItem[]
+  ) => void;
 }
 
-export const SortButtons: FC<Props> = ({ sortEntries, handleSort }) => {
+export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
+  const reorder = (
+    list: t.DetailSortItem[],
+    startIndex: number,
+    endIndex: number
+  ): t.DetailSortItem[] => {
+    const result: t.DetailSortItem[] = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  };
+
+  const onDragEnd = (result: any) => {
+    console.log("onDragEnd result", result);
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderdSortItems: t.DetailSortItem[] = reorder(
+      sortItems!,
+      result.source.index,
+      result.destination.index
+    );
+
+    handleSort("reorder", "", reorderdSortItems);
+  };
+
   const setSortIcon = (direction: string) => {
     if (direction === "asc") {
       return "arrow up";
     }
     return "arrow down";
   };
+
   return (
     <>
-      <DragDropContext onDragEnd={() => null}>
+      <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable" direction="horizontal">
           {(provided: DroppableProvided) => (
             <Ref innerRef={provided.innerRef}>
               <div {...provided.droppableProps}>
-                {sortEntries &&
-                  sortEntries.map((item: t.DetailSortItem, key: number) => {
+                {sortItems &&
+                  sortItems.map((item: t.DetailSortItem, key: number) => {
                     const values = Object.values(item);
                     const columnName = values[0];
                     const sortDirection = values[1];
@@ -77,7 +110,7 @@ export const SortButtons: FC<Props> = ({ sortEntries, handleSort }) => {
           )}
         </Droppable>
       </DragDropContext>
-      {sortEntries && sortEntries.length > 0 && (
+      {sortItems && sortItems.length > 0 && (
         <Button
           onClick={() => {
             handleSort("deleteAll", "");
