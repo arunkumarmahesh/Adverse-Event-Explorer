@@ -44,7 +44,12 @@ export type StoredDatas = {
   size: number;
 };
 
-export type DetailSortItem = { [key: string]: "asc" | "desc" };
+export type DetailSortItem = {
+  name: string;
+  direction: SortDirection;
+};
+
+export type SortDirection = "asc" | "desc";
 
 export type Data = {
   USUBJID: string;

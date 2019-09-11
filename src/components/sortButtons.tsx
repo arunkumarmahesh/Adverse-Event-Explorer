@@ -6,8 +6,7 @@ import {
   DragDropContext,
   Draggable,
   Droppable,
-  DroppableProvided,
-  DroppableStateSnapshot
+  DroppableProvided
 } from "react-beautiful-dnd";
 
 export interface Props {
@@ -16,27 +15,28 @@ export interface Props {
 }
 
 export const SortButtons: FC<Props> = ({ sortEntries, handleSort }) => {
-  const setSortIcon = (direction: "asc" | "desc") => {
+  const setSortIcon = (direction: string) => {
     if (direction === "asc") {
       return "arrow up";
     }
     return "arrow down";
   };
-  console.log("sortButtons sortEntries", sortEntries);
   return (
     <>
       <DragDropContext onDragEnd={() => null}>
         <Droppable droppableId="droppable" direction="horizontal">
-          {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+          {(provided: DroppableProvided) => (
             <Ref innerRef={provided.innerRef}>
               <div {...provided.droppableProps}>
                 {sortEntries &&
-                  sortEntries.map((item: any, key: number) => {
-                    console.log("sd", item);
+                  sortEntries.map((item: t.DetailSortItem, key: number) => {
+                    const values = Object.values(item);
+                    const columnName = values[0];
+                    const sortDirection = values[1];
                     return (
                       <Draggable
-                        key={item[0]}
-                        draggableId={item[0]}
+                        key={values[0]}
+                        draggableId={columnName}
                         index={key}
                       >
                         {providedDraggable => (
@@ -51,17 +51,17 @@ export const SortButtons: FC<Props> = ({ sortEntries, handleSort }) => {
                               />
                               <span
                                 onClick={() => {
-                                  handleSort("update", item[0]);
+                                  handleSort("update", columnName);
                                 }}
                                 style={{ cursor: "pointer" }}
                               >
-                                {item[0]}
-                                <Icon name={setSortIcon(item[1])} />
+                                {columnName}
+                                <Icon name={setSortIcon(sortDirection)} />
                               </span>
                               <Icon
                                 name="close"
                                 onClick={() => {
-                                  handleSort("deleteSingle", item[0]);
+                                  handleSort("deleteSingle", columnName);
                                 }}
                                 style={{ cursor: "pointer" }}
                               />
@@ -77,7 +77,7 @@ export const SortButtons: FC<Props> = ({ sortEntries, handleSort }) => {
           )}
         </Droppable>
       </DragDropContext>
-      {!_.isEmpty(sortEntries) && (
+      {sortEntries && sortEntries.length > 0 && (
         <Button
           onClick={() => {
             handleSort("deleteAll", "");

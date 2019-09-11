@@ -15,13 +15,16 @@ export const TableHeaderSort: FC<Props> = ({
   handleSort,
   ...rest
 }) => {
-  console.log("TableHeaderSort multisort", multiSort);
+  console.log("multiSort", multiSort);
+
   const setSortIcon = (
-    key: number,
     item: string
   ): "ascending" | "descending" | undefined => {
-    if (multiSort![key]) {
-      return multiSort![key][item] === "asc" ? "ascending" : "descending";
+    const sortItemIndex = _.findIndex(multiSort, { name: item });
+    if (multiSort && sortItemIndex !== -1) {
+      return multiSort[sortItemIndex].direction === "asc"
+        ? "ascending"
+        : "descending";
     } else {
       return undefined;
     }
@@ -34,7 +37,7 @@ export const TableHeaderSort: FC<Props> = ({
           return (
             <Table.HeaderCell
               key={key}
-              sorted={setSortIcon(key, item)}
+              sorted={setSortIcon(item)}
               onClick={() => {
                 handleSort("update", item);
               }}

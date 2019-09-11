@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import produce from "immer";
 import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
@@ -34,30 +35,32 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const resultsPerPage = useSelector((state: AppState) => state.detailPages);
 
   const handleSort = (method: string, clickedColumn: string) => {
-    let sort = detailSort || [];
-    const index = _.findIndex(detailSort, clickedColumn);
+    const newDetailSort = produce(detailSort, draft => {
+      const index = _.findIndex(detailSort, { name: clickedColumn });
 
-    if (method === "update") {
-      if (index !== -1) {
-        sort[index][clickedColumn] =
-          sort[index][clickedColumn] === "desc" ? "asc" : "desc";
-      } else {
-        sort.push({ [clickedColumn]: "desc" });
+      if (method === "update") {
+        if (index !== -1) {
+          draft[index].direction =
+            draft[index].direction === "desc" ? "asc" : "desc";
+        } else {
+          draft.push({ name: clickedColumn, direction: "desc" });
+        }
       }
-    }
 
-    if (method === "deleteSingle") {
-      delete sort[index];
-    }
+      if (method === "deleteSingle") {
+        _.remove(draft, {
+          name: clickedColumn
+        });
+      }
 
-    if (method === "deleteAll") {
-      sort = [];
-    }
-    console.log("adverseDetails sort", sort);
+      if (method === "deleteAll") {
+        return [];
+      }
+    });
 
     dispatch({
       type: c.SET_DETAIL_SORT,
-      payload: sort
+      payload: newDetailSort
     });
   };
 
