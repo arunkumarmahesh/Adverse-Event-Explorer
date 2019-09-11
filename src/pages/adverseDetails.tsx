@@ -94,12 +94,12 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
         value={searchTerm}
       />
       <Button
-        onClick={() =>
+        onClick={() => {
           dispatch({
             type: c.SET_DETAIL_SEARCH,
             payload: ""
-          })
-        }
+          });
+        }}
       >
         Delete Search
       </Button>
