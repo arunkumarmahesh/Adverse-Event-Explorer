@@ -15,8 +15,6 @@ export const TableHeaderSort: FC<Props> = ({
   handleSort,
   ...rest
 }) => {
-  console.log("multiSort", multiSort);
-
   const setSortIcon = (
     item: string
   ): "ascending" | "descending" | undefined => {

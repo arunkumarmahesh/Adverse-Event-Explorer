@@ -19,7 +19,7 @@ export const TableFooterDetails: FC<Props> = ({
   handleResultsPerPageChange,
   handlePaginationChange
 }) => {
-  const pageCount = Math.floor(dataSize / resultsPerPage);
+  const pageCount = Math.ceil(dataSize / resultsPerPage);
 
   return (
     <Table.Footer>
