@@ -26,7 +26,9 @@ export const DetailsSearchBlock: FC<Props> = ({
   };
 
   return (
-    <div>
+    <div
+      style={{ display: "flex", justifyContent: "start", alignItems: "center" }}
+    >
       <Search
         onSearchChange={handleSearch}
         showNoResults={false}
@@ -42,7 +44,7 @@ export const DetailsSearchBlock: FC<Props> = ({
       >
         Delete Search
       </Button>
-      <div>{`${resultsSearched}/${resultsTotal} records displayed`}</div>
+      <b>{`${resultsSearched}/${resultsTotal} records displayed`}</b>
     </div>
   );
 };

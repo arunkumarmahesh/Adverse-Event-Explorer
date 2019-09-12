@@ -3,8 +3,7 @@ import produce from "immer";
 import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import CsvDownload from "react-json-to-csv";
-import { Table } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 import { SET_DETAIL_SORT, SET_DETAIL_PAGES } from "../store/constants";
 import { DetailsInfoBlock } from "./components/detailsInfoBlock/detailsInfoBlock";
 import { DetailsSortBlock } from "./components/detailsSortBlock/detailsSortBlock";
@@ -19,7 +18,8 @@ import {
   AEHeader,
   TableHeaderSort,
   TableBodyDetails,
-  TableFooterDetails
+  TableFooterDetails,
+  CSVExport
 } from "../components";
 import { AppState, DetailSortItem } from "../types";
 
@@ -109,7 +109,9 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
           handlePaginationChange={handlePaginationChange}
         />
       </Table>
-      <CsvDownload filename={`${match.params.id}.csv`} data={currentDatas} />
+      <CSVExport filename={`${match.params.id}.csv`} data={currentDatas}>
+        <Button>Export CSV</Button>
+      </CSVExport>
     </div>
   );
 };

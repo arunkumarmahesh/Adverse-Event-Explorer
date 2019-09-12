@@ -11,16 +11,18 @@ export interface Props {
 export const DetailsInfoBlock: FC<Props> = ({ resultsCount, category }) => {
   const [isActive] = useFilterIsActive();
 
-  console.log("isActive", isActive);
-
   return (
     <>
       <Link to="/">back</Link>
       <div>
         <strong>{`Details for ${resultsCount} ${category} records`}</strong>
       </div>
-      <div>The Listing is filtered as shown</div>
-      {isActive && <CheckFilter disabled={true} />}
+      {isActive && (
+        <>
+          <div>The Listing is filtered as shown:</div>
+          <CheckFilter disabled={true} />
+        </>
+      )}
     </>
   );
 };
