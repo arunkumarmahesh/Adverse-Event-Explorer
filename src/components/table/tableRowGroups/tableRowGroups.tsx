@@ -2,15 +2,15 @@ import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { Table } from "semantic-ui-react";
 import _ from "lodash";
-import { TableCellPercentage } from "./tableCellPercentage";
-import { Groups, AppState, Data } from "../types";
-import "semantic-ui-css/semantic.min.css";
+import { TableCellPercentage } from "../..";
+import { AppState } from "../../../types";
 
 export interface Props {
   data: { [key: string]: any };
+  totalCount: number;
 }
 
-export const TableRow: FC<Props> = ({ data }) => {
+export const TableRowGroups: FC<Props> = ({ data, totalCount }) => {
   const colors = useSelector((state: AppState) => state.colors);
 
   return (
@@ -21,11 +21,13 @@ export const TableRow: FC<Props> = ({ data }) => {
         <TableCellPercentage
           key={key}
           partialCount={value[1]}
+          totalCount={totalCount}
           style={{ color: colors[key] }}
         />
       ))}
       <TableCellPercentage
         partialCount={_.size(data[1])}
+        totalCount={totalCount}
         style={{ color: colors[3] }}
       />
       <Table.Cell />

@@ -1,32 +1,36 @@
 import React, { FC, useState, MouseEvent } from "react";
 import { useSelector } from "react-redux";
-import { Table, Icon } from "semantic-ui-react";
 import _ from "lodash";
+import { Table, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import {
   TableCellAccordion,
-  Props as TableCellAccordionProps
-} from "./tableCellAccordion";
-import { TableCellPercentage } from "./tableCellPercentage";
-import { TableRow } from "./tableRow";
-import { useSubGroups } from "../hooks/useSubGroups";
-import "semantic-ui-css/semantic.min.css";
-import { AppState } from "../types";
-import { CellPopup } from "./cellPopup";
-import { Link } from "react-router-dom";
+  TableCellPercentage,
+  CellPopup,
+  TableRowGroups
+} from "../..";
+import { useSubGroups } from "../../../hooks";
+import { AppState } from "../../../types";
 
 export interface Props {
   index: number;
+  colors: string[];
   data: { [key: string]: any };
+  totalCount: number;
 }
 
-export const TableRowExpandable: FC<Props> = ({ index, data }) => {
+export const TableRowGroupsExpandable: FC<Props> = ({
+  index,
+  colors,
+  data,
+  totalCount
+}) => {
   const [activeIndex, setActiveIndex] = useState(-1);
-  const colors = useSelector((state: AppState) => state.colors);
   const bodySubGroups = useSubGroups(data[0]);
 
   const handleClick = (
     e: MouseEvent<HTMLDivElement>,
-    titleProps: TableCellAccordionProps
+    titleProps: any // TableCellAccordionProps
   ) => {
     const { index } = titleProps;
     setActiveIndex(activeIndex === index ? -1 : index);
@@ -53,6 +57,7 @@ export const TableRowExpandable: FC<Props> = ({ index, data }) => {
           <TableCellPercentage
             key={key}
             partialCount={value[1]}
+            totalCount={totalCount}
             style={{ color: colors[key] }}
           />
         ))}
@@ -60,12 +65,13 @@ export const TableRowExpandable: FC<Props> = ({ index, data }) => {
           partialCount={_(data[1])
             .map()
             .sum()}
+          totalCount={totalCount}
         />
         <Table.Cell />
       </Table.Row>
       {activeIndex === index &&
         Object.entries(bodySubGroups).map((data, key) => (
-          <TableRow key={key} data={data} />
+          <TableRowGroups key={key} data={data} totalCount={totalCount} />
         ))}
     </>
   );

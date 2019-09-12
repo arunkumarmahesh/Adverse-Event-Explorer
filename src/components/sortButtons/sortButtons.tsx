@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Button, Icon, Ref } from "semantic-ui-react";
 import _ from "lodash";
-import * as t from "../types";
+import * as t from "../../types";
 import {
   DragDropContext,
   Draggable,
@@ -32,7 +32,6 @@ export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
   };
 
   const onDragEnd = (result: any) => {
-    console.log("onDragEnd result", result);
     // dropped outside the list
     if (!result.destination) {
       return;

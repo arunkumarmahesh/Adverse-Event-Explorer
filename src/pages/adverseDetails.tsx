@@ -5,16 +5,17 @@ import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { Table, Search, Button } from "semantic-ui-react";
 import CsvDownload from "react-json-to-csv";
-import { AppState } from "../types";
-import { Header } from "../components/header";
 import { Link } from "react-router-dom";
 import * as c from "../store/constants";
 import * as t from "../types";
-import { useDetailDatas } from "../hooks/useDetailDatas";
-import { useDetailDatasCurrent } from "../hooks/useDetailDatasCurrent";
-import { useDetailDatasPaginated } from "../hooks/useDetailDatasPaginated";
-import { useScrollTop } from "../hooks/useScrollTop";
 import {
+  useDetailDatas,
+  useDetailDatasCurrent,
+  useDetailDatasPaginated,
+  useScrollTop
+} from "../hooks";
+import {
+  AEHeader,
   TableHeaderSort,
   TableBodyDetails,
   SortButtons,
@@ -32,9 +33,9 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const paginatedDatas = useDetailDatasPaginated(currentDatas, currentPage);
   const headerTopics = _.keys(datasDetail[0]);
   const cellCount = _.size(headerTopics);
-  const detailSort = useSelector((state: AppState) => state.detailSort);
-  const searchTerm = useSelector((state: AppState) => state.detailSearch);
-  const resultsPerPage = useSelector((state: AppState) => state.detailPages);
+  const detailSort = useSelector((state: t.AppState) => state.detailSort);
+  const searchTerm = useSelector((state: t.AppState) => state.detailSearch);
+  const resultsPerPage = useSelector((state: t.AppState) => state.detailPages);
 
   const handleSort = (
     method: string,
@@ -91,16 +92,13 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   };
 
   const handlePaginationChange = (e: any, { activePage }: any) => {
-    /*     console.log(el);
-    console.log(el.current);
- */
     setCurrentPage(activePage);
   };
 
   console.log("adverseDetails");
   return (
     <div>
-      <Header />
+      <AEHeader />
       <Link to="/">back</Link>
       <div>
         <strong>{`Details for ${datasDetailsSize} ${match.params.id} records`}</strong>

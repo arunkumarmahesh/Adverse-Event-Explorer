@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import * as c from "../store/constants";
-import { AppState } from "../types";
-import { Data } from "../types";
+import * as c from "../../store/constants";
+import { AppState } from "../../types";
+import { Data } from "../../types";
 import _ from "lodash";
 
 export function useMinMax(mainGroups: any) {

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { AppState } from "../types";
-import { Data } from "../types";
+import { AppState } from "../../types";
+import { Data } from "../../types";
 import _ from "lodash";
 
 export function useSummarize(datas: Data[]): Data[] {

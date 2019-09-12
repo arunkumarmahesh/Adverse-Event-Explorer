@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import * as c from "../store/constants";
-import * as t from "../types";
-import { AppState } from "../types";
+import * as c from "../../store/constants";
+import * as t from "../../types";
+import { AppState } from "../../types";
 
 export function useDetailDatas(category: string): [t.Data[], number] {
   const dispatch = useDispatch();

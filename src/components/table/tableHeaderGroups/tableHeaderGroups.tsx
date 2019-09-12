@@ -10,9 +10,7 @@ export interface Props extends HTMLAttributes<HTMLTableElement> {
   values: t.GroupedValues;
 }
 
-export const TableHeaderGroups: FC<Props> = ({ ...rest }) => {
-  const colors = useSelector((state: t.AppState) => state.colors);
-  const values = useSelector((state: t.AppState) => state.headerValues);
+export const TableHeaderGroups: FC<Props> = ({ colors, values, ...rest }) => {
   const groupSize = _.size(values.groups) + 1;
 
   return (

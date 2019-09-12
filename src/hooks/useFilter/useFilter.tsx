@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { AppState, Data, GroupVariable } from "../types";
-import { SET_FILTERED_DATAS } from "../store/constants";
+import { AppState, Data, GroupVariable } from "../../types";
+import { SET_FILTERED_DATAS } from "../../store/constants";
 
 export function useFilter(datas: Data[]) {
   const dispatch = useDispatch();

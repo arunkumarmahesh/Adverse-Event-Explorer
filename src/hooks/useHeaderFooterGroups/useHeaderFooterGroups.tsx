@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { AppState, Data, Groups } from "../types";
-import * as c from "../store/constants";
+import { AppState, Data, Groups } from "../../types";
+import * as c from "../../store/constants";
 
 export function useHeaderFooterGroups(datas: Data[]): void {
   const groupVariable = useSelector((state: AppState) => state.groupVariable);

@@ -1,21 +1,23 @@
 import React, { FC, HTMLAttributes } from "react";
-import { useSelector } from "react-redux";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import * as t from "../../../types";
 
-import { TableHeaderCellPercentage } from "../../tableHeaderCellPercentage";
+import { TableHeaderCellPercentage } from "../tableHeaderCellPercentage/tableHeaderCellPercentage";
 
 export interface Props extends HTMLAttributes<HTMLTableElement> {
   colors: string[];
+  totalCount: number;
   values: t.GroupedValues;
 }
 
-export const TableFooterGroups: FC<Props> = ({ ...rest }) => {
-  const colors = useSelector((state: t.AppState) => state.colors);
-  const values = useSelector((state: t.AppState) => state.footerValues);
-
+export const TableFooterGroups: FC<Props> = ({
+  colors,
+  values,
+  totalCount,
+  ...rest
+}) => {
   return (
     <Table.Header {...rest}>
       <Table.Row>
@@ -30,10 +32,14 @@ export const TableFooterGroups: FC<Props> = ({ ...rest }) => {
           <TableHeaderCellPercentage
             key={key}
             partialCount={value[1]}
+            totalCount={totalCount}
             style={{ color: colors[key] }}
           />
         ))}
-        <TableHeaderCellPercentage partialCount={values.total} />
+        <TableHeaderCellPercentage
+          partialCount={values.total}
+          totalCount={totalCount}
+        />
         <Table.HeaderCell textAlign="center"></Table.HeaderCell>
       </Table.Row>
     </Table.Header>

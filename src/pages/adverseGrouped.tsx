@@ -2,19 +2,27 @@ import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
-import { AppState } from "../types";
+import * as t from "../types";
 import { Filter } from "./components/filter";
-import { useHeaderFooterGroups } from "../hooks/useHeaderFooterGroups";
-import { useMainGroups } from "../hooks/useMainGroups";
-import { useFilter } from "../hooks/useFilter";
-import { useSummarize } from "../hooks/useSummarize";
-import { TableHeader } from "../components/tableHeader";
-import { TableRowExpandable } from "../components/tableRowExpandable";
-import { TableFooter } from "../components/tableFooter";
-import { useMinMax } from "../hooks/useMinMax";
+import {
+  AEHeader,
+  TableHeaderGroups,
+  TableFooterGroups,
+  TableBodyGroups
+} from "../components";
+import {
+  useHeaderFooterGroups,
+  useMainGroups,
+  useFilter,
+  useSummarize,
+  useMinMax
+} from "../hooks";
 
 export const AdverseGrouped: FC = () => {
-  const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
+  const colors = useSelector((state: t.AppState) => state.colors);
+  const headerValues = useSelector((state: t.AppState) => state.headerValues);
+  const footerValues = useSelector((state: t.AppState) => state.footerValues);
+  const datasOriginal = useSelector((state: t.AppState) => state.datasOriginal);
   const summarizedDatas = useSummarize(datasOriginal);
   const filteredDatas = useFilter(summarizedDatas);
   useHeaderFooterGroups(filteredDatas);
@@ -23,19 +31,20 @@ export const AdverseGrouped: FC = () => {
 
   return (
     <div>
-      <h1>Adverse Explorer</h1>
-      <hr />
+      <AEHeader />
       <Filter />
       <Table>
-        <TableHeader />
-        <Table.Body>
-          {Object.entries(mainGroups).map((data, key) => {
-            if (data[0]) {
-              return <TableRowExpandable key={key} index={key} data={data} />;
-            }
-          })}
-        </Table.Body>
-        <TableFooter />
+        <TableHeaderGroups colors={colors} values={headerValues} />
+        <TableBodyGroups
+          colors={colors}
+          values={mainGroups}
+          totalCount={headerValues.total}
+        />
+        <TableFooterGroups
+          colors={colors}
+          values={footerValues}
+          totalCount={headerValues.total}
+        />
       </Table>
     </div>
   );

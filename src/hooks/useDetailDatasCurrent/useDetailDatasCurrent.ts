@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import Fuse from "fuse.js";
-import * as c from "../store/constants";
-import * as o from "../utils/options";
-import * as t from "../types";
-import { AppState } from "../types";
+import * as c from "../../store/constants";
+import * as o from "../../utils/options";
+import * as t from "../../types";
+import { AppState } from "../../types";
 
 export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
   const dispatch = useDispatch();

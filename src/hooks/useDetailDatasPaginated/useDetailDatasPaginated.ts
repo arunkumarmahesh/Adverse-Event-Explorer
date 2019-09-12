@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import _ from "lodash";
-import * as t from "../types";
+import * as t from "../../types";
 
 export function useDetailDatasPaginated(
   datas: t.Data[],

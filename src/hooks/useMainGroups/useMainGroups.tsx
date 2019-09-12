@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { AppState, Data } from "../types";
+import { AppState, Data } from "../../types";
 import _ from "lodash";
 
 export function useMainGroups(datas: Data[]) {
