@@ -11,7 +11,7 @@ export interface Props {
   ) => void;
 }
 
-export const CheckboxBlock: FC<Props> = ({
+export const CheckBlock: FC<Props> = ({
   label,
   options,
   checked,

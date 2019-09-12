@@ -2,13 +2,13 @@ import React, { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Slider } from "react-semantic-ui-range";
 import { Input } from "semantic-ui-react";
-import { CheckboxBlock } from "../../components/checkboxBlock";
-import { RadioBlock } from "../../components/radioBlock";
-import { SelectBlock } from "../../components/selectBlock";
-import { SearchBlock } from "../../components/searchBlock";
+import { RadioBlock } from "../../components/controls/radioBlock/radioBlock";
+import { SelectBlock } from "../../components/controls/selectBlock/selectBlock";
+import { SearchBlock } from "../../components/controls/searchBlock/searchBlock";
 import { AppState } from "../../types";
 import * as c from "../../store/constants";
 import * as o from "../../utils/options";
+import { CheckFilter } from "./checkfilter";
 
 export interface Props {}
 
@@ -25,10 +25,7 @@ export const Filter: FC<Props> = () => {
   const ageRangeSelected = useSelector(
     (state: AppState) => state.ageRangeSelected
   );
-  const serious = useSelector((state: AppState) => state.serious);
-  const severity = useSelector((state: AppState) => state.severity);
-  const relationship = useSelector((state: AppState) => state.relationship);
-  const outcome = useSelector((state: AppState) => state.outcome);
+
   const dispatch = useDispatch();
 
   const prevalenceRangeSettings = {
@@ -84,9 +81,7 @@ export const Filter: FC<Props> = () => {
           <p>Filter by prevalence:</p>
           <Slider
             value={prevalenceRangeSelected}
-            discrete={true}
             multiple={true}
-            color="red"
             settings={prevalenceRangeSettings}
           />
           <Input
@@ -107,9 +102,7 @@ export const Filter: FC<Props> = () => {
           {}
           <Slider
             value={ageRangeSelected}
-            discrete={true}
             multiple={true}
-            color="red"
             settings={ageRangeSettings}
           />
           <Input
@@ -123,40 +116,7 @@ export const Filter: FC<Props> = () => {
         </div>
       </div>
       <br />
-      <div className="filter">
-        <CheckboxBlock
-          label="Serious?"
-          options={o.seriousOptions}
-          checked={serious}
-          handleChange={(e, { value }) =>
-            dispatch({ type: c.SET_SERIOUS, payload: value })
-          }
-        />
-        <CheckboxBlock
-          label="Severity"
-          options={o.severityOptions}
-          checked={severity}
-          handleChange={(e, { value }) =>
-            dispatch({ type: c.SET_SEVERITY, payload: value })
-          }
-        />
-        <CheckboxBlock
-          label="Relationship"
-          options={o.relationshipOptions}
-          checked={relationship}
-          handleChange={(e, { value }) =>
-            dispatch({ type: c.SET_RELATIONSHIP, payload: value })
-          }
-        />
-        <CheckboxBlock
-          label="Outcome"
-          options={o.outcomeOptions}
-          checked={outcome}
-          handleChange={(e, { value }) =>
-            dispatch({ type: c.SET_OUTCOME, payload: value })
-          }
-        />
-      </div>
+      <CheckFilter />
     </div>
   );
 };

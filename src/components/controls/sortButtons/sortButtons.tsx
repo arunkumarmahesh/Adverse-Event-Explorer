@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Button, Icon, Ref } from "semantic-ui-react";
 import _ from "lodash";
-import * as t from "../../types";
+import * as t from "../../../types";
 import {
   DragDropContext,
   Draggable,

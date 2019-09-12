@@ -1,7 +1,6 @@
 import React, { FC, HTMLAttributes } from "react";
 import { Table } from "semantic-ui-react";
-import { CellPopup } from "../../cellPopup/cellPopup";
-import "semantic-ui-css/semantic.min.css";
+import { CellPopup } from "../../notifications/cellPopup/cellPopup";
 
 export interface Props extends HTMLAttributes<HTMLTableCellElement> {
   partialCount: number;

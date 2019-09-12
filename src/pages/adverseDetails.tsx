@@ -3,9 +3,9 @@ import produce from "immer";
 import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { Table, Search, Button } from "semantic-ui-react";
 import CsvDownload from "react-json-to-csv";
 import { Link } from "react-router-dom";
+import { Table, Search, Button } from "semantic-ui-react";
 import * as c from "../store/constants";
 import * as t from "../types";
 import {
