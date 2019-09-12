@@ -4,11 +4,11 @@ import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import CsvDownload from "react-json-to-csv";
-import { Link } from "react-router-dom";
-import { Table, Search, Button } from "semantic-ui-react";
-import * as c from "../store/constants";
-import * as t from "../types";
+import { Table } from "semantic-ui-react";
+import { SET_DETAIL_SORT, SET_DETAIL_PAGES } from "../store/constants";
 import { DetailsInfoBlock } from "./components/detailsInfoBlock/detailsInfoBlock";
+import { DetailsSortBlock } from "./components/detailsSortBlock/detailsSortBlock";
+import { DetailsSearchBlock } from "./components/detailsSearchBlock/detailsSearchBlock";
 import {
   useDetailDatas,
   useDetailDatasCurrent,
@@ -19,9 +19,9 @@ import {
   AEHeader,
   TableHeaderSort,
   TableBodyDetails,
-  SortButtons,
   TableFooterDetails
 } from "../components";
+import { AppState, DetailSortItem } from "../types";
 
 export interface Props extends RouteComponentProps<{ id: string }> {}
 
@@ -34,69 +34,53 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const paginatedDatas = useDetailDatasPaginated(currentDatas, currentPage);
   const headerTopics = _.keys(datasDetail[0]);
   const cellCount = _.size(headerTopics);
-  const detailSort = useSelector((state: t.AppState) => state.detailSort);
-  const searchTerm = useSelector((state: t.AppState) => state.detailSearch);
-  const resultsPerPage = useSelector((state: t.AppState) => state.detailPages);
+  const detailSort = useSelector((state: AppState) => state.detailSort);
+  const resultsPerPage = useSelector((state: AppState) => state.detailPages);
 
   const handleSort = (
     method: string,
     clickedColumn: string,
-    sortItems?: t.DetailSortItem[]
+    sortItems?: DetailSortItem[]
   ) => {
     const newDetailSort = produce(detailSort, draft => {
       const index = _.findIndex(detailSort, { name: clickedColumn });
 
-      if (method === "reorder" && sortItems) {
-        return sortItems;
-      }
-
-      if (method === "update") {
-        if (index !== -1) {
-          draft[index].direction =
-            draft[index].direction === "desc" ? "asc" : "desc";
-        } else {
-          draft.push({ name: clickedColumn, direction: "desc" });
-        }
-      }
-
-      if (method === "deleteSingle") {
-        _.remove(draft, {
-          name: clickedColumn
-        });
-      }
-
-      if (method === "deleteAll") {
-        return [];
+      switch (method) {
+        case "reorder":
+          return sortItems ? sortItems : [];
+        case "update":
+          index !== -1
+            ? (draft[index].direction =
+                draft[index].direction === "desc" ? "asc" : "desc")
+            : draft.push({ name: clickedColumn, direction: "desc" });
+          return draft;
+        case "deleteSingle":
+          _.remove(draft, {
+            name: clickedColumn
+          });
+          return draft;
+        case "deleteAll":
+          return [];
       }
     });
 
     dispatch({
-      type: c.SET_DETAIL_SORT,
+      type: SET_DETAIL_SORT,
       payload: newDetailSort
     });
   };
 
-  const handleSearch = (e: any) => {
-    if (e.currentTarget.value.length >= 2) {
-      dispatch({
-        type: c.SET_DETAIL_SEARCH,
-        payload: e.currentTarget.value
-      });
-    }
-  };
-
-  const handleResultsPerPageChange = (e: any, { value }: any) => {
+  const handleResultsPerPageChange = (e: Event, { value }: never) => {
     dispatch({
-      type: c.SET_DETAIL_PAGES,
+      type: SET_DETAIL_PAGES,
       payload: value
     });
   };
 
-  const handlePaginationChange = (e: any, { activePage }: any) => {
+  const handlePaginationChange = (e: Event, { activePage }: never) => {
     setCurrentPage(activePage);
   };
 
-  console.log("adverseDetails");
   return (
     <div>
       <AEHeader />
@@ -104,24 +88,11 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
         resultsCount={datasDetailsSize}
         category={match.params.id}
       />
-      <Search
-        onSearchChange={handleSearch}
-        showNoResults={false}
-        value={searchTerm}
+      <DetailsSearchBlock
+        resultsSearched={currentDatasSize}
+        resultsTotal={datasDetailsSize}
       />
-      <Button
-        onClick={() => {
-          dispatch({
-            type: c.SET_DETAIL_SEARCH,
-            payload: ""
-          });
-        }}
-      >
-        Delete Search
-      </Button>
-
-      <div>{`${currentDatasSize}/${datasDetailsSize} records displayed`}</div>
-
+      <DetailsSortBlock sortItems={detailSort} handleSort={handleSort} />
       <Table sortable>
         <TableHeaderSort
           multiSort={detailSort}
