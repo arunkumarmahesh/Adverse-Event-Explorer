@@ -4,7 +4,7 @@ import {
   severityOptions,
   relationshipOptions,
   outcomeOptions
-} from "../pages/components/filter/filterOptions";
+} from "../pages/components/checkfilter/checkFilterOptions";
 import datas from "../data.json";
 
 export const initialState: AppState = {

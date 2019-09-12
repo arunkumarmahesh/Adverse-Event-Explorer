@@ -5,6 +5,7 @@ export interface Props {
   label: string;
   options: string[];
   checked: string[];
+  disabled?: boolean;
   handleChange: (
     e: FormEvent<HTMLInputElement>,
     value: any // Semantic UI CheckboxProps are any too
@@ -15,6 +16,7 @@ export const CheckBlock: FC<Props> = ({
   label,
   options,
   checked,
+  disabled,
   handleChange
 }) => (
   <div>
@@ -29,6 +31,7 @@ export const CheckBlock: FC<Props> = ({
         onChange={handleChange}
         value={item}
         checked={checked.includes(item) ? true : false}
+        disabled={disabled}
       />
     ))}
   </div>

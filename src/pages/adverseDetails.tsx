@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Table, Search, Button } from "semantic-ui-react";
 import * as c from "../store/constants";
 import * as t from "../types";
+import { CheckFilter } from "./components/checkfilter/checkfilter";
 import {
   useDetailDatas,
   useDetailDatasCurrent,
@@ -100,6 +101,9 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
     <div>
       <AEHeader />
       <Link to="/">back</Link>
+
+      <CheckFilter disabled={true} />
+
       <div>
         <strong>{`Details for ${datasDetailsSize} ${match.params.id} records`}</strong>
       </div>
