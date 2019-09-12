@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
 import { AppState } from "../types";
-import { Filter } from "./components/filter";
+import { Filter } from "./components/filter/filter";
 import {
   AEHeader,
   TableHeaderGroups,

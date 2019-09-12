@@ -1,8 +1,13 @@
-import * as o from "../utils/options";
-import * as t from "../types";
+import { AppState } from "../types";
+import {
+  seriousOptions,
+  severityOptions,
+  relationshipOptions,
+  outcomeOptions
+} from "../pages/components/filter/filterOptions";
 import datas from "../data.json";
 
-export const initialState: t.AppState = {
+export const initialState: AppState = {
   datasOriginal: datas,
   datasSummarized: undefined,
   datasSearched: undefined,
@@ -22,10 +27,10 @@ export const initialState: t.AppState = {
   prevalenceRangeSelected: [0, 100],
   ageRangeAll: [0, 100],
   ageRangeSelected: [0, 100],
-  serious: o.seriousOptions,
-  severity: o.severityOptions,
-  relationship: o.relationshipOptions,
-  outcome: o.outcomeOptions,
+  serious: seriousOptions,
+  severity: severityOptions,
+  relationship: relationshipOptions,
+  outcome: outcomeOptions,
   detailDatas: {},
   detailSearch: undefined,
   detailSort: [],

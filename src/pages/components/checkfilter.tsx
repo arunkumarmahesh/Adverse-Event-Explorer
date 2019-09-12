@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CheckBlock } from "../../components";
-import * as o from "../../utils/options";
+import * as fo from "../components/filter/filterOptions";
 import * as c from "../../store/constants";
 import { AppState } from "../../types";
 
@@ -16,7 +16,7 @@ export const CheckFilter = () => {
     <div className="filter">
       <CheckBlock
         label="Serious?"
-        options={o.seriousOptions}
+        options={fo.seriousOptions}
         checked={serious}
         handleChange={(e, { value }) =>
           dispatch({ type: c.SET_SERIOUS, payload: value })
@@ -24,7 +24,7 @@ export const CheckFilter = () => {
       />
       <CheckBlock
         label="Severity"
-        options={o.severityOptions}
+        options={fo.severityOptions}
         checked={severity}
         handleChange={(e, { value }) =>
           dispatch({ type: c.SET_SEVERITY, payload: value })
@@ -32,7 +32,7 @@ export const CheckFilter = () => {
       />
       <CheckBlock
         label="Relationship"
-        options={o.relationshipOptions}
+        options={fo.relationshipOptions}
         checked={relationship}
         handleChange={(e, { value }) =>
           dispatch({ type: c.SET_RELATIONSHIP, payload: value })
@@ -40,7 +40,7 @@ export const CheckFilter = () => {
       />
       <CheckBlock
         label="Outcome"
-        options={o.outcomeOptions}
+        options={fo.outcomeOptions}
         checked={outcome}
         handleChange={(e, { value }) =>
           dispatch({ type: c.SET_OUTCOME, payload: value })
