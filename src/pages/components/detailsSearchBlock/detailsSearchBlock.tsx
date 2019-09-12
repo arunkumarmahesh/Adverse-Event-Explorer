@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Search, Button } from "semantic-ui-react";
+import { Search, Button, Icon } from "semantic-ui-react";
 import { AppState } from "../../../types";
 import { SET_DETAIL_SEARCH } from "../../../store/constants";
 
@@ -17,12 +17,10 @@ export const DetailsSearchBlock: FC<Props> = ({
   const searchTerm = useSelector((state: AppState) => state.detailSearch);
 
   const handleSearch = (e: any) => {
-    if (e.currentTarget.value.length >= 2) {
-      dispatch({
-        type: SET_DETAIL_SEARCH,
-        payload: e.currentTarget.value
-      });
-    }
+    dispatch({
+      type: SET_DETAIL_SEARCH,
+      payload: e.currentTarget.value
+    });
   };
 
   return (
@@ -35,6 +33,9 @@ export const DetailsSearchBlock: FC<Props> = ({
         value={searchTerm}
       />
       <Button
+        size="mini"
+        icon={true}
+        labelPosition="right"
         onClick={() => {
           dispatch({
             type: SET_DETAIL_SEARCH,
@@ -42,8 +43,10 @@ export const DetailsSearchBlock: FC<Props> = ({
           });
         }}
       >
+        <Icon name="close" />
         Delete Search
       </Button>
+
       <b>{`${resultsSearched}/${resultsTotal} records displayed`}</b>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import { Button, Icon } from "semantic-ui-react";
 import { CheckFilter } from "../checkfilter/checkfilter";
 import { useFilterIsActive } from "../../../hooks";
 
@@ -13,7 +14,12 @@ export const DetailsInfoBlock: FC<Props> = ({ resultsCount, category }) => {
 
   return (
     <>
-      <Link to="/">back</Link>
+      <Link to="/">
+        <Button icon labelPosition="left">
+          <Icon name="chevron left" />
+          Return to summary view
+        </Button>
+      </Link>
       <div>
         <strong>{`Details for ${resultsCount} ${category} records`}</strong>
       </div>

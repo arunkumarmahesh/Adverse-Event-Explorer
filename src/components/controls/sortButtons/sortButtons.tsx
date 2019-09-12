@@ -54,7 +54,7 @@ export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
   };
 
   return (
-    <>
+    <div style={{ display: "flex", alignItems: "center" }}>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable" direction="horizontal">
           {(provided: DroppableProvided) => (
@@ -111,13 +111,17 @@ export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
       </DragDropContext>
       {sortItems && sortItems.length > 0 && (
         <Button
+          size="mini"
+          icon={true}
+          labelPosition="right"
           onClick={() => {
             handleSort("deleteAll", "");
           }}
         >
-          Delete All
+          <Icon name="close" />
+          Remove all
         </Button>
       )}
-    </>
+    </div>
   );
 };

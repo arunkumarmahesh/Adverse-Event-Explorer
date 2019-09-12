@@ -2,19 +2,23 @@ import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import Fuse from "fuse.js";
 import * as c from "../../store/constants";
-import * as o from "../../utils/options";
 import * as t from "../../types";
 import { AppState } from "../../types";
 
 export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
   const dispatch = useDispatch();
-
   const searchTerm = useSelector((state: AppState) => state.detailSearch);
+
+  const fuseOptions = {
+    keys: ["AETERM", "AEDECOD", "AESEV", "AEREL", "AEOUT"],
+    threshold: 0,
+    minMatchCharLength: 2
+  };
 
   let searchedDatas = null;
 
-  if (searchTerm && searchTerm[0]) {
-    const fuse = new Fuse(datas, o.fuseOptions);
+  if (searchTerm && searchTerm[1]) {
+    const fuse = new Fuse(datas, fuseOptions);
     searchedDatas = fuse.search(searchTerm);
   }
 
