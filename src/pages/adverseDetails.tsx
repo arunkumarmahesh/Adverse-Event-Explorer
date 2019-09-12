@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { Table, Search, Button } from "semantic-ui-react";
 import * as c from "../store/constants";
 import * as t from "../types";
-import { CheckFilter } from "./components/checkfilter/checkfilter";
+import { DetailsInfoBlock } from "./components/detailsInfoBlock/detailsInfoBlock";
 import {
   useDetailDatas,
   useDetailDatasCurrent,
@@ -100,13 +100,10 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   return (
     <div>
       <AEHeader />
-      <Link to="/">back</Link>
-
-      <CheckFilter disabled={true} />
-
-      <div>
-        <strong>{`Details for ${datasDetailsSize} ${match.params.id} records`}</strong>
-      </div>
+      <DetailsInfoBlock
+        resultsCount={datasDetailsSize}
+        category={match.params.id}
+      />
       <Search
         onSearchChange={handleSearch}
         showNoResults={false}
@@ -124,10 +121,6 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
       </Button>
 
       <div>{`${currentDatasSize}/${datasDetailsSize} records displayed`}</div>
-
-      <SortButtons sortItems={detailSort} handleSort={handleSort} />
-
-      {!detailSort && <div>Click column headers to sort.</div>}
 
       <Table sortable>
         <TableHeaderSort
