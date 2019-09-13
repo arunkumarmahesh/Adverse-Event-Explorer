@@ -5,8 +5,8 @@ export interface AppState {
   datasSummarized?: t.GroupedDatas[];
   datasSearched?: t.GroupedDatas[];
   datasFiltered?: t.GroupedDatas[];
-  headerValues: t.GroupedValues;
-  footerValues: t.GroupedValues;
+  headerValues: t.GroupedValue[];
+  footerValues: t.GroupedValue[];
   colors: string[];
   groupVariable: t.GroupVariable;
   summarizedBy: t.SummarizedBy;

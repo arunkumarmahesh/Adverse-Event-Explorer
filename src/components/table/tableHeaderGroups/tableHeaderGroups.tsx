@@ -1,23 +1,20 @@
 import React, { FC, HTMLAttributes } from "react";
-import { useSelector } from "react-redux";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
-import * as t from "../../../types";
+import { GroupedValue } from "../../../types";
 
 export interface Props extends HTMLAttributes<HTMLTableElement> {
   colors: string[];
-  values: t.GroupedValues;
+  groups: GroupedValue[];
 }
 
-export const TableHeaderGroups: FC<Props> = ({ colors, values, ...rest }) => {
-  const groupSize = _.size(values.groups) + 1;
+export const TableHeaderGroups: FC<Props> = ({ colors, groups, ...rest }) => {
+  const groupSize = groups.length + 1;
   return (
     <Table.Header {...rest}>
       <Table.Row>
         <Table.HeaderCell
           rowSpan="2"
-          colSpan="2"
           textAlign="center"
           style={{ width: "200px" }}
         >
@@ -31,20 +28,16 @@ export const TableHeaderGroups: FC<Props> = ({ colors, values, ...rest }) => {
         </Table.HeaderCell>
       </Table.Row>
       <Table.Row>
-        {Object.entries(values.groups).map((data, key) => (
+        {groups.map((group, key) => (
           <Table.HeaderCell
-            key={data[0]}
+            key={key}
             style={{ color: colors[key] }}
             textAlign="center"
           >
-            {data[0]} <br />
-            n={data[1]}
+            {group.name} <br />
+            n={group.value}
           </Table.HeaderCell>
         ))}
-        <Table.HeaderCell textAlign="center">
-          {"Total"} <br />
-          n={values.total}
-        </Table.HeaderCell>
       </Table.Row>
     </Table.Header>
   );

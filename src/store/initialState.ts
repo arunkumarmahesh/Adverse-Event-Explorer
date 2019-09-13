@@ -12,14 +12,8 @@ export const initialState: AppState = {
   datasSummarized: undefined,
   datasSearched: undefined,
   datasFiltered: undefined,
-  headerValues: {
-    groups: {},
-    total: 0
-  },
-  footerValues: {
-    groups: {},
-    total: 0
-  },
+  headerValues: [],
+  footerValues: [],
   colors: ["green", "red", "blue", "orange"],
   groupVariable: "ARM",
   summarizedBy: "Participants",

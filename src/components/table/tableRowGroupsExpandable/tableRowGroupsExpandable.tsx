@@ -3,30 +3,25 @@ import { useSelector } from "react-redux";
 import _ from "lodash";
 import { Table, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import {
-  TableCellAccordion,
-  TableCellPercentage,
-  CellPopup,
-  TableRowGroups
-} from "../..";
+import { TableCellAccordion, CellPopup, TableRowGroups } from "../..";
 import { useSubGroups } from "../../../hooks";
-import { GroupedValues } from "../../../types";
+import { GroupedValue } from "../../../types";
 
 export interface Props {
   index: number;
   colors: string[];
-  data: { [key: string]: any };
-  groupedTotal: GroupedValues;
+  data: any;
 }
 
 export const TableRowGroupsExpandable: FC<Props> = ({
   index,
   colors,
-  data,
-  groupedTotal
+  data
 }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const bodySubGroups = useSubGroups(data[0]);
+
+  console.log("data", data);
 
   const handleClick = (
     e: MouseEvent<HTMLDivElement>,
@@ -36,53 +31,34 @@ export const TableRowGroupsExpandable: FC<Props> = ({
     setActiveIndex(activeIndex === index ? -1 : index);
   };
 
-  console.log("expandebla data", data);
-
-  const filledData = {
-    ..._.mapValues(groupedTotal.groups, () => 0),
-    ...data[1]
-  };
   return (
     <>
       <Table.Row>
         <TableCellAccordion
           style={{ width: "120px" }}
-          title={data[0]}
+          title={data.name}
           index={index}
           activeIndex={activeIndex}
           handleClick={handleClick}
         />
-        <Table.Cell style={{ maxWidth: "50px", padding: "0px" }}>
-          <CellPopup content="details view">
-            <Link to={`/${data[0]}`}>
-              <Icon name="users" />
-            </Link>
-          </CellPopup>
-        </Table.Cell>
-        {Object.entries(filledData).map((value: any, key: number) => (
-          <TableCellPercentage
-            key={key}
-            partialCount={value[1]}
-            totalCount={groupedTotal.groups[value[0]]}
-            style={{ color: colors[key] }}
-          />
-        ))}
-        <TableCellPercentage
-          partialCount={_(data[1])
-            .map()
-            .sum()}
-          totalCount={groupedTotal.total}
-        />
-        <Table.Cell />
+        {data.groups.map((group: any, key: number) => {
+          return (
+            <CellPopup key={key} content={`${group.value}/${group.total}`}>
+              <Table.Cell style={{ color: colors[key] }}>
+                {group.percentage}
+              </Table.Cell>
+            </CellPopup>
+          );
+        })}
       </Table.Row>
-      {activeIndex === index &&
+      {/*       {activeIndex === index &&
         Object.entries(bodySubGroups).map((data, key) => (
           <TableRowGroups
             key={key}
             data={data}
             totalCount={groupedTotal.total}
           />
-        ))}
+        ))} */}
     </>
   );
 };

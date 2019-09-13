@@ -30,8 +30,9 @@ export type SelectOptions = {
 
 export type Groups = { [key: string]: number };
 
-export type GroupedValues = {
-  groups: Groups;
+export type GroupedValue = {
+  name: string;
+  value: number;
   total: number;
 };
 

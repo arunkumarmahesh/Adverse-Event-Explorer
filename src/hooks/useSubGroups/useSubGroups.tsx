@@ -12,7 +12,7 @@ export function useSubGroups(key: String) {
     .groupBy("AEDECOD")
     .mapValues(value => {
       const merged = {
-        ..._.mapValues(headerValues.groups, () => 0),
+        ..._.mapValues(headerValues, () => 0),
         ..._.countBy(value, groupVariable)
       };
       return merged;

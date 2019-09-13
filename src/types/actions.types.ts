@@ -39,12 +39,12 @@ export interface SetFilteredDatas {
 
 export interface SetHeaderValues {
   type: typeof c.SET_HEADER_VALUES;
-  payload: t.GroupedValues;
+  payload: t.GroupedValue[];
 }
 
 export interface SetFooterValues {
   type: typeof c.SET_FOOTER_VALUES;
-  payload: t.GroupedValues;
+  payload: t.GroupedValue[];
 }
 
 export interface SetSummarizedBy {

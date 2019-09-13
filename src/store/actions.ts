@@ -23,14 +23,14 @@ export const setFilteredDatas = (
 });
 
 export const setHeaderValues = (
-  payload: t.GroupedValues
+  payload: t.GroupedValue[]
 ): t.SetHeaderValues => ({
   type: c.SET_HEADER_VALUES,
   payload
 });
 
 export const setFooterValues = (
-  payload: t.GroupedValues
+  payload: t.GroupedValue[]
 ): t.SetFooterValues => ({
   type: c.SET_FOOTER_VALUES,
   payload

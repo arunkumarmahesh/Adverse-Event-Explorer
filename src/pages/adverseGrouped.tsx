@@ -11,7 +11,7 @@ import {
   TableBodyGroups
 } from "../components";
 import {
-  useHeaderFooterGroups,
+  useGroups,
   useMainGroups,
   useFilter,
   useSummarize,
@@ -23,27 +23,18 @@ export const AdverseGrouped: FC = () => {
   const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
   const summarizedDatas = useSummarize(datasOriginal);
   const filteredDatas = useFilter(summarizedDatas);
-  const [groupedTotal, footerValues] = useHeaderFooterGroups(filteredDatas);
+  const [headerGroups, bodyGroups, footerGroups] = useGroups(filteredDatas);
   const groupedDatas = useMainGroups(filteredDatas);
   // useMinMax(mainGroups);
-  console.log("adverseGrouped groupedTotal", groupedTotal);
-  console.log("adverseGrouped groupedDatas", groupedDatas);
+  console.log("bodyGroups", bodyGroups);
   return (
     <div>
       <AEHeader />
       <Filter />
       <Table>
-        <TableHeaderGroups colors={colors} values={groupedTotal} />
-        <TableBodyGroups
-          colors={colors}
-          groupedDatas={groupedDatas}
-          groupedTotal={groupedTotal}
-        />
-        <TableFooterGroups
-          colors={colors}
-          values={footerValues}
-          totalCount={groupedTotal.total}
-        />
+        <TableHeaderGroups colors={colors} groups={headerGroups} />
+        <TableBodyGroups colors={colors} groups={bodyGroups} />
+        <TableFooterGroups colors={colors} groups={footerGroups} />
       </Table>
     </div>
   );
