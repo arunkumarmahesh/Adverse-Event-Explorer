@@ -41,49 +41,21 @@ export function useGroups(datas: Data[]): any {
       footerGroupsTotal = footerGroupsTotal + 1;
     }
 
-    // compute category groups
+    // compute groups
     const category = data.AEBODSYS;
     const group = data[groupVariable];
-    const subCategories = data.AEDECOD;
+    const subCategory = data.AEDECOD;
 
     if (bodyGroupsObj[category]) {
-      if (bodyGroupsObj[category].groups[group]) {
-        bodyGroupsObj[category].groups[group] =
-          bodyGroupsObj[category].groups[group] + 1;
+      if (bodyGroupsObj[category][group]) {
+        bodyGroupsObj[category][group] = bodyGroupsObj[category][group] + 1;
       } else {
-        bodyGroupsObj[category].groups[group] = 1;
+        bodyGroupsObj[category][group] = 1;
       }
     } else {
       bodyGroupsObj = {
         ...bodyGroupsObj,
-        ...{ [category]: { groups: { [group]: 1 } } }
-      };
-    }
-
-    // compute subCategories groups
-    if (bodyGroupsObj[category].subCategories) {
-      if (bodyGroupsObj[category].subCategories[subCategories]) {
-        if (bodyGroupsObj[category].subCategories[subCategories][group]) {
-          bodyGroupsObj[category].subCategories[subCategories][group] =
-            bodyGroupsObj[category].subCategories[subCategories][group] + 1;
-        } else {
-          bodyGroupsObj[category].subCategories[subCategories][group] = 1;
-        }
-      } else {
-        bodyGroupsObj[category].subCategories[subCategories] = {
-          ...bodyGroupsObj[category].subCategories[subCategories],
-          ...{ [group]: 1 }
-        };
-      }
-    } else {
-      bodyGroupsObj[category] = {
-        ...bodyGroupsObj[category],
-        ...{
-          subCategories: {
-            ...bodyGroupsObj[category].subCategories,
-            ...{ [subCategories]: { [group]: 1 } }
-          }
-        }
+        ...{ [category]: { [group]: 1 } }
       };
     }
 
@@ -95,8 +67,6 @@ export function useGroups(datas: Data[]): any {
       minAge = data.AGE;
     }
   });
-
-  console.log("salkkdlsakj", bodyGroupsObj);
 
   // Add ScreenFailure if not existing
   if (!headerGroupsObj["Screen Failure"]) {
@@ -184,21 +154,3 @@ export function useGroups(datas: Data[]): any {
 
   return [headerGroups, bodyGroups, footerGroups];
 }
-
-/*     
-// result example
-    [
-      {
-        name: "some adverse",
-        groups: [
-          { name: "Placebo", value: 0, total: 45, percentage: "0.0" },
-          { name: "Treatment A", value: 0, total: 45, percentage: "0.0" }
-        ],
-        percentage: 1,
-        subCategories: {
-          name: "jsakdjk",
-          groups: [{}]
-          percentage: // probably not neccesary
-        }
-      }
-    ]; */
