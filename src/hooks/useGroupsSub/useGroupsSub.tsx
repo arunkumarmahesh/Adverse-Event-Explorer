@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { AppState } from "../../types";
 import _ from "lodash";
 
-export function useSubGroups(key: String) {
+export function useGroupsSub(key: String) {
   const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
   const headerValues = useSelector((state: AppState) => state.headerValues);

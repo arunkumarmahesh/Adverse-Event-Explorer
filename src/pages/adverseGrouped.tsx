@@ -10,13 +10,7 @@ import {
   TableFooterGroups,
   TableBodyGroups
 } from "../components";
-import {
-  useGroups,
-  useGroupsSort,
-  useFilter,
-  useSummarize,
-  useMinMax
-} from "../hooks";
+import { useGroups, useGroupsSort, useFilter, useSummarize } from "../hooks";
 
 export const AdverseGrouped: FC = () => {
   const colors = useSelector((state: AppState) => state.colors);

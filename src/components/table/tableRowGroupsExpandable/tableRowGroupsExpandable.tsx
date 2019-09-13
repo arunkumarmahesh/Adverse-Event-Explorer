@@ -4,7 +4,7 @@ import _ from "lodash";
 import { Table, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { TableCellAccordion, CellPopup, TableRowGroups } from "../..";
-import { useSubGroups } from "../../../hooks";
+import { useGroupsSub } from "../../../hooks";
 import { GroupedValue } from "../../../types";
 
 export interface Props {
@@ -19,7 +19,8 @@ export const TableRowGroupsExpandable: FC<Props> = ({
   data
 }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
-  const bodySubGroups = useSubGroups(data[0]);
+  const subGroups = useGroupsSub(data[0]);
+  console.log("TableRowGroupsExpandable data", data);
 
   const handleClick = (
     e: MouseEvent<HTMLDivElement>,

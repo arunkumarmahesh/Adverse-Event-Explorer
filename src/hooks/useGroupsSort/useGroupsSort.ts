@@ -5,9 +5,12 @@ import _ from "lodash";
 export function useGroupsSort(datas: any) {
   return _.orderBy(
     datas,
-    function(o: any) {
-      return new Number(o.percentage);
-    },
-    ["desc"]
+    [
+      function(o: any) {
+        return new Number(o.percentage);
+      },
+      "name"
+    ],
+    ["desc", "asc"]
   );
 }
