@@ -4,7 +4,7 @@ import _ from "lodash";
 import { AppState, Data, Groups } from "../../types";
 import * as c from "../../store/constants";
 
-export function useHeaderFooterGroups(datas: Data[]): void {
+export function useHeaderFooterGroups(datas: Data[]): any {
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
   const dispatch = useDispatch();
 
@@ -56,10 +56,10 @@ export function useHeaderFooterGroups(datas: Data[]): void {
     total: footerGroupsTotal
   };
 
-  /*   useEffect(() => {
-    dispatch({ type: c.SET_HEADER_VALUES, payload: headerValues });
-    dispatch({ type: c.SET_FOOTER_VALUES, payload: footerValues });
-    dispatch({ type: c.SET_AGE_RANGE_ALL, payload: [minAge, maxAge] });
-    dispatch({ type: c.SET_AGE_RANGE_SELECTED, payload: [minAge, maxAge] });
-  }, [[minAge, maxAge]]); */
+  /*   dispatch({ type: c.SET_HEADER_VALUES, payload: headerValues });
+  dispatch({ type: c.SET_FOOTER_VALUES, payload: footerValues }); */
+  /*   dispatch({ type: c.SET_AGE_RANGE_ALL, payload: [minAge, maxAge] });
+  dispatch({ type: c.SET_AGE_RANGE_SELECTED, payload: [minAge, maxAge] }); */
+
+  return [headerValues, footerValues];
 }

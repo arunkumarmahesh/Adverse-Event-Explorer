@@ -10,20 +10,20 @@ import {
   TableRowGroups
 } from "../..";
 import { useSubGroups } from "../../../hooks";
-import { AppState } from "../../../types";
+import { GroupedValues } from "../../../types";
 
 export interface Props {
   index: number;
   colors: string[];
   data: { [key: string]: any };
-  totalCount: number;
+  groupedTotal: GroupedValues;
 }
 
 export const TableRowGroupsExpandable: FC<Props> = ({
   index,
   colors,
   data,
-  totalCount
+  groupedTotal
 }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const bodySubGroups = useSubGroups(data[0]);
@@ -36,6 +36,12 @@ export const TableRowGroupsExpandable: FC<Props> = ({
     setActiveIndex(activeIndex === index ? -1 : index);
   };
 
+  console.log("expandebla data", data);
+
+  const filledData = {
+    ..._.mapValues(groupedTotal.groups, () => 0),
+    ...data[1]
+  };
   return (
     <>
       <Table.Row>
@@ -53,11 +59,11 @@ export const TableRowGroupsExpandable: FC<Props> = ({
             </Link>
           </CellPopup>
         </Table.Cell>
-        {Object.entries(data[1]).map((value: any, key: number) => (
+        {Object.entries(filledData).map((value: any, key: number) => (
           <TableCellPercentage
             key={key}
             partialCount={value[1]}
-            totalCount={totalCount}
+            totalCount={groupedTotal.groups[value[0]]}
             style={{ color: colors[key] }}
           />
         ))}
@@ -65,13 +71,17 @@ export const TableRowGroupsExpandable: FC<Props> = ({
           partialCount={_(data[1])
             .map()
             .sum()}
-          totalCount={totalCount}
+          totalCount={groupedTotal.total}
         />
         <Table.Cell />
       </Table.Row>
       {activeIndex === index &&
         Object.entries(bodySubGroups).map((data, key) => (
-          <TableRowGroups key={key} data={data} totalCount={totalCount} />
+          <TableRowGroups
+            key={key}
+            data={data}
+            totalCount={groupedTotal.total}
+          />
         ))}
     </>
   );

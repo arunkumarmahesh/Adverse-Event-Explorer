@@ -14,10 +14,10 @@ export interface Props {
 export const DetailsSortBlock: FC<Props> = ({ sortItems, handleSort }) => {
   return (
     <>
-      {sortItems ? (
+      {sortItems.length > 0 ? (
         <SortButtons sortItems={sortItems} handleSort={handleSort} />
       ) : (
-        <div>Click column headers to sort.</div>
+        <b>Click column headers to sort.</b>
       )}
     </>
   );

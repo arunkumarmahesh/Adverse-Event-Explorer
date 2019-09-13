@@ -32,20 +32,22 @@ export const DetailsSearchBlock: FC<Props> = ({
         showNoResults={false}
         value={searchTerm}
       />
-      <Button
-        size="mini"
-        icon={true}
-        labelPosition="right"
-        onClick={() => {
-          dispatch({
-            type: SET_DETAIL_SEARCH,
-            payload: ""
-          });
-        }}
-      >
-        <Icon name="close" />
-        Delete Search
-      </Button>
+      {searchTerm && searchTerm[1] && (
+        <Button
+          size="mini"
+          icon={true}
+          labelPosition="right"
+          onClick={() => {
+            dispatch({
+              type: SET_DETAIL_SEARCH,
+              payload: ""
+            });
+          }}
+        >
+          <Icon name="close" />
+          Delete Search
+        </Button>
+      )}
 
       <b>{`${resultsSearched}/${resultsTotal} records displayed`}</b>
     </div>

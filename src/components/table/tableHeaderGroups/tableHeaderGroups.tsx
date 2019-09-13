@@ -12,7 +12,6 @@ export interface Props extends HTMLAttributes<HTMLTableElement> {
 
 export const TableHeaderGroups: FC<Props> = ({ colors, values, ...rest }) => {
   const groupSize = _.size(values.groups) + 1;
-
   return (
     <Table.Header {...rest}>
       <Table.Row>
