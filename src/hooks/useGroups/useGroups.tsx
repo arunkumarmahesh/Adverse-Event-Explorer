@@ -2,13 +2,18 @@ import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { AppState, Data, Groups, GroupedValue } from "../../types";
 import * as c from "../../store/constants";
+import { computeCategories } from "./computeCategories";
+import { computeSubCategories } from "./computeSubCategories";
+import { computeHeaderGroups } from "./computeHeaderGroups";
+import { convertHeaderGroups } from "./convertHeaderGroups";
+import { computeFooterGroups } from "./computeFooterGroups";
+import { convertFooterGroups } from "./convertFooterGroups";
+import { convertBodyGroups } from "./convertBodyGroups";
 
 export function useGroups(datas: Data[]): any {
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
+
   const dispatch = useDispatch();
-  const computePercentage = (part: number, total: number) => {
-    return total > 0 ? ((part / total) * 100).toFixed(1) : 0;
-  };
 
   let headerGroupsObj: Groups = {};
   let headerGroupsTotal = 0;
@@ -20,74 +25,39 @@ export function useGroups(datas: Data[]): any {
   let bodyGroupsObj: any = {};
 
   datas.forEach((data: any) => {
-    // compute headerGroups values
-    if (groupVariable !== "NONE") {
-      headerGroupsObj[data[groupVariable]] = headerGroupsObj[
-        data[groupVariable]
-      ]
-        ? headerGroupsObj[data[groupVariable]] + 1
-        : 1;
-    }
+    // compute table header values
+    headerGroupsObj = computeHeaderGroups(data, headerGroupsObj, groupVariable);
     headerGroupsTotal = headerGroupsTotal + 1;
+    // add ScreenFailure if not existing
+    if (!headerGroupsObj["Screen Failure"]) {
+      headerGroupsObj = { ...headerGroupsObj, ...{ "Screen Failure": 0 } };
+    }
 
-    // compute footerGroup values
+    // compute table footer values
+    footerGroupsObj = computeFooterGroups(data, footerGroupsObj, groupVariable);
     if (data.AEBODSYS !== "") {
-      footerGroupsObj[data[groupVariable]] = footerGroupsObj[
-        data[groupVariable]
-      ]
-        ? footerGroupsObj[data[groupVariable]] + 1
-        : 1;
-
       footerGroupsTotal = footerGroupsTotal + 1;
     }
+    // add ScreenFailure if not existing
+    if (!footerGroupsObj["Screen Failure"]) {
+      footerGroupsObj = { ...footerGroupsObj, ...{ "Screen Failure": 0 } };
+    }
 
-    // compute category groups
+    // compute table body values
     const category = data.AEBODSYS;
     const group = data[groupVariable];
-    const subCategories = data.AEDECOD;
+    const subCategory = data.AEDECOD;
 
-    if (bodyGroupsObj[category]) {
-      if (bodyGroupsObj[category].groups[group]) {
-        bodyGroupsObj[category].groups[group] =
-          bodyGroupsObj[category].groups[group] + 1;
-      } else {
-        bodyGroupsObj[category].groups[group] = 1;
-      }
-    } else {
-      bodyGroupsObj = {
-        ...bodyGroupsObj,
-        ...{ [category]: { groups: { [group]: 1 } } }
-      };
-    }
+    bodyGroupsObj = computeCategories(data, bodyGroupsObj, category, group);
+    bodyGroupsObj = computeSubCategories(
+      data,
+      bodyGroupsObj,
+      category,
+      subCategory,
+      group
+    );
 
-    // compute subCategories groups
-    if (bodyGroupsObj[category].subCategories) {
-      if (bodyGroupsObj[category].subCategories[subCategories]) {
-        if (bodyGroupsObj[category].subCategories[subCategories][group]) {
-          bodyGroupsObj[category].subCategories[subCategories][group] =
-            bodyGroupsObj[category].subCategories[subCategories][group] + 1;
-        } else {
-          bodyGroupsObj[category].subCategories[subCategories][group] = 1;
-        }
-      } else {
-        bodyGroupsObj[category].subCategories[subCategories] = {
-          ...bodyGroupsObj[category].subCategories[subCategories],
-          ...{ [group]: 1 }
-        };
-      }
-    } else {
-      bodyGroupsObj[category] = {
-        ...bodyGroupsObj[category],
-        ...{
-          subCategories: {
-            ...bodyGroupsObj[category].subCategories,
-            ...{ [subCategories]: { [group]: 1 } }
-          }
-        }
-      };
-    }
-
-    // detect min and max age
+    // compute age range
     if (data.AGE > maxAge) {
       maxAge = data.AGE;
     }
@@ -96,86 +66,29 @@ export function useGroups(datas: Data[]): any {
     }
   });
 
-  console.log("salkkdlsakj", bodyGroupsObj);
+  console.log("bodyGroupsObj", bodyGroupsObj);
 
-  // Add ScreenFailure if not existing
-  if (!headerGroupsObj["Screen Failure"]) {
-    headerGroupsObj = { ...headerGroupsObj, ...{ "Screen Failure": 0 } };
-  }
-
-  if (!footerGroupsObj["Screen Failure"]) {
-    footerGroupsObj = { ...footerGroupsObj, ...{ "Screen Failure": 0 } };
-  }
-
-  // Convert header group objects to arrays and add total values
-  const headerGroups: GroupedValue[] = Object.entries(headerGroupsObj).map(
-    values => ({
-      name: values[0],
-      value: values[1],
-      total: headerGroupsTotal
-    })
+  // Convert header group object to arrays and add total values
+  const headerGroups: GroupedValue[] = convertHeaderGroups(
+    headerGroupsObj,
+    headerGroupsTotal
   );
-  headerGroups.push({
-    name: "Total",
-    value: headerGroupsTotal,
-    total: headerGroupsTotal
-  });
 
-  // Convert footer group objects to arrays and add total values
-  const footerGroups: GroupedValue[] = Object.entries(footerGroupsObj).map(
-    values => ({
-      name: values[0],
-      value: values[1],
-      total: footerGroupsTotal
-    })
+  // Convert footer group object to arrays and add total values
+  const footerGroups: GroupedValue[] = convertFooterGroups(
+    footerGroupsObj,
+    footerGroupsTotal,
+    headerGroupsTotal
   );
-  footerGroups.push({
-    name: "Total",
-    value: footerGroupsTotal,
-    total: headerGroupsTotal
-  });
 
   const headerGroupsObjZero = _.mapValues(headerGroupsObj, () => 0);
-  const bodyGroups: any = Object.entries(bodyGroupsObj).map(function(
-    category: any
-  ) {
-    // compute total adverses of this category
-    const categoryTotal = _(category[1])
-      .map()
-      .sum();
 
-    const precentageTotal = computePercentage(categoryTotal, headerGroupsTotal);
-
-    // add groups with zero values
-    const groupsFilled: any = {
-      ...headerGroupsObjZero,
-      ...category[1]
-    };
-
-    const groupsFilledArr = Object.entries(groupsFilled).map(group => {
-      return {
-        name: group[0],
-        value: group[1],
-        total: headerGroupsObj[group[0]],
-        percentage: computePercentage(
-          group[1] as number,
-          headerGroupsObj[group[0]]
-        )
-      };
-    });
-    groupsFilledArr.push({
-      name: "Total",
-      value: categoryTotal,
-      total: headerGroupsTotal,
-      percentage: computePercentage(categoryTotal, headerGroupsTotal)
-    });
-
-    return {
-      name: category[0],
-      groups: groupsFilledArr,
-      percentage: precentageTotal
-    };
-  });
+  const bodyGroups = convertBodyGroups(
+    bodyGroupsObj,
+    headerGroupsObj,
+    headerGroupsObjZero,
+    headerGroupsTotal
+  );
 
   /*   dispatch({ type: c.SET_HEADER_VALUES, payload: headerValues });
   dispatch({ type: c.SET_FOOTER_VALUES, payload: footerValues }); */
@@ -196,9 +109,8 @@ export function useGroups(datas: Data[]): any {
         ],
         percentage: 1,
         subCategories: {
-          name: "jsakdjk",
+          name: "some sub adverse",
           groups: [{}]
-          percentage: // probably not neccesary
         }
       }
     ]; */
