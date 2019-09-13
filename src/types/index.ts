@@ -34,6 +34,7 @@ export type GroupedValue = {
   name: string;
   value: number;
   total: number;
+  percentage?: number;
 };
 
 export type GroupedDatas = {

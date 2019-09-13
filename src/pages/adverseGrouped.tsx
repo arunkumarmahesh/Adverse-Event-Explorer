@@ -12,7 +12,7 @@ import {
 } from "../components";
 import {
   useGroups,
-  useMainGroups,
+  useGroupsSort,
   useFilter,
   useSummarize,
   useMinMax
@@ -24,16 +24,16 @@ export const AdverseGrouped: FC = () => {
   const summarizedDatas = useSummarize(datasOriginal);
   const filteredDatas = useFilter(summarizedDatas);
   const [headerGroups, bodyGroups, footerGroups] = useGroups(filteredDatas);
-  const groupedDatas = useMainGroups(filteredDatas);
+  const bodyGroupsSorted = useGroupsSort(bodyGroups);
   // useMinMax(mainGroups);
-  console.log("bodyGroups", bodyGroups);
+  console.log("groupedDatasSorted", bodyGroupsSorted);
   return (
     <div>
       <AEHeader />
       <Filter />
       <Table>
         <TableHeaderGroups colors={colors} groups={headerGroups} />
-        <TableBodyGroups colors={colors} groups={bodyGroups} />
+        <TableBodyGroups colors={colors} groups={bodyGroupsSorted} />
         <TableFooterGroups colors={colors} groups={footerGroups} />
       </Table>
     </div>

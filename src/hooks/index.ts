@@ -15,3 +15,4 @@ export { useSummarize } from "./useSummarize/useSummarize";
 export { useAgeFilter } from "./useAgeFilter/useAgeFilter";
 export { usePrevalenceFilter } from "./usePrevalenceFilter/usePrevalenceFilter";
 export { useFilterIsActive } from "./useFilterIsActive/useFilterIsActive";
+export { useGroupsSort } from "./useGroupsSort/useGroupsSort";

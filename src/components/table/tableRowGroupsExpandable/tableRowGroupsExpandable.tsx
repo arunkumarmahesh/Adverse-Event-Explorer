@@ -21,8 +21,6 @@ export const TableRowGroupsExpandable: FC<Props> = ({
   const [activeIndex, setActiveIndex] = useState(-1);
   const bodySubGroups = useSubGroups(data[0]);
 
-  console.log("data", data);
-
   const handleClick = (
     e: MouseEvent<HTMLDivElement>,
     titleProps: any // TableCellAccordionProps
