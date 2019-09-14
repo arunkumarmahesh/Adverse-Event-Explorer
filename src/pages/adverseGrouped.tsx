@@ -20,7 +20,7 @@ export const AdverseGrouped: FC = () => {
   const [headerGroups, bodyGroups, footerGroups] = useGroups(filteredDatas);
   const bodyGroupsSorted = useGroupsSort(bodyGroups);
   // useMinMax(mainGroups);
-  console.log("groupedDatasSorted", bodyGroupsSorted);
+  console.log("bodyGroups", bodyGroups);
   return (
     <div>
       <AEHeader />

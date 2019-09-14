@@ -48,14 +48,10 @@ export const TableRowGroupsExpandable: FC<Props> = ({
           );
         })}
       </Table.Row>
-      {/*       {activeIndex === index &&
-        Object.entries(bodySubGroups).map((data, key) => (
-          <TableRowGroups
-            key={key}
-            data={data}
-            totalCount={groupedTotal.total}
-          />
-        ))} */}
+      {activeIndex === index &&
+        data.subCategories.map((data: any, key: number) => (
+          <TableRowGroups key={key} data={data} />
+        ))}
     </>
   );
 };

@@ -9,7 +9,9 @@ export interface Props {
 
 export const CSVExport: FC<Props> = ({ data, filename, children, ...rest }) => {
   return React.cloneElement(children as never, {
-    onClick: () => csvDownload(data, filename),
+    onClick: () => {
+      csvDownload(data, filename);
+    },
     ...rest
   });
 };

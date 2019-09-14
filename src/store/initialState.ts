@@ -16,7 +16,7 @@ export const initialState: AppState = {
   footerValues: [],
   colors: ["green", "red", "blue", "orange"],
   groupVariable: "ARM",
-  summarizedBy: "Participants",
+  summarizedBy: "Events",
   prevalenceRangeAll: [0, 100],
   prevalenceRangeSelected: [0, 100],
   ageRangeAll: [0, 100],

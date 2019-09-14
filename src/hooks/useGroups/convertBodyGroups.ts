@@ -1,5 +1,6 @@
-import { computePercentage } from "./computePercentage";
 import _ from "lodash";
+import { computePercentage } from "./computePercentage";
+import { convertBodyGroupsSub } from "./convertBodyGroupsSub";
 
 export const convertBodyGroups = (
   bodyGroupsObj: any,
@@ -7,23 +8,20 @@ export const convertBodyGroups = (
   headerGroupsObjZero: any,
   headerGroupsTotal: number
 ) => {
-  const bodyGroups: any = Object.entries(bodyGroupsObj).map(function(
-    category: any
-  ) {
+  const bodyGroups = Object.entries(bodyGroupsObj).map((category: any) => {
     // compute total adverses of this category
-    const categoryTotal = _(category[1])
+    const categoryTotal = _(category[1].groups)
       .map()
       .sum();
 
-    const precentageTotal = computePercentage(categoryTotal, headerGroupsTotal);
-
     // add groups with zero values
-    const groupsFilled: any = {
+    const groupsFilledObj: any = {
       ...headerGroupsObjZero,
-      ...category[1]
+      ...category[1].groups
     };
 
-    const groupsFilledArr = Object.entries(groupsFilled).map(group => {
+    // convert groups to array and add datas
+    const groupsFilled = Object.entries(groupsFilledObj).map(group => {
       return {
         name: group[0],
         value: group[1],
@@ -34,7 +32,8 @@ export const convertBodyGroups = (
         )
       };
     });
-    groupsFilledArr.push({
+    // add group total values
+    groupsFilled.push({
       name: "Total",
       value: categoryTotal,
       total: headerGroupsTotal,
@@ -43,8 +42,16 @@ export const convertBodyGroups = (
 
     return {
       name: category[0],
-      groups: groupsFilledArr,
-      percentage: precentageTotal
+      groups: groupsFilled,
+      percentage: computePercentage(categoryTotal, headerGroupsTotal),
+      subCategories: convertBodyGroupsSub(
+        category[1].subCategories,
+        headerGroupsObj,
+        headerGroupsObjZero,
+        headerGroupsTotal
+      )
     };
   });
+
+  return bodyGroups;
 };

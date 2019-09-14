@@ -66,8 +66,6 @@ export function useGroups(datas: Data[]): any {
     }
   });
 
-  console.log("bodyGroupsObj", bodyGroupsObj);
-
   // Convert header group object to arrays and add total values
   const headerGroups: GroupedValue[] = convertHeaderGroups(
     headerGroupsObj,
@@ -97,20 +95,3 @@ export function useGroups(datas: Data[]): any {
 
   return [headerGroups, bodyGroups, footerGroups];
 }
-
-/*     
-// result example
-    [
-      {
-        name: "some adverse",
-        groups: [
-          { name: "Placebo", value: 0, total: 45, percentage: "0.0" },
-          { name: "Treatment A", value: 0, total: 45, percentage: "0.0" }
-        ],
-        percentage: 1,
-        subCategories: {
-          name: "some sub adverse",
-          groups: [{}]
-        }
-      }
-    ]; */

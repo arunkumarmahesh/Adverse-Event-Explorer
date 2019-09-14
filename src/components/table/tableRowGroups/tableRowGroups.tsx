@@ -2,34 +2,29 @@ import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { Table } from "semantic-ui-react";
 import _ from "lodash";
-import { TableCellPercentage } from "../..";
+import { CellPopup } from "../..";
 import { AppState } from "../../../types";
 
 export interface Props {
-  data: { [key: string]: any };
-  totalCount: number;
+  data: any;
 }
 
-export const TableRowGroups: FC<Props> = ({ data, totalCount }) => {
+export const TableRowGroups: FC<Props> = ({ data }) => {
   const colors = useSelector((state: AppState) => state.colors);
+
+  console.log("data", data);
 
   return (
     <Table.Row style={{ background: "#efefef" }}>
-      <Table.Cell style={{ paddingLeft: "35px" }}>{data[0]}</Table.Cell>
-      <Table.Cell style={{ maxWidth: "50px", padding: "0px" }} />
-      {Object.entries(data[1]).map((value: any, key) => (
-        <TableCellPercentage
-          key={key}
-          partialCount={value[1]}
-          totalCount={totalCount}
-          style={{ color: colors[key] }}
-        />
+      <Table.Cell style={{ paddingLeft: "35px" }}>{data.name}</Table.Cell>
+      {data.groups.map((group: any, key: number) => (
+        <CellPopup key={key} content={`${group.value}/${group.total}`}>
+          <Table.Cell style={{ color: colors[key] }}>
+            {group.percentage}
+          </Table.Cell>
+        </CellPopup>
       ))}
-      <TableCellPercentage
-        partialCount={_.size(data[1])}
-        totalCount={totalCount}
-        style={{ color: colors[3] }}
-      />
+
       <Table.Cell />
       <Table.Cell />
     </Table.Row>
