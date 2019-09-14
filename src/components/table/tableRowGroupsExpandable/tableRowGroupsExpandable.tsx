@@ -1,30 +1,30 @@
 import React, { FC, useState, MouseEvent } from "react";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import { TableCellAccordion, CellPopup, TableRowGroups } from "../..";
-import { GroupedValue } from "../../../types";
+import { AppState } from "../../../types";
+import { useSelector, useDispatch } from "react-redux";
+import { SET_EXPANDED_CATEGORIES } from "../../../store/constants";
 
 export interface Props {
-  index: number;
   colors: string[];
   data: any;
 }
 
-export const TableRowGroupsExpandable: FC<Props> = ({
-  index,
-  colors,
-  data
-}) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
-  console.log("activeIndex", activeIndex);
+export const TableRowGroupsExpandable: FC<Props> = ({ colors, data }) => {
+  const dispatch = useDispatch();
+  const expandedCategories = useSelector(
+    (state: AppState) => state.expandedCategories
+  );
 
-  const handleClick = (
+  const handleExpandCategory = (
     e: MouseEvent<HTMLDivElement>,
-    titleProps: any // TableCellAccordionProps
+    { index }: any
   ) => {
-    const { index } = titleProps;
-    setActiveIndex(activeIndex === index ? -1 : index);
+    dispatch({
+      type: SET_EXPANDED_CATEGORIES,
+      payload: index
+    });
   };
 
   return (
@@ -33,9 +33,8 @@ export const TableRowGroupsExpandable: FC<Props> = ({
         <TableCellAccordion
           style={{ width: "120px" }}
           title={data.name}
-          index={index}
-          activeIndex={activeIndex}
-          handleClick={handleClick}
+          index={expandedCategories}
+          handleExpand={handleExpandCategory}
         />
         {data.groups.map((group: any, key: number) => {
           return (
@@ -47,7 +46,7 @@ export const TableRowGroupsExpandable: FC<Props> = ({
           );
         })}
       </Table.Row>
-      {activeIndex === index &&
+      {expandedCategories.includes(data.name) &&
         data.subCategories.map((data: any, key: number) => (
           <TableRowGroups key={key} data={data} colors={colors} />
         ))}

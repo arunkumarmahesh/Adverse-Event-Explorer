@@ -4,13 +4,9 @@ import _ from "lodash";
 import { Table } from "semantic-ui-react";
 import { AppState } from "../types";
 import { Filter } from "./components/filter/filter";
-import {
-  AEHeader,
-  TableHeaderGroups,
-  TableFooterGroups,
-  TableBodyGroups
-} from "../components";
+import { AEHeader, TableHeaderGroups, TableFooterGroups } from "../components";
 import { useGroups, useFilter, useSummarize } from "../hooks";
+import { TableBodyGroups } from "./components/tableBodyGroups/tableBodyGroups";
 
 export const AdverseGrouped: FC = () => {
   const colors = useSelector((state: AppState) => state.colors);

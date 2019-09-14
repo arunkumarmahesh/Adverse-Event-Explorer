@@ -5,18 +5,18 @@ import "semantic-ui-css/semantic.min.css";
 
 export interface Props extends HTMLAttributes<HTMLTableCellElement> {
   title: string;
-  index: number;
-  activeIndex: number;
-  handleClick: any;
+  index: string[];
+  handleExpand: any;
 }
 
 export const TableCellAccordion: FC<Props> = ({
   title,
   index,
-  activeIndex,
-  handleClick,
+  handleExpand,
   ...rest
 }) => {
+  // console.log("TableCellAccordion", activeIndex.includes(title));
+
   return (
     <Table.Cell {...rest}>
       <div
@@ -27,9 +27,9 @@ export const TableCellAccordion: FC<Props> = ({
       >
         <Accordion>
           <Accordion.Title
-            active={activeIndex === index}
-            index={index}
-            onClick={handleClick}
+            active={index.includes(title)}
+            index={title}
+            onClick={handleExpand}
           >
             <Icon name="dropdown" />
           </Accordion.Title>

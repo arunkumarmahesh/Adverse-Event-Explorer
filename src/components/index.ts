@@ -1,6 +1,5 @@
 export { AEHeader } from "./templates/aeHeader/aeHeader";
 export { TableBodyDetails } from "./table/tableBodyDetails/tableBodyDetails";
-export { TableBodyGroups } from "./table/tableBodyGroups/tableBodyGroups";
 export {
   TableCellAccordion
 } from "./table/tableCellAccordion/tableCellAccordion";
