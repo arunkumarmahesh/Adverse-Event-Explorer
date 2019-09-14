@@ -10,7 +10,7 @@ import {
   TableFooterGroups,
   TableBodyGroups
 } from "../components";
-import { useGroups, useGroupsSort, useFilter, useSummarize } from "../hooks";
+import { useGroups, useFilter, useSummarize } from "../hooks";
 
 export const AdverseGrouped: FC = () => {
   const colors = useSelector((state: AppState) => state.colors);
@@ -18,8 +18,7 @@ export const AdverseGrouped: FC = () => {
   const summarizedDatas = useSummarize(datasOriginal);
   const filteredDatas = useFilter(summarizedDatas);
   const [headerGroups, bodyGroups, footerGroups] = useGroups(filteredDatas);
-  const bodyGroupsSorted = useGroupsSort(bodyGroups);
-  // useMinMax(mainGroups);
+
   console.log("bodyGroups", bodyGroups);
   return (
     <div>
@@ -27,7 +26,7 @@ export const AdverseGrouped: FC = () => {
       <Filter />
       <Table>
         <TableHeaderGroups colors={colors} groups={headerGroups} />
-        <TableBodyGroups colors={colors} groups={bodyGroupsSorted} />
+        <TableBodyGroups colors={colors} groups={bodyGroups} />
         <TableFooterGroups colors={colors} groups={footerGroups} />
       </Table>
     </div>

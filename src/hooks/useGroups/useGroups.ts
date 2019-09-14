@@ -9,6 +9,7 @@ import { convertHeaderGroups } from "./convertHeaderGroups";
 import { computeFooterGroups } from "./computeFooterGroups";
 import { convertFooterGroups } from "./convertFooterGroups";
 import { convertBodyGroups } from "./convertBodyGroups";
+import { sortGroups } from "./sortGroups";
 
 export function useGroups(datas: Data[]): any {
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
@@ -81,11 +82,13 @@ export function useGroups(datas: Data[]): any {
 
   const headerGroupsObjZero = _.mapValues(headerGroupsObj, () => 0);
 
-  const bodyGroups = convertBodyGroups(
-    bodyGroupsObj,
-    headerGroupsObj,
-    headerGroupsObjZero,
-    headerGroupsTotal
+  const bodyGroups = sortGroups(
+    convertBodyGroups(
+      bodyGroupsObj,
+      headerGroupsObj,
+      headerGroupsObjZero,
+      headerGroupsTotal
+    )
   );
 
   /*   dispatch({ type: c.SET_HEADER_VALUES, payload: headerValues });

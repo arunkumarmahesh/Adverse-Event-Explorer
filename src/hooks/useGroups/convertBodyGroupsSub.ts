@@ -1,5 +1,7 @@
 import _ from "lodash";
 import { computePercentage } from "./computePercentage";
+import { useGroupsSort } from "..";
+import { sortGroups } from "./sortGroups";
 
 export const convertBodyGroupsSub = (
   subCategories: any,
@@ -40,8 +42,7 @@ export const convertBodyGroupsSub = (
         total: headerGroupsTotal,
         percentage: computePercentage(subCategoryTotal, headerGroupsTotal)
       });
-      console.log("subCategoryTotal", subCategoryTotal);
-      console.log("headerGroupsTotal", headerGroupsTotal);
+
       return {
         name: subCategory[0],
         groups: groupsFilled,
@@ -50,5 +51,5 @@ export const convertBodyGroupsSub = (
     }
   );
 
-  return bodyGroupsSub;
+  return sortGroups(bodyGroupsSub);
 };

@@ -1,8 +1,6 @@
-import { useSelector } from "react-redux";
-import { GroupedValue, Data } from "../../types";
 import _ from "lodash";
 
-export function useGroupsSort(datas: any) {
+export function sortGroups(datas: any) {
   return _.orderBy(
     datas,
     [
