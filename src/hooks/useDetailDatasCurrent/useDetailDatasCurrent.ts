@@ -11,8 +11,7 @@ export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
 
   const fuseOptions = {
     keys: ["AETERM", "AEDECOD", "AESEV", "AEREL", "AEOUT"],
-    threshold: 0,
-    minMatchCharLength: 2
+    threshold: 0
   };
 
   let searchedDatas = null;

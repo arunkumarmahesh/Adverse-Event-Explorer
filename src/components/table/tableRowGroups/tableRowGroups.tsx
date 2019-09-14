@@ -1,9 +1,8 @@
 import React, { FC } from "react";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Table } from "semantic-ui-react";
 import _ from "lodash";
 import { CellPopup } from "../..";
-import { AppState } from "../../../types";
 
 export interface Props {
   data: any;
@@ -13,7 +12,9 @@ export interface Props {
 export const TableRowGroups: FC<Props> = ({ data, colors }) => {
   return (
     <Table.Row style={{ background: "#efefef" }}>
-      <Table.Cell style={{ paddingLeft: "35px" }}>{data.name}</Table.Cell>
+      <Table.Cell style={{ paddingLeft: "35px" }}>
+        <Link to={`/${data.name}`}>{data.name}</Link>
+      </Table.Cell>
       {data.groups.map((group: any, key: number) => (
         <CellPopup key={key} content={`${group.value}/${group.total}`}>
           <Table.Cell style={{ color: colors[key] }}>
