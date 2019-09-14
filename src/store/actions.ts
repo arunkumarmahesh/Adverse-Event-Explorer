@@ -125,3 +125,10 @@ export const setDetailPages = (payload: number): t.SetDetailPages => ({
   type: c.SET_DETAIL_PAGES,
   payload
 });
+
+export const setExpandedCategories = (
+  payload: string
+): t.SetExpandedCategories => ({
+  type: c.SET_EXPANDED_CATEGORIES,
+  payload
+});

@@ -27,4 +27,5 @@ export interface AppState {
   detailSearch?: string;
   detailSort: t.DetailSortItem[];
   detailPages: number;
+  expandedCategories: string[];
 }

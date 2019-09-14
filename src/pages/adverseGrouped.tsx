@@ -19,7 +19,6 @@ export const AdverseGrouped: FC = () => {
   const filteredDatas = useFilter(summarizedDatas);
   const [headerGroups, bodyGroups, footerGroups] = useGroups(filteredDatas);
 
-  console.log("footerGroups", footerGroups);
   return (
     <div>
       <AEHeader />

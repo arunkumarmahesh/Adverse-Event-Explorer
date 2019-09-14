@@ -17,6 +17,7 @@ export const TableRowGroupsExpandable: FC<Props> = ({
   data
 }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
+  console.log("activeIndex", activeIndex);
 
   const handleClick = (
     e: MouseEvent<HTMLDivElement>,

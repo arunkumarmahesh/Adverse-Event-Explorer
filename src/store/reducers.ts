@@ -5,7 +5,7 @@ import { initialState } from "./initialState";
 import * as t from "../types";
 import * as c from "./constants";
 
-const addOrRemoveFilterItem = <T>(array: T[], value: T): T[] => {
+const addOrRemoveArrayItem = <T>(array: T[], value: T): T[] => {
   if (array.includes(value)) {
     return array.filter(item => item !== value);
   } else {
@@ -44,25 +44,25 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
         draft.ageRangeSelected = action.payload;
         return draft;
       case c.SET_SERIOUS:
-        draft.serious = addOrRemoveFilterItem<t.Serious>(
+        draft.serious = addOrRemoveArrayItem<t.Serious>(
           draft.serious,
           action.payload
         );
         return draft;
       case c.SET_SEVERITY:
-        draft.severity = addOrRemoveFilterItem<t.Severity>(
+        draft.severity = addOrRemoveArrayItem<t.Severity>(
           draft.severity,
           action.payload
         );
         return draft;
       case c.SET_RELATIONSHIP:
-        draft.relationship = addOrRemoveFilterItem<t.Relationship>(
+        draft.relationship = addOrRemoveArrayItem<t.Relationship>(
           draft.relationship,
           action.payload
         );
         return draft;
       case c.SET_OUTCOME:
-        draft.outcome = addOrRemoveFilterItem<t.Outcome>(
+        draft.outcome = addOrRemoveArrayItem<t.Outcome>(
           draft.outcome,
           action.payload
         );
@@ -78,6 +78,12 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
         return draft;
       case c.SET_DETAIL_PAGES:
         draft.detailPages = action.payload;
+        return draft;
+      case c.SET_EXPANDED_CATEGORIES:
+        draft.expandedCategories = addOrRemoveArrayItem<string>(
+          draft.expandedCategories,
+          action.payload
+        );
         return draft;
       default:
         return draft;

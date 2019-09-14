@@ -6,9 +6,6 @@ export const convertFooterGroups = (
   headerGroupsTotal: number,
   headerGroupsObj: any
 ) => {
-  console.log("headerGroupsObj Total", headerGroupsObj["Total"]);
-  console.log("headerGroupsObj", headerGroupsObj);
-
   const footerGroups: any = Object.entries(footerGroupsObj).map(
     (values: any) => ({
       name: values[0],

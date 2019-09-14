@@ -20,7 +20,8 @@ export type ActionTypes =
   | SetDetailDatas
   | SetDetailSearch
   | SetDetailSort
-  | SetDetailPages;
+  | SetDetailPages
+  | SetExpandedCategories;
 
 export interface SetSummarizedDatas {
   type: typeof c.SET_SUMMARIZED_DATAS;
@@ -116,4 +117,9 @@ export interface SetDetailSort {
 export interface SetDetailPages {
   type: typeof c.SET_DETAIL_PAGES;
   payload: number;
+}
+
+export interface SetExpandedCategories {
+  type: typeof c.SET_EXPANDED_CATEGORIES;
+  payload: string;
 }
