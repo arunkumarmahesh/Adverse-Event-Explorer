@@ -1,20 +1,21 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { AppState, Data } from "../../types";
-import { SET_FILTERED_DATAS } from "../../store/constants";
 import { useFilterIsActive } from "..";
 
 export function useFilter(datas: Data[]) {
-  const dispatch = useDispatch();
   const [isActive, currentCheckFilter] = useFilterIsActive();
-  const ageRangeSelected = useSelector(
-    (state: AppState) => state.ageRangeSelected
+  const ageFilterRange = useSelector((state: AppState) => state.ageFilterRange);
+  const ageFilterSelected = useSelector(
+    (state: AppState) => state.ageFilterSelected
   );
-  const ageRangeAll = useSelector((state: AppState) => state.ageRangeAll);
 
   if (isActive) {
     const filteredDatas: Data[] = datas.filter((data: any) => {
-      if (ageRangeSelected !== ageRangeAll) {
-        if (data.AGE < ageRangeSelected[0] || data.AGE > ageRangeSelected[1]) {
+      if (ageFilterSelected !== ageFilterRange) {
+        if (
+          data.AGE < ageFilterSelected[0] ||
+          data.AGE > ageFilterSelected[1]
+        ) {
           return;
         }
       }
@@ -37,8 +38,6 @@ export function useFilter(datas: Data[]) {
 
       return add && data;
     });
-
-    dispatch({ type: SET_FILTERED_DATAS, payload: filteredDatas });
 
     return filteredDatas;
   }

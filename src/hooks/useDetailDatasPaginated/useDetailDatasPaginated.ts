@@ -6,7 +6,9 @@ export function useDetailDatasPaginated(
   datas: t.Data[],
   page: number
 ): t.Data[] {
-  const resultsPerPage = useSelector((state: t.AppState) => state.detailPages);
+  const resultsPerPage = useSelector(
+    (state: t.AppState) => state.detailResultsPerPage
+  );
 
   const offset = (page - 1) * resultsPerPage;
 

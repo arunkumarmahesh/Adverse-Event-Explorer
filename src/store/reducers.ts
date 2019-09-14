@@ -16,11 +16,8 @@ const addOrRemoveArrayItem = <T>(array: T[], value: T): T[] => {
 export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
   (draft: t.AppState = initialState, action: t.ActionTypes) => {
     switch (action.type) {
-      case c.SET_HEADER_VALUES:
-        draft.headerValues = action.payload;
-        return draft;
-      case c.SET_FOOTER_VALUES:
-        draft.headerValues = action.payload;
+      case c.SET_SEARCH_TERM:
+        draft.searchTerm = action.payload;
         return draft;
       case c.SET_SUMMARIZED_BY:
         draft.summarizedBy = action.payload;
@@ -31,17 +28,17 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
       case c.SET_GROUP_VARIABLE:
         draft.groupVariable = action.payload;
         return draft;
-      case c.SET_PREVALENCE_RANGE_ALL:
-        draft.prevalenceRangeAll = action.payload;
+      case c.SET_PREVALENCE_FILTER_RANGE:
+        draft.prevalenceFilterRange = action.payload;
         return draft;
-      case c.SET_PREVALENCE_RANGE_SELECTED:
-        draft.prevalenceRangeSelected = action.payload;
+      case c.SET_PREVALENCE_FILTER_SELECTED:
+        draft.prevalenceFilterSelected = action.payload;
         return draft;
-      case c.SET_AGE_RANGE_ALL:
-        draft.ageRangeAll = action.payload;
+      case c.SET_AGE_FILTER_RANGE:
+        draft.ageFilterRange = action.payload;
         return draft;
-      case c.SET_AGE_RANGE_SELECTED:
-        draft.ageRangeSelected = action.payload;
+      case c.SET_AGE_FILTER_SELECTED:
+        draft.ageFilterSelected = action.payload;
         return draft;
       case c.SET_SERIOUS:
         draft.serious = addOrRemoveArrayItem<t.Serious>(
@@ -67,24 +64,22 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
           action.payload
         );
         return draft;
-      case c.SET_DETAIL_DATAS:
-        draft.detailDatas[action.key] = action.payload;
-        return draft;
-      case c.SET_DETAIL_SEARCH:
-        draft.detailSearch = action.payload;
-        return draft;
-      case c.SET_DETAIL_SORT:
-        draft.detailSort = action.payload;
-        return draft;
-      case c.SET_DETAIL_PAGES:
-        draft.detailPages = action.payload;
-        return draft;
       case c.SET_EXPANDED_CATEGORIES:
         draft.expandedCategories = addOrRemoveArrayItem<string>(
           draft.expandedCategories,
           action.payload
         );
         return draft;
+      case c.SET_DETAIL_SEARCH_TERM:
+        draft.detailSearchTerm = action.payload;
+        return draft;
+      case c.SET_DETAIL_SORT_COLUMNS:
+        draft.detailSortColumns = action.payload;
+        return draft;
+      case c.SET_DETAIL_RESULTS_PER_PAGE:
+        draft.detailResultsPerPage = action.payload;
+        return draft;
+
       default:
         return draft;
     }

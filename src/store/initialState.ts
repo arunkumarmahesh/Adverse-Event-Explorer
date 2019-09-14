@@ -8,26 +8,21 @@ import {
 import datas from "../data.json";
 
 export const initialState: AppState = {
-  datasOriginal: datas,
-  datasSummarized: undefined,
-  datasSearched: undefined,
-  datasFiltered: undefined,
-  headerValues: [],
-  footerValues: [],
   colors: ["green", "red", "blue", "orange"],
+  datasOriginal: datas,
   groupVariable: "ARM",
   summarizedBy: "Events",
-  prevalenceRangeAll: [0, 100],
-  prevalenceRangeSelected: [0, 100],
-  ageRangeAll: [0, 100],
-  ageRangeSelected: [0, 100],
+  searchTerm: "",
+  prevalenceFilterRange: [0, 0],
+  prevalenceFilterSelected: [0, 0],
+  ageFilterRange: [0, 0],
+  ageFilterSelected: [0, 0],
   serious: seriousOptions,
   severity: severityOptions,
   relationship: relationshipOptions,
   outcome: outcomeOptions,
-  detailDatas: {},
-  detailSearch: undefined,
-  detailSort: [],
-  detailPages: 10,
-  expandedCategories: []
+  expandedCategories: [],
+  detailSearchTerm: "",
+  detailSortColumns: [],
+  detailResultsPerPage: 10
 };

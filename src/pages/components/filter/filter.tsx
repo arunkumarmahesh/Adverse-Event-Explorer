@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { CheckFilter } from "../checkfilter/checkfilter";
 import { SummarizeBy } from "../summarizeBy/summarizeBy";
-import { usePrevalenceFilter, useAgeFilter } from "../../../hooks";
+import { useFilterPrevalence, useFilterAge } from "../../../hooks";
 import { SliderBlock } from "../../../components";
 import { GroupBy } from "../groupBy/groupBy";
 import { SearchBy } from "../searchBy/searchBy";
@@ -9,8 +9,8 @@ import { SearchBy } from "../searchBy/searchBy";
 export interface Props {}
 
 export const Filter: FC<Props> = () => {
-  const prevalenceFilterOptions = usePrevalenceFilter();
-  const ageFilterOptions = useAgeFilter();
+  const prevalenceFilterOptions = useFilterPrevalence();
+  const ageFilterOptions = useFilterAge();
 
   return (
     <div>

@@ -2,51 +2,21 @@ import * as c from "../store/constants";
 import * as t from ".";
 
 export type ActionTypes =
-  | SetSummarizedDatas
-  | SetSearchedDatas
-  | SetFilteredDatas
-  | SetHeaderValues
-  | SetFooterValues
   | SetSummarizedBy
   | SetGroupVariable
-  | SetPrevalenceRangeAll
-  | SetPrevalenceRangeSelected
-  | SetAgeRangeAll
-  | SetAgeRangeSelected
+  | SetSearchTerm
+  | SetPrevalenceFilterRange
+  | SetPrevalenceFilterSelected
+  | SetAgeFilterRange
+  | SetAgeFilterSelected
   | SetSerious
   | SetSeverity
   | SetRelationship
   | SetOutcome
-  | SetDetailDatas
-  | SetDetailSearch
-  | SetDetailSort
-  | SetDetailPages
-  | SetExpandedCategories;
-
-export interface SetSummarizedDatas {
-  type: typeof c.SET_SUMMARIZED_DATAS;
-  payload: t.GroupedDatas;
-}
-
-export interface SetSearchedDatas {
-  type: typeof c.SET_SEARCHED_DATAS;
-  payload: t.GroupedDatas;
-}
-
-export interface SetFilteredDatas {
-  type: typeof c.SET_FILTERED_DATAS;
-  payload: t.GroupedDatas;
-}
-
-export interface SetHeaderValues {
-  type: typeof c.SET_HEADER_VALUES;
-  payload: t.GroupedValue[];
-}
-
-export interface SetFooterValues {
-  type: typeof c.SET_FOOTER_VALUES;
-  payload: t.GroupedValue[];
-}
+  | SetExpandedCategories
+  | SetDetailSearchTerm
+  | SetDetailSortColumns
+  | SetDetailResultsPerPage;
 
 export interface SetSummarizedBy {
   type: typeof c.SET_SUMMARIZED_BY;
@@ -58,23 +28,28 @@ export interface SetGroupVariable {
   payload: t.GroupVariable;
 }
 
-export interface SetPrevalenceRangeAll {
-  type: typeof c.SET_PREVALENCE_RANGE_ALL;
+export interface SetSearchTerm {
+  type: typeof c.SET_SEARCH_TERM;
+  payload: string;
+}
+
+export interface SetPrevalenceFilterRange {
+  type: typeof c.SET_PREVALENCE_FILTER_RANGE;
   payload: [number, number];
 }
 
-export interface SetPrevalenceRangeSelected {
-  type: typeof c.SET_PREVALENCE_RANGE_SELECTED;
+export interface SetPrevalenceFilterSelected {
+  type: typeof c.SET_PREVALENCE_FILTER_SELECTED;
   payload: [number, number];
 }
 
-export interface SetAgeRangeAll {
-  type: typeof c.SET_AGE_RANGE_ALL;
+export interface SetAgeFilterRange {
+  type: typeof c.SET_AGE_FILTER_RANGE;
   payload: [number, number];
 }
 
-export interface SetAgeRangeSelected {
-  type: typeof c.SET_AGE_RANGE_SELECTED;
+export interface SetAgeFilterSelected {
+  type: typeof c.SET_AGE_FILTER_SELECTED;
   payload: [number, number];
 }
 
@@ -98,28 +73,22 @@ export interface SetOutcome {
   payload: t.Outcome;
 }
 
-export interface SetDetailDatas {
-  type: typeof c.SET_DETAIL_DATAS;
-  key: string;
-  payload: t.StoredDatas;
-}
-
-export interface SetDetailSearch {
-  type: typeof c.SET_DETAIL_SEARCH;
-  payload: string;
-}
-
-export interface SetDetailSort {
-  type: typeof c.SET_DETAIL_SORT;
-  payload: t.DetailSortItem[];
-}
-
-export interface SetDetailPages {
-  type: typeof c.SET_DETAIL_PAGES;
-  payload: number;
-}
-
 export interface SetExpandedCategories {
   type: typeof c.SET_EXPANDED_CATEGORIES;
   payload: string;
+}
+
+export interface SetDetailSearchTerm {
+  type: typeof c.SET_DETAIL_SEARCH_TERM;
+  payload: string;
+}
+
+export interface SetDetailSortColumns {
+  type: typeof c.SET_DETAIL_SORT_COLUMNS;
+  payload: t.DetailSortItem[];
+}
+
+export interface SetDetailResultsPerPage {
+  type: typeof c.SET_DETAIL_RESULTS_PER_PAGE;
+  payload: number;
 }

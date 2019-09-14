@@ -4,7 +4,10 @@ import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { Table, Button } from "semantic-ui-react";
-import { SET_DETAIL_SORT, SET_DETAIL_PAGES } from "../store/constants";
+import {
+  SET_DETAIL_SORT_COLUMNS,
+  SET_DETAIL_RESULTS_PER_PAGE
+} from "../store/constants";
 import { DetailsInfoBlock } from "./components/detailsInfoBlock/detailsInfoBlock";
 import { DetailsSortBlock } from "./components/detailsSortBlock/detailsSortBlock";
 import { DetailsSearchBlock } from "./components/detailsSearchBlock/detailsSearchBlock";
@@ -34,16 +37,20 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const paginatedDatas = useDetailDatasPaginated(currentDatas, currentPage);
   const headerTopics = _.keys(datasDetail[0]);
   const cellCount = _.size(headerTopics);
-  const detailSort = useSelector((state: AppState) => state.detailSort);
-  const resultsPerPage = useSelector((state: AppState) => state.detailPages);
+  const detailSortColumns = useSelector(
+    (state: AppState) => state.detailSortColumns
+  );
+  const resultsPerPage = useSelector(
+    (state: AppState) => state.detailResultsPerPage
+  );
 
   const handleSort = (
     method: string,
     clickedColumn: string,
     sortItems?: DetailSortItem[]
   ) => {
-    const newDetailSort = produce(detailSort, draft => {
-      const index = _.findIndex(detailSort, { name: clickedColumn });
+    const newDetailSort = produce(detailSortColumns, draft => {
+      const index = _.findIndex(detailSortColumns, { name: clickedColumn });
 
       switch (method) {
         case "reorder":
@@ -65,14 +72,14 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
     });
 
     dispatch({
-      type: SET_DETAIL_SORT,
+      type: SET_DETAIL_SORT_COLUMNS,
       payload: newDetailSort
     });
   };
 
   const handleResultsPerPageChange = (e: Event, { value }: never) => {
     dispatch({
-      type: SET_DETAIL_PAGES,
+      type: SET_DETAIL_RESULTS_PER_PAGE,
       payload: value
     });
   };
@@ -92,10 +99,10 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
         resultsSearched={currentDatasSize}
         resultsTotal={datasDetailsSize}
       />
-      <DetailsSortBlock sortItems={detailSort} handleSort={handleSort} />
+      <DetailsSortBlock sortItems={detailSortColumns} handleSort={handleSort} />
       <Table sortable>
         <TableHeaderSort
-          multiSort={detailSort}
+          multiSort={detailSortColumns}
           headerTopics={headerTopics}
           handleSort={handleSort}
         />

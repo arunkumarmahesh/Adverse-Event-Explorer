@@ -2,24 +2,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "../../types";
 import * as c from "../../store/constants";
 
-export const usePrevalenceFilter = () => {
+export const useFilterPrevalence = () => {
   const dispatch = useDispatch();
-  const prevalenceRange = useSelector(
-    (state: AppState) => state.prevalenceRangeAll
+  const prevalenceFilterRange = useSelector(
+    (state: AppState) => state.prevalenceFilterRange
   );
-  const prevalenceSelected = useSelector(
-    (state: AppState) => state.prevalenceRangeSelected
+  const prevalenceFilterSelected = useSelector(
+    (state: AppState) => state.prevalenceFilterSelected
   );
 
   const prevalenceFilterOptions: any = {
     label: "Filter by prevalence:",
-    selected: prevalenceSelected,
-    range: prevalenceRange,
+    selected: prevalenceFilterSelected,
+    range: prevalenceFilterRange,
     discrete: true,
     multiple: true,
     hangleChange: (value: [number, number]) => {
       dispatch({
-        type: c.SET_AGE_RANGE_SELECTED,
+        type: c.SET_PREVALENCE_FILTER_SELECTED,
         payload: value
       });
     }

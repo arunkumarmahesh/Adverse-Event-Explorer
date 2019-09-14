@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Search, Button, Icon } from "semantic-ui-react";
 import { AppState } from "../../../types";
-import { SET_DETAIL_SEARCH } from "../../../store/constants";
+import { SET_DETAIL_SEARCH_TERM } from "../../../store/constants";
 
 export interface Props {
   resultsTotal: number;
@@ -14,11 +14,11 @@ export const DetailsSearchBlock: FC<Props> = ({
   resultsSearched
 }) => {
   const dispatch = useDispatch();
-  const searchTerm = useSelector((state: AppState) => state.detailSearch);
+  const searchTerm = useSelector((state: AppState) => state.detailSearchTerm);
 
   const handleSearch = (e: any) => {
     dispatch({
-      type: SET_DETAIL_SEARCH,
+      type: SET_DETAIL_SEARCH_TERM,
       payload: e.currentTarget.value
     });
   };
@@ -39,7 +39,7 @@ export const DetailsSearchBlock: FC<Props> = ({
           labelPosition="right"
           onClick={() => {
             dispatch({
-              type: SET_DETAIL_SEARCH,
+              type: SET_DETAIL_SEARCH_TERM,
               payload: ""
             });
           }}

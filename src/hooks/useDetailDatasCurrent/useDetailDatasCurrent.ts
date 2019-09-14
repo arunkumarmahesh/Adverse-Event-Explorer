@@ -1,13 +1,11 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import _ from "lodash";
 import Fuse from "fuse.js";
-import * as c from "../../store/constants";
 import * as t from "../../types";
 import { AppState } from "../../types";
 
 export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
-  const dispatch = useDispatch();
-  const searchTerm = useSelector((state: AppState) => state.detailSearch);
+  const searchTerm = useSelector((state: AppState) => state.detailSearchTerm);
 
   const fuseOptions = {
     keys: ["AETERM", "AEDECOD", "AESEV", "AEREL", "AEOUT"],
@@ -23,7 +21,7 @@ export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
 
   const unsortedDatas = searchedDatas || datas;
 
-  const detailSort = useSelector((state: AppState) => state.detailSort);
+  const detailSort = useSelector((state: AppState) => state.detailSortColumns);
 
   let sortedDatas = null;
 
@@ -36,15 +34,6 @@ export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
 
   const currentDatas = sortedDatas || unsortedDatas;
   const currentDatasSize = _.size(currentDatas);
-
-  dispatch({
-    type: c.SET_DETAIL_DATAS,
-    key: "current",
-    payload: {
-      datas: currentDatas,
-      size: currentDatasSize
-    }
-  });
 
   return [currentDatas, currentDatasSize];
 }

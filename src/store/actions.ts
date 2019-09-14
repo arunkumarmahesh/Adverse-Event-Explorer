@@ -1,41 +1,6 @@
 import * as t from "../types";
 import * as c from "./constants";
 
-export const setSummarizedDatas = (
-  payload: t.GroupedDatas
-): t.SetSummarizedDatas => ({
-  type: c.SET_SUMMARIZED_DATAS,
-  payload
-});
-
-export const setSearchedDatas = (
-  payload: t.GroupedDatas
-): t.SetSearchedDatas => ({
-  type: c.SET_SEARCHED_DATAS,
-  payload
-});
-
-export const setFilteredDatas = (
-  payload: t.GroupedDatas
-): t.SetFilteredDatas => ({
-  type: c.SET_FILTERED_DATAS,
-  payload
-});
-
-export const setHeaderValues = (
-  payload: t.GroupedValue[]
-): t.SetHeaderValues => ({
-  type: c.SET_HEADER_VALUES,
-  payload
-});
-
-export const setFooterValues = (
-  payload: t.GroupedValue[]
-): t.SetFooterValues => ({
-  type: c.SET_FOOTER_VALUES,
-  payload
-});
-
 export const setSummarizedBy = (
   payload: t.SummarizedBy
 ): t.SetSummarizedBy => ({
@@ -50,31 +15,36 @@ export const setGroupVariable = (
   payload
 });
 
-export const setPrevalenceRangeAll = (
-  payload: [number, number]
-): t.SetPrevalenceRangeAll => ({
-  type: c.SET_PREVALENCE_RANGE_ALL,
+export const setSearchTerm = (payload: string): t.SetSearchTerm => ({
+  type: c.SET_SEARCH_TERM,
   payload
 });
 
-export const setPrevalenceRangeSelected = (
+export const setPrevalenceFilterRange = (
   payload: [number, number]
-): t.SetPrevalenceRangeSelected => ({
-  type: c.SET_PREVALENCE_RANGE_SELECTED,
+): t.SetPrevalenceFilterRange => ({
+  type: c.SET_PREVALENCE_FILTER_RANGE,
   payload
 });
 
-export const setAgeRangeAll = (
+export const setPrevalenceFilterSelected = (
   payload: [number, number]
-): t.SetAgeRangeAll => ({
-  type: c.SET_AGE_RANGE_ALL,
+): t.SetPrevalenceFilterSelected => ({
+  type: c.SET_PREVALENCE_FILTER_SELECTED,
   payload
 });
 
-export const setAgeRangeSelected = (
+export const setAgeFilterRange = (
   payload: [number, number]
-): t.SetAgeRangeSelected => ({
-  type: c.SET_AGE_RANGE_SELECTED,
+): t.SetAgeFilterRange => ({
+  type: c.SET_AGE_FILTER_RANGE,
+  payload
+});
+
+export const setAgeFilterSelected = (
+  payload: [number, number]
+): t.SetAgeFilterSelected => ({
+  type: c.SET_AGE_FILTER_SELECTED,
   payload
 });
 
@@ -100,35 +70,28 @@ export const setOutcome = (payload: t.Outcome): t.SetOutcome => ({
   payload
 });
 
-export const setDetailDatas = (
-  key: string,
-  payload: t.StoredDatas
-): t.SetDetailDatas => ({
-  type: c.SET_DETAIL_DATAS,
-  key,
+export const setExpandedCategories = (
+  payload: string
+): t.SetExpandedCategories => ({
+  type: c.SET_EXPANDED_CATEGORIES,
   payload
 });
 
-export const setDetailSearch = (payload: string): t.SetDetailSearch => ({
-  type: c.SET_DETAIL_SEARCH,
+export const setDetailSearchTerm = (
+  payload: string
+): t.SetDetailSearchTerm => ({
+  type: c.SET_DETAIL_SEARCH_TERM,
   payload
 });
 
 export const setDetailSort = (
   payload: t.DetailSortItem[]
-): t.SetDetailSort => ({
-  type: c.SET_DETAIL_SORT,
+): t.SetDetailSortColumns => ({
+  type: c.SET_DETAIL_SORT_COLUMNS,
   payload
 });
 
-export const setDetailPages = (payload: number): t.SetDetailPages => ({
-  type: c.SET_DETAIL_PAGES,
-  payload
-});
-
-export const setExpandedCategories = (
-  payload: string
-): t.SetExpandedCategories => ({
-  type: c.SET_EXPANDED_CATEGORIES,
+export const setDetailPages = (payload: number): t.SetDetailResultsPerPage => ({
+  type: c.SET_DETAIL_RESULTS_PER_PAGE,
   payload
 });

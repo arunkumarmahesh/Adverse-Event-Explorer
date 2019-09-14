@@ -8,13 +8,15 @@ export const useFilterIsActive = (): [boolean, string[]] => {
   const severity = useSelector((state: AppState) => state.severity);
   const relationship = useSelector((state: AppState) => state.relationship);
   const outcome = useSelector((state: AppState) => state.outcome);
-  const ageSelected = useSelector((state: AppState) => state.ageRangeSelected);
-  const ageRange = useSelector((state: AppState) => state.ageRangeAll);
-  const prevalenceSelected = useSelector(
-    (state: AppState) => state.prevalenceRangeSelected
+  const ageFilterRange = useSelector((state: AppState) => state.ageFilterRange);
+  const ageFilterSelected = useSelector(
+    (state: AppState) => state.ageFilterSelected
   );
-  const prevalenceRange = useSelector(
-    (state: AppState) => state.prevalenceRangeAll
+  const prevalenceFilterRange = useSelector(
+    (state: AppState) => state.prevalenceFilterRange
+  );
+  const prevalenceFilterSelected = useSelector(
+    (state: AppState) => state.prevalenceFilterSelected
   );
 
   const currentCheckFilter = [
@@ -35,8 +37,13 @@ export const useFilterIsActive = (): [boolean, string[]] => {
     ? false
     : true;
 
-  const ageFilterActive = _.isEqual(ageRange, ageSelected) ? false : true;
-  const prevalenceFilterActive = _.isEqual(prevalenceRange, prevalenceSelected)
+  const ageFilterActive = _.isEqual(ageFilterRange, ageFilterSelected)
+    ? false
+    : true;
+  const prevalenceFilterActive = _.isEqual(
+    prevalenceFilterRange,
+    prevalenceFilterSelected
+  )
     ? false
     : true;
 
