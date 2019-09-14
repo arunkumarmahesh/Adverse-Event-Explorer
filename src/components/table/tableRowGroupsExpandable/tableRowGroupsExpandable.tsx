@@ -18,8 +18,6 @@ export const TableRowGroupsExpandable: FC<Props> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  // console.log("TableRowGroupsExpandable data", data);
-
   const handleClick = (
     e: MouseEvent<HTMLDivElement>,
     titleProps: any // TableCellAccordionProps
@@ -42,7 +40,7 @@ export const TableRowGroupsExpandable: FC<Props> = ({
           return (
             <CellPopup key={key} content={`${group.value}/${group.total}`}>
               <Table.Cell style={{ color: colors[key] }}>
-                {group.percentage}
+                {`${group.percentage}%`}
               </Table.Cell>
             </CellPopup>
           );
@@ -50,7 +48,7 @@ export const TableRowGroupsExpandable: FC<Props> = ({
       </Table.Row>
       {activeIndex === index &&
         data.subCategories.map((data: any, key: number) => (
-          <TableRowGroups key={key} data={data} />
+          <TableRowGroups key={key} data={data} colors={colors} />
         ))}
     </>
   );

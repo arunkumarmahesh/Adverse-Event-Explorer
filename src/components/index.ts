@@ -5,9 +5,6 @@ export {
   TableCellAccordion
 } from "./table/tableCellAccordion/tableCellAccordion";
 export {
-  TableCellPercentage
-} from "./table/tableCellPercentage/tableCellPercentage";
-export {
   TableFooterDetails
 } from "./table/tableFooterDetails/tableFooterDetails";
 export { TableFooterGroups } from "./table/tableFooterGroups/tableFooterGroups";
@@ -19,9 +16,6 @@ export {
 } from "./table/tableRowGroupsExpandable/tableRowGroupsExpandable";
 export { TableRowGroups } from "./table/tableRowGroups/tableRowGroups";
 export { CellPopup } from "./notifications/cellPopup/cellPopup";
-export {
-  TableHeaderCellPercentage
-} from "./table/tableHeaderCellPercentage/tableHeaderCellPercentage";
 export { CheckBlock } from "./controls/checkBlock/checkBlock";
 export { RadioBlock } from "./controls/radioBlock/radioBlock";
 export { SearchBlock } from "./controls/searchBlock/searchBlock";

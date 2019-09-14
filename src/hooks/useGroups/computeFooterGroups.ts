@@ -1,7 +1,7 @@
 export const computeFooterGroups = (
   data: any,
-  footerGroupsObj: any,
-  groupVariable: any
+  footerGroupsObj: { [key: string]: number },
+  groupVariable: string
 ) => {
   if (data.AEBODSYS !== "") {
     footerGroupsObj[data[groupVariable]] = footerGroupsObj[data[groupVariable]]

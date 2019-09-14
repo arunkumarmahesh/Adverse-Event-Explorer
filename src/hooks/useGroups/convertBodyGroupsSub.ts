@@ -10,7 +10,6 @@ export const convertBodyGroupsSub = (
 ) => {
   const bodyGroupsSub = Object.entries(subCategories).map(
     (subCategory: any) => {
-      console.log("subCategory", subCategory);
       // compute total adverses of this category
       const subCategoryTotal = _(subCategory[1])
         .map()

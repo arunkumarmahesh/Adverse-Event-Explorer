@@ -77,7 +77,8 @@ export function useGroups(datas: Data[]): any {
   const footerGroups: GroupedValue[] = convertFooterGroups(
     footerGroupsObj,
     footerGroupsTotal,
-    headerGroupsTotal
+    headerGroupsTotal,
+    headerGroupsObj
   );
 
   const headerGroupsObjZero = _.mapValues(headerGroupsObj, () => 0);

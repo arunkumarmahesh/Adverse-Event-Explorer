@@ -7,20 +7,17 @@ import { AppState } from "../../../types";
 
 export interface Props {
   data: any;
+  colors: any;
 }
 
-export const TableRowGroups: FC<Props> = ({ data }) => {
-  const colors = useSelector((state: AppState) => state.colors);
-
-  console.log("data", data);
-
+export const TableRowGroups: FC<Props> = ({ data, colors }) => {
   return (
     <Table.Row style={{ background: "#efefef" }}>
       <Table.Cell style={{ paddingLeft: "35px" }}>{data.name}</Table.Cell>
       {data.groups.map((group: any, key: number) => (
         <CellPopup key={key} content={`${group.value}/${group.total}`}>
           <Table.Cell style={{ color: colors[key] }}>
-            {group.percentage}
+            {`${group.percentage}%`}
           </Table.Cell>
         </CellPopup>
       ))}
