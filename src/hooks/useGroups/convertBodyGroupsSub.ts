@@ -1,6 +1,5 @@
 import _ from "lodash";
 import { computePercentage } from "./computePercentage";
-import { useGroupsSort } from "..";
 import { sortGroups } from "./sortGroups";
 
 export const convertBodyGroupsSub = (
