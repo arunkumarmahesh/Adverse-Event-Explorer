@@ -21,3 +21,6 @@ export { SearchBlock } from "./controls/searchBlock/searchBlock";
 export { SelectBlock } from "./controls/selectBlock/selectBlock";
 export { SliderBlock } from "./controls/sliderBlock/sliderBlock";
 export { CSVExport } from "./utils/csvExport/csvExport";
+export {
+  TableHeaderCellSort
+} from "./table/tableHeaderCellSort/tableHeaderCellSort";

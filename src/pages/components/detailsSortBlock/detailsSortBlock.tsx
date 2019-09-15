@@ -12,13 +12,5 @@ export interface Props {
 }
 
 export const DetailsSortBlock: FC<Props> = ({ sortColumns, handleSort }) => {
-  return (
-    <>
-      {sortColumns.length > 0 ? (
-        <SortButtons sortColumns={sortColumns} handleSort={handleSort} />
-      ) : (
-        <b>Click column headers to sort.</b>
-      )}
-    </>
-  );
+  return <SortButtons sortColumns={sortColumns} handleSort={handleSort} />;
 };
