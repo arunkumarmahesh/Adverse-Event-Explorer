@@ -5,7 +5,7 @@ export function sortGroups(datas: any) {
     datas,
     [
       function(o: any) {
-        return new Number(o.percentage);
+        return new Number(o["Total"]);
       },
       "name"
     ],

@@ -53,7 +53,19 @@ export const convertBodyGroups = (
         percentage: totalPercentage
       });
 
-      return {
+      console.log("groupsFilled", groupsFilled);
+
+      let groupPercentages = {};
+      groupsFilled.forEach((group: any) => {
+        groupPercentages = {
+          ...groupPercentages,
+          ...{ [group.name]: group.percentage }
+        };
+      });
+
+      console.log("groupPercentages", groupPercentages);
+
+      let bodyGroups = {
         name: category[0],
         groups: groupsFilled,
         percentage: totalPercentage,
@@ -64,6 +76,13 @@ export const convertBodyGroups = (
           headerGroupsTotal
         )
       };
+
+      bodyGroups = {
+        ...bodyGroups,
+        ...groupPercentages
+      };
+      console.log("bodyGroups", bodyGroups);
+      return bodyGroups;
     }
   );
 

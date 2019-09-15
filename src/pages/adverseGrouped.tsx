@@ -24,7 +24,7 @@ export const AdverseGrouped: FC = () => {
   /*   dispatch({ type: c.SET_AGE_FILTER_RANGE, payload: [minAge, maxAge] });
   dispatch({ type: c.SET_AGE_FILTER_SELECTED, payload: [minAge, maxAge] }); */
 
-  console.log("############################################", prevalenceRange);
+  console.log("############################################", bodyGroups);
   return (
     <div>
       <AEHeader />
