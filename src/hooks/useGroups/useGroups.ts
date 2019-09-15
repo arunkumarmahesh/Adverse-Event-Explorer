@@ -12,6 +12,7 @@ import { convertBodyGroups } from "./convertBodyGroups";
 import { sortGroups } from "./sortGroups";
 
 export function useGroups(datas: Data[]): any {
+  console.log("++++++++++++++++++++++++++++++++++++++++++++++");
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
 
   const dispatch = useDispatch();
@@ -83,19 +84,20 @@ export function useGroups(datas: Data[]): any {
 
   const headerGroupsObjZero = _.mapValues(headerGroupsObj, () => 0);
 
-  const bodyGroups = sortGroups(
-    convertBodyGroups(
-      bodyGroupsObj,
-      headerGroupsObj,
-      headerGroupsObjZero,
-      headerGroupsTotal
-    )
+  const [convertedBodyGroups, prevalenceMax] = convertBodyGroups(
+    bodyGroupsObj,
+    headerGroupsObj,
+    headerGroupsObjZero,
+    headerGroupsTotal
   );
 
-  /*   dispatch({ type: c.SET_HEADER_VALUES, payload: headerValues });
-  dispatch({ type: c.SET_FOOTER_VALUES, payload: footerValues }); */
-  /*   dispatch({ type: c.SET_AGE_RANGE_ALL, payload: [minAge, maxAge] });
-  dispatch({ type: c.SET_AGE_RANGE_SELECTED, payload: [minAge, maxAge] }); */
+  const bodyGroups = sortGroups(convertedBodyGroups);
 
-  return [headerGroups, bodyGroups, footerGroups];
+  return [
+    headerGroups,
+    bodyGroups,
+    footerGroups,
+    [minAge, maxAge],
+    [0, prevalenceMax]
+  ];
 }

@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "../../types";
 import * as c from "../../store/constants";
 
-export const useFilterPrevalence = () => {
+export const useFilterPrevalence = (prevalenceRange: [number, number]) => {
   const dispatch = useDispatch();
   const prevalenceFilterRange = useSelector(
     (state: AppState) => state.prevalenceFilterRange

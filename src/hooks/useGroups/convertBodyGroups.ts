@@ -8,50 +8,64 @@ export const convertBodyGroups = (
   headerGroupsObjZero: any,
   headerGroupsTotal: number
 ) => {
-  const bodyGroups = Object.entries(bodyGroupsObj).map((category: any) => {
-    // compute total adverses of this category
-    const categoryTotal = _(category[1].groups)
-      .map()
-      .sum();
+  let prevalenceMax = 0;
 
-    // add groups with zero values
-    const groupsFilledObj: any = {
-      ...headerGroupsObjZero,
-      ...category[1].groups
-    };
+  const convertedBodyGroups = Object.entries(bodyGroupsObj).map(
+    (category: any) => {
+      // compute total adverses of this category
+      const categoryTotal = _(category[1].groups)
+        .map()
+        .sum();
 
-    // convert groups to array and add datas
-    const groupsFilled = Object.entries(groupsFilledObj).map(group => {
+      // add groups with zero values
+      const groupsFilledObj: any = {
+        ...headerGroupsObjZero,
+        ...category[1].groups
+      };
+
+      const totalPercentage = computePercentage(
+        categoryTotal,
+        headerGroupsTotal
+      );
+
+      // compute prevalenceMax
+      if (totalPercentage > prevalenceMax) {
+        prevalenceMax = totalPercentage;
+      }
+
+      // convert groups to array and add datas
+      const groupsFilled = Object.entries(groupsFilledObj).map(group => {
+        return {
+          name: group[0],
+          value: group[1],
+          total: headerGroupsObj[group[0]],
+          percentage: computePercentage(
+            group[1] as number,
+            headerGroupsObj[group[0]]
+          )
+        };
+      });
+      // add group total values
+      groupsFilled.push({
+        name: "Total",
+        value: categoryTotal,
+        total: headerGroupsTotal,
+        percentage: totalPercentage
+      });
+
       return {
-        name: group[0],
-        value: group[1],
-        total: headerGroupsObj[group[0]],
-        percentage: computePercentage(
-          group[1] as number,
-          headerGroupsObj[group[0]]
+        name: category[0],
+        groups: groupsFilled,
+        percentage: totalPercentage,
+        subCategories: convertBodyGroupsSub(
+          category[1].subCategories,
+          headerGroupsObj,
+          headerGroupsObjZero,
+          headerGroupsTotal
         )
       };
-    });
-    // add group total values
-    groupsFilled.push({
-      name: "Total",
-      value: categoryTotal,
-      total: headerGroupsTotal,
-      percentage: computePercentage(categoryTotal, headerGroupsTotal)
-    });
+    }
+  );
 
-    return {
-      name: category[0],
-      groups: groupsFilled,
-      percentage: computePercentage(categoryTotal, headerGroupsTotal),
-      subCategories: convertBodyGroupsSub(
-        category[1].subCategories,
-        headerGroupsObj,
-        headerGroupsObjZero,
-        headerGroupsTotal
-      )
-    };
-  });
-
-  return bodyGroups;
+  return [convertedBodyGroups, prevalenceMax];
 };

@@ -6,10 +6,13 @@ import { SliderBlock } from "../../../components";
 import { GroupBy } from "../groupBy/groupBy";
 import { SearchBy } from "../searchBy/searchBy";
 
-export interface Props {}
+export interface Props {
+  ageRange: [number, number];
+  prevalenceRange: [number, number];
+}
 
-export const Filter: FC<Props> = () => {
-  const prevalenceFilterOptions = useFilterPrevalence();
+export const Filter: FC<Props> = ({ ageRange, prevalenceRange }) => {
+  const prevalenceFilterOptions = useFilterPrevalence(prevalenceRange);
   const ageFilterOptions = useFilterAge();
 
   return (

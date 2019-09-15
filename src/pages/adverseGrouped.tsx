@@ -13,12 +13,22 @@ export const AdverseGrouped: FC = () => {
   const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
   const summarizedDatas = useSummarize(datasOriginal);
   const filteredDatas = useFilter(summarizedDatas);
-  const [headerGroups, bodyGroups, footerGroups] = useGroups(filteredDatas);
+  const [
+    headerGroups,
+    bodyGroups,
+    footerGroups,
+    ageRange,
+    prevalenceRange
+  ] = useGroups(filteredDatas);
 
+  /*   dispatch({ type: c.SET_AGE_FILTER_RANGE, payload: [minAge, maxAge] });
+  dispatch({ type: c.SET_AGE_FILTER_SELECTED, payload: [minAge, maxAge] }); */
+
+  console.log("############################################", prevalenceRange);
   return (
     <div>
       <AEHeader />
-      <Filter />
+      <Filter ageRange={ageRange} prevalenceRange={prevalenceRange} />
       <Table>
         <TableHeaderGroups colors={colors} groups={headerGroups} />
         <TableBodyGroups colors={colors} groups={bodyGroups} />
