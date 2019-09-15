@@ -4,13 +4,13 @@ import { Table } from "semantic-ui-react";
 import * as t from "../../../types";
 
 export interface Props extends HTMLAttributes<HTMLTableElement> {
-  multiSort?: t.DetailSortItem[];
+  sortColumns: t.SortColumn[];
   headerTopics: string[];
   handleSort: (method: string, clickedColumn: string) => void;
 }
 
 export const TableHeaderSort: FC<Props> = ({
-  multiSort,
+  sortColumns,
   headerTopics,
   handleSort,
   ...rest
@@ -18,9 +18,9 @@ export const TableHeaderSort: FC<Props> = ({
   const setSortIcon = (
     item: string
   ): "ascending" | "descending" | undefined => {
-    const sortItemIndex = _.findIndex(multiSort, { name: item });
-    if (multiSort && sortItemIndex !== -1) {
-      return multiSort[sortItemIndex].direction === "asc"
+    const sortItemIndex = _.findIndex(sortColumns, { name: item });
+    if (sortColumns && sortItemIndex !== -1) {
+      return sortColumns[sortItemIndex].direction === "asc"
         ? "ascending"
         : "descending";
     } else {

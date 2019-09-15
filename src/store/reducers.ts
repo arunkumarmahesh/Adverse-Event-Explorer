@@ -22,11 +22,11 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
       case c.SET_SUMMARIZED_BY:
         draft.summarizedBy = action.payload;
         return draft;
-      case c.SET_SUMMARIZED_BY:
-        draft.summarizedBy = action.payload;
-        return draft;
       case c.SET_GROUP_VARIABLE:
         draft.groupVariable = action.payload;
+        return draft;
+      case c.SET_SORT_COLUMNS:
+        draft.SortColumn = action.payload;
         return draft;
       case c.SET_PREVALENCE_FILTER_RANGE:
         draft.prevalenceFilterRange = action.payload;
@@ -40,27 +40,27 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
       case c.SET_AGE_FILTER_SELECTED:
         draft.ageFilterSelected = action.payload;
         return draft;
-      case c.SET_SERIOUS:
-        draft.serious = addOrRemoveArrayItem<t.Serious>(
-          draft.serious,
+      case c.SET_SERIOUS_FILTER:
+        draft.seriousFilter = addOrRemoveArrayItem<t.SeriousFilter>(
+          draft.seriousFilter,
           action.payload
         );
         return draft;
-      case c.SET_SEVERITY:
-        draft.severity = addOrRemoveArrayItem<t.Severity>(
-          draft.severity,
+      case c.SET_SEVERITY_FILTER:
+        draft.severityFilter = addOrRemoveArrayItem<t.SeverityFilter>(
+          draft.severityFilter,
           action.payload
         );
         return draft;
-      case c.SET_RELATIONSHIP:
-        draft.relationship = addOrRemoveArrayItem<t.Relationship>(
-          draft.relationship,
+      case c.SET_RELATIONSHIP_FILTER:
+        draft.relationshipFilter = addOrRemoveArrayItem<t.RelationshipFilter>(
+          draft.relationshipFilter,
           action.payload
         );
         return draft;
-      case c.SET_OUTCOME:
-        draft.outcome = addOrRemoveArrayItem<t.Outcome>(
-          draft.outcome,
+      case c.SET_OUTCOME_FILTER:
+        draft.outcomeFilter = addOrRemoveArrayItem<t.OutcomeFilter>(
+          draft.outcomeFilter,
           action.payload
         );
         return draft;
@@ -74,7 +74,7 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
         draft.detailSearchTerm = action.payload;
         return draft;
       case c.SET_DETAIL_SORT_COLUMNS:
-        draft.detailSortColumns = action.payload;
+        draft.detailSortColumn = action.payload;
         return draft;
       case c.SET_DETAIL_RESULTS_PER_PAGE:
         draft.detailResultsPerPage = action.payload;

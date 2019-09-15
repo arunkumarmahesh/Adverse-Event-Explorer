@@ -4,10 +4,12 @@ import * as o from "../../pages/components/checkfilter/checkFilterOptions";
 import _ from "lodash";
 
 export const useFilterIsActive = (): [boolean, string[]] => {
-  const serious = useSelector((state: AppState) => state.serious);
-  const severity = useSelector((state: AppState) => state.severity);
-  const relationship = useSelector((state: AppState) => state.relationship);
-  const outcome = useSelector((state: AppState) => state.outcome);
+  const serious = useSelector((state: AppState) => state.seriousFilter);
+  const severity = useSelector((state: AppState) => state.severityFilter);
+  const relationship = useSelector(
+    (state: AppState) => state.relationshipFilter
+  );
+  const outcome = useSelector((state: AppState) => state.outcomeFilter);
   const ageFilterRange = useSelector((state: AppState) => state.ageFilterRange);
   const ageFilterSelected = useSelector(
     (state: AppState) => state.ageFilterSelected
@@ -27,10 +29,10 @@ export const useFilterIsActive = (): [boolean, string[]] => {
   ];
 
   const allCheckFilter = [
-    ...o.seriousOptions,
-    ...o.severityOptions,
-    ...o.relationshipOptions,
-    ...o.outcomeOptions
+    ...o.seriousFilterOptions,
+    ...o.severityFilterOptions,
+    ...o.relationshipFilterOptions,
+    ...o.outcomeFilterOptions
   ];
 
   const checkFilterActive = _.isEqual(currentCheckFilter, allCheckFilter)

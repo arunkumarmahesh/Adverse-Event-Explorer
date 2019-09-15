@@ -5,18 +5,18 @@ export type SummarizedBy = "Participants" | "Events";
 
 export type GroupVariable = "RACE" | "SEX" | "ARM" | "NONE";
 
-export type Serious = "N" | "Y";
+export type SeriousFilter = "N" | "Y";
 
-export type Severity = "MODERATE" | "SEVERE" | "MILD";
+export type SeverityFilter = "MODERATE" | "SEVERE" | "MILD";
 
-export type Relationship =
+export type RelationshipFilter =
   | "UNLIKELY RELATED"
   | "PROBABLY RELATED"
   | "NOT RELATED"
   | "POSSIBLY RELATED"
   | "DEFINITELY RELATED";
 
-export type Outcome =
+export type OutcomeFilter =
   | "RECOVERED"
   | "RESOLVED, RECOVERED"
   | "RESOLVED WITHOUT SEQUELAE"
@@ -46,7 +46,7 @@ export type StoredDatas = {
   size: number;
 };
 
-export type DetailSortItem = {
+export type SortColumn = {
   name: string;
   direction: SortDirection;
 };

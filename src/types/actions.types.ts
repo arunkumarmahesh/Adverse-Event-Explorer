@@ -5,17 +5,18 @@ export type ActionTypes =
   | SetSummarizedBy
   | SetGroupVariable
   | SetSearchTerm
+  | SetSortColumn
   | SetPrevalenceFilterRange
   | SetPrevalenceFilterSelected
   | SetAgeFilterRange
   | SetAgeFilterSelected
-  | SetSerious
-  | SetSeverity
-  | SetRelationship
-  | SetOutcome
+  | SetSeriousFilter
+  | SetSeverityFilter
+  | SetRelationshipFilter
+  | SetOutcomeFilter
   | SetExpandedCategories
   | SetDetailSearchTerm
-  | SetDetailSortColumns
+  | SetDetailSortColumn
   | SetDetailResultsPerPage;
 
 export interface SetSummarizedBy {
@@ -31,6 +32,11 @@ export interface SetGroupVariable {
 export interface SetSearchTerm {
   type: typeof c.SET_SEARCH_TERM;
   payload: string;
+}
+
+export interface SetSortColumn {
+  type: typeof c.SET_SORT_COLUMNS;
+  payload: t.SortColumn[];
 }
 
 export interface SetPrevalenceFilterRange {
@@ -53,24 +59,24 @@ export interface SetAgeFilterSelected {
   payload: [number, number];
 }
 
-export interface SetSerious {
-  type: typeof c.SET_SERIOUS;
-  payload: t.Serious;
+export interface SetSeriousFilter {
+  type: typeof c.SET_SERIOUS_FILTER;
+  payload: t.SeriousFilter;
 }
 
-export interface SetSeverity {
-  type: typeof c.SET_SEVERITY;
-  payload: t.Severity;
+export interface SetSeverityFilter {
+  type: typeof c.SET_SEVERITY_FILTER;
+  payload: t.SeverityFilter;
 }
 
-export interface SetRelationship {
-  type: typeof c.SET_RELATIONSHIP;
-  payload: t.Relationship;
+export interface SetRelationshipFilter {
+  type: typeof c.SET_RELATIONSHIP_FILTER;
+  payload: t.RelationshipFilter;
 }
 
-export interface SetOutcome {
-  type: typeof c.SET_OUTCOME;
-  payload: t.Outcome;
+export interface SetOutcomeFilter {
+  type: typeof c.SET_OUTCOME_FILTER;
+  payload: t.OutcomeFilter;
 }
 
 export interface SetExpandedCategories {
@@ -83,9 +89,9 @@ export interface SetDetailSearchTerm {
   payload: string;
 }
 
-export interface SetDetailSortColumns {
+export interface SetDetailSortColumn {
   type: typeof c.SET_DETAIL_SORT_COLUMNS;
-  payload: t.DetailSortItem[];
+  payload: t.SortColumn[];
 }
 
 export interface SetDetailResultsPerPage {

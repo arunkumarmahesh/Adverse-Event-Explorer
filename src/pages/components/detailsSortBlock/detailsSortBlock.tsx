@@ -1,21 +1,21 @@
 import React, { FC } from "react";
 import { SortButtons } from "../../../components";
-import { DetailSortItem } from "../../../types";
+import { SortColumn } from "../../../types";
 
 export interface Props {
-  sortItems: DetailSortItem[];
+  sortColumns: SortColumn[];
   handleSort: (
     method: string,
     column: string,
-    sortItems?: DetailSortItem[]
+    sortColumns: SortColumn[]
   ) => void;
 }
 
-export const DetailsSortBlock: FC<Props> = ({ sortItems, handleSort }) => {
+export const DetailsSortBlock: FC<Props> = ({ sortColumns, handleSort }) => {
   return (
     <>
-      {sortItems.length > 0 ? (
-        <SortButtons sortItems={sortItems} handleSort={handleSort} />
+      {sortColumns.length > 0 ? (
+        <SortButtons sortColumns={sortColumns} handleSort={handleSort} />
       ) : (
         <b>Click column headers to sort.</b>
       )}

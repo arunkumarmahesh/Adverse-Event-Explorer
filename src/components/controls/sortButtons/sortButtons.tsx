@@ -10,21 +10,21 @@ import {
 } from "react-beautiful-dnd";
 
 export interface Props {
-  sortItems?: t.DetailSortItem[];
+  sortColumns: t.SortColumn[];
   handleSort: (
     method: string,
     column: string,
-    sortItems?: t.DetailSortItem[]
+    sortItems: t.SortColumn[]
   ) => void;
 }
 
-export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
+export const SortButtons: FC<Props> = ({ sortColumns, handleSort }) => {
   const reorder = (
-    list: t.DetailSortItem[],
+    list: t.SortColumn[],
     startIndex: number,
     endIndex: number
-  ): t.DetailSortItem[] => {
-    const result: t.DetailSortItem[] = Array.from(list);
+  ): t.SortColumn[] => {
+    const result: t.SortColumn[] = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
 
@@ -37,8 +37,8 @@ export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
       return;
     }
 
-    const reorderdSortItems: t.DetailSortItem[] = reorder(
-      sortItems!,
+    const reorderdSortItems: t.SortColumn[] = reorder(
+      sortColumns,
       result.source.index,
       result.destination.index
     );
@@ -60,8 +60,8 @@ export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
           {(provided: DroppableProvided) => (
             <Ref innerRef={provided.innerRef}>
               <div {...provided.droppableProps}>
-                {sortItems &&
-                  sortItems.map((item: t.DetailSortItem, key: number) => {
+                {sortColumns.length > 0 &&
+                  sortColumns.map((item: t.SortColumn, key: number) => {
                     const values = Object.values(item);
                     const columnName = values[0];
                     const sortDirection = values[1];
@@ -83,7 +83,7 @@ export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
                               />
                               <span
                                 onClick={() => {
-                                  handleSort("update", columnName);
+                                  handleSort("update", columnName, sortColumns);
                                 }}
                                 style={{ cursor: "pointer" }}
                               >
@@ -93,7 +93,11 @@ export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
                               <Icon
                                 name="close"
                                 onClick={() => {
-                                  handleSort("deleteSingle", columnName);
+                                  handleSort(
+                                    "deleteSingle",
+                                    columnName,
+                                    sortColumns
+                                  );
                                 }}
                                 style={{ cursor: "pointer" }}
                               />
@@ -109,13 +113,13 @@ export const SortButtons: FC<Props> = ({ sortItems, handleSort }) => {
           )}
         </Droppable>
       </DragDropContext>
-      {sortItems && sortItems.length > 0 && (
+      {sortColumns.length > 0 && (
         <Button
           size="mini"
           icon={true}
           labelPosition="right"
           onClick={() => {
-            handleSort("deleteAll", "");
+            handleSort("deleteAll", "", []);
           }}
         >
           <Icon name="close" />

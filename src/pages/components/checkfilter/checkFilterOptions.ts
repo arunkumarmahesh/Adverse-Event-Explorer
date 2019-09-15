@@ -1,10 +1,14 @@
 import * as t from "../../../types";
 
-export const seriousOptions: t.Serious[] = ["N", "Y"];
+export const seriousFilterOptions: t.SeriousFilter[] = ["N", "Y"];
 
-export const severityOptions: t.Severity[] = ["MODERATE", "SEVERE", "MILD"];
+export const severityFilterOptions: t.SeverityFilter[] = [
+  "MODERATE",
+  "SEVERE",
+  "MILD"
+];
 
-export const relationshipOptions: t.Relationship[] = [
+export const relationshipFilterOptions: t.RelationshipFilter[] = [
   "UNLIKELY RELATED",
   "PROBABLY RELATED",
   "NOT RELATED",
@@ -12,7 +16,7 @@ export const relationshipOptions: t.Relationship[] = [
   "DEFINITELY RELATED"
 ];
 
-export const outcomeOptions: t.Outcome[] = [
+export const outcomeFilterOptions: t.OutcomeFilter[] = [
   "RECOVERED",
   "RESOLVED, RECOVERED",
   "RESOLVED WITHOUT SEQUELAE",

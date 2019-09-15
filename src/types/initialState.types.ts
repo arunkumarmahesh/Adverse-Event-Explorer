@@ -6,16 +6,17 @@ export interface AppState {
   summarizedBy: t.SummarizedBy;
   groupVariable: t.GroupVariable;
   searchTerm: string;
+  SortColumn: t.SortColumn[];
   prevalenceFilterRange: [number, number];
   prevalenceFilterSelected: [number, number];
   ageFilterRange: [number, number];
   ageFilterSelected: [number, number];
-  serious: t.Serious[];
-  severity: t.Severity[];
-  relationship: t.Relationship[];
-  outcome: t.Outcome[];
+  seriousFilter: t.SeriousFilter[];
+  severityFilter: t.SeverityFilter[];
+  relationshipFilter: t.RelationshipFilter[];
+  outcomeFilter: t.OutcomeFilter[];
   expandedCategories: string[];
   detailSearchTerm: string;
-  detailSortColumns: t.DetailSortItem[];
+  detailSortColumn: t.SortColumn[];
   detailResultsPerPage: number;
 }

@@ -20,6 +20,11 @@ export const setSearchTerm = (payload: string): t.SetSearchTerm => ({
   payload
 });
 
+export const setSortColumn = (payload: t.SortColumn[]): t.SetSortColumn => ({
+  type: c.SET_SORT_COLUMNS,
+  payload
+});
+
 export const setPrevalenceFilterRange = (
   payload: [number, number]
 ): t.SetPrevalenceFilterRange => ({
@@ -48,25 +53,29 @@ export const setAgeFilterSelected = (
   payload
 });
 
-export const setSerious = (payload: t.Serious): t.SetSerious => ({
-  type: c.SET_SERIOUS,
+export const setSeriousFilter = (
+  payload: t.SeriousFilter
+): t.SetSeriousFilter => ({
+  type: c.SET_SERIOUS_FILTER,
   payload
 });
 
-export const setSeverity = (payload: t.Severity): t.SetSeverity => ({
-  type: c.SET_SEVERITY,
+export const setSeverityFilter = (
+  payload: t.SeverityFilter
+): t.SetSeverityFilter => ({
+  type: c.SET_SEVERITY_FILTER,
   payload
 });
 
 export const setRelationship = (
-  payload: t.Relationship
-): t.SetRelationship => ({
-  type: c.SET_RELATIONSHIP,
+  payload: t.RelationshipFilter
+): t.SetRelationshipFilter => ({
+  type: c.SET_RELATIONSHIP_FILTER,
   payload
 });
 
-export const setOutcome = (payload: t.Outcome): t.SetOutcome => ({
-  type: c.SET_OUTCOME,
+export const setOutcome = (payload: t.OutcomeFilter): t.SetOutcomeFilter => ({
+  type: c.SET_OUTCOME_FILTER,
   payload
 });
 
@@ -84,14 +93,16 @@ export const setDetailSearchTerm = (
   payload
 });
 
-export const setDetailSort = (
-  payload: t.DetailSortItem[]
-): t.SetDetailSortColumns => ({
+export const setDetailSortColumn = (
+  payload: t.SortColumn[]
+): t.SetDetailSortColumn => ({
   type: c.SET_DETAIL_SORT_COLUMNS,
   payload
 });
 
-export const setDetailPages = (payload: number): t.SetDetailResultsPerPage => ({
+export const setDetailPagesResultsPerPage = (
+  payload: number
+): t.SetDetailResultsPerPage => ({
   type: c.SET_DETAIL_RESULTS_PER_PAGE,
   payload
 });

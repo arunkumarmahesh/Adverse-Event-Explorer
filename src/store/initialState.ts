@@ -1,9 +1,9 @@
 import { AppState } from "../types";
 import {
-  seriousOptions,
-  severityOptions,
-  relationshipOptions,
-  outcomeOptions
+  seriousFilterOptions,
+  severityFilterOptions,
+  relationshipFilterOptions,
+  outcomeFilterOptions
 } from "../pages/components/checkfilter/checkFilterOptions";
 import datas from "../data.json";
 
@@ -13,16 +13,17 @@ export const initialState: AppState = {
   groupVariable: "ARM",
   summarizedBy: "Events",
   searchTerm: "",
+  SortColumn: [],
   prevalenceFilterRange: [0, 0],
   prevalenceFilterSelected: [0, 0],
   ageFilterRange: [0, 0],
   ageFilterSelected: [0, 0],
-  serious: seriousOptions,
-  severity: severityOptions,
-  relationship: relationshipOptions,
-  outcome: outcomeOptions,
+  seriousFilter: seriousFilterOptions,
+  severityFilter: severityFilterOptions,
+  relationshipFilter: relationshipFilterOptions,
+  outcomeFilter: outcomeFilterOptions,
   expandedCategories: [],
   detailSearchTerm: "",
-  detailSortColumns: [],
+  detailSortColumn: [],
   detailResultsPerPage: 10
 };

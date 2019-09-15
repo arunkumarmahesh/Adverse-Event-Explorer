@@ -21,7 +21,7 @@ export function useDetailDatasCurrent(datas: t.Data[]): [t.Data[], number] {
 
   const unsortedDatas = searchedDatas || datas;
 
-  const detailSort = useSelector((state: AppState) => state.detailSortColumns);
+  const detailSort = useSelector((state: AppState) => state.detailSortColumn);
 
   let sortedDatas = null;
 

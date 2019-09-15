@@ -24,7 +24,7 @@ import {
   TableFooterDetails,
   CSVExport
 } from "../components";
-import { AppState, DetailSortItem } from "../types";
+import { AppState, SortColumn } from "../types";
 
 export interface Props extends RouteComponentProps<{ id: string }> {}
 
@@ -37,8 +37,8 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const paginatedDatas = useDetailDatasPaginated(currentDatas, currentPage);
   const headerTopics = _.keys(datasDetail[0]);
   const cellCount = _.size(headerTopics);
-  const detailSortColumns = useSelector(
-    (state: AppState) => state.detailSortColumns
+  const detailSortColumn = useSelector(
+    (state: AppState) => state.detailSortColumn
   );
   const resultsPerPage = useSelector(
     (state: AppState) => state.detailResultsPerPage
@@ -47,10 +47,10 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const handleSort = (
     method: string,
     clickedColumn: string,
-    sortItems?: DetailSortItem[]
+    sortItems?: SortColumn[]
   ) => {
-    const newDetailSort = produce(detailSortColumns, draft => {
-      const index = _.findIndex(detailSortColumns, { name: clickedColumn });
+    const newDetailSort = produce(detailSortColumn, draft => {
+      const index = _.findIndex(detailSortColumn, { name: clickedColumn });
 
       switch (method) {
         case "reorder":
@@ -99,10 +99,13 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
         resultsSearched={currentDatasSize}
         resultsTotal={datasDetailsSize}
       />
-      <DetailsSortBlock sortItems={detailSortColumns} handleSort={handleSort} />
+      <DetailsSortBlock
+        sortColumns={detailSortColumn}
+        handleSort={handleSort}
+      />
       <Table sortable>
         <TableHeaderSort
-          multiSort={detailSortColumns}
+          sortColumns={detailSortColumn}
           headerTopics={headerTopics}
           handleSort={handleSort}
         />

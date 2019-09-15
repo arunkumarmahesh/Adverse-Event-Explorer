@@ -11,47 +11,49 @@ export interface Props {
 
 export const CheckFilter: FC<Props> = ({ disabled }) => {
   const dispatch = useDispatch();
-  const serious = useSelector((state: AppState) => state.serious);
-  const severity = useSelector((state: AppState) => state.severity);
-  const relationship = useSelector((state: AppState) => state.relationship);
-  const outcome = useSelector((state: AppState) => state.outcome);
+  const serious = useSelector((state: AppState) => state.seriousFilter);
+  const severity = useSelector((state: AppState) => state.severityFilter);
+  const relationship = useSelector(
+    (state: AppState) => state.relationshipFilter
+  );
+  const outcome = useSelector((state: AppState) => state.outcomeFilter);
 
   return (
     <div className="filter">
       <CheckBlock
         label="Serious?"
-        options={o.seriousOptions}
+        options={o.seriousFilterOptions}
         checked={serious}
         disabled={disabled}
         handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_SERIOUS, payload: value })
+          dispatch({ type: c.SET_SERIOUS_FILTER, payload: value })
         }
       />
       <CheckBlock
         label="Severity"
-        options={o.severityOptions}
+        options={o.severityFilterOptions}
         checked={severity}
         disabled={disabled}
         handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_SEVERITY, payload: value })
+          dispatch({ type: c.SET_SEVERITY_FILTER, payload: value })
         }
       />
       <CheckBlock
         label="Relationship"
-        options={o.relationshipOptions}
+        options={o.relationshipFilterOptions}
         checked={relationship}
         disabled={disabled}
         handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_RELATIONSHIP, payload: value })
+          dispatch({ type: c.SET_RELATIONSHIP_FILTER, payload: value })
         }
       />
       <CheckBlock
         label="Outcome"
-        options={o.outcomeOptions}
+        options={o.outcomeFilterOptions}
         checked={outcome}
         disabled={disabled}
         handleChange={(e, { value }) =>
-          dispatch({ type: c.SET_OUTCOME, payload: value })
+          dispatch({ type: c.SET_OUTCOME_FILTER, payload: value })
         }
       />
     </div>
