@@ -9,7 +9,6 @@ import {
   SET_DETAIL_RESULTS_PER_PAGE
 } from "../store/constants";
 import { DetailsInfoBlock } from "./components/detailsInfoBlock/detailsInfoBlock";
-import { DetailsSortBlock } from "./components/detailsSortBlock/detailsSortBlock";
 import { DetailsSearchBlock } from "./components/detailsSearchBlock/detailsSearchBlock";
 import {
   useDetailDatas,
@@ -22,7 +21,8 @@ import {
   TableHeaderSort,
   TableBodyDetails,
   TableFooterDetails,
-  CSVExport
+  CSVExport,
+  SortButtons
 } from "../components";
 import { AppState, SortColumn } from "../types";
 
@@ -47,7 +47,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const handleSort = (
     method: string,
     clickedColumn: string,
-    sortItems?: SortColumn[]
+    sortItems: SortColumn[]
   ) => {
     const newDetailSort = produce(detailSortColumn, draft => {
       const index = _.findIndex(detailSortColumn, { name: clickedColumn });
@@ -99,11 +99,8 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
         resultsSearched={currentDatasSize}
         resultsTotal={datasDetailsSize}
       />
-      <DetailsSortBlock
-        sortColumns={detailSortColumn}
-        handleSort={handleSort}
-      />
-      <Table sortable>
+      <SortButtons sortColumns={detailSortColumn} handleSort={handleSort} />
+      <Table>
         <TableHeaderSort
           sortColumns={detailSortColumn}
           headerTopics={headerTopics}

@@ -27,12 +27,14 @@ export const TableHeaderSort: FC<Props> = ({
           return (
             <TableHeaderCellSort
               key={key}
-              label={item}
+              currentColumnName={item}
               sortColumns={sortColumns}
               handleSort={() => {
                 handleSort("update", item, sortColumns);
               }}
-            />
+            >
+              {item}
+            </TableHeaderCellSort>
           );
         })}
       </Table.Row>

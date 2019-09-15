@@ -6,7 +6,7 @@ export interface AppState {
   summarizedBy: t.SummarizedBy;
   groupVariable: t.GroupVariable;
   searchTerm: string;
-  SortColumn: t.SortColumn[];
+  sortColumns: t.SortColumn[];
   prevalenceFilterRange: [number, number];
   prevalenceFilterSelected: [number, number];
   ageFilterRange: [number, number];

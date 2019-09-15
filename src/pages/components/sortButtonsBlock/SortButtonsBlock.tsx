@@ -11,6 +11,6 @@ export interface Props {
   ) => void;
 }
 
-export const DetailsSortBlock: FC<Props> = ({ sortColumns, handleSort }) => {
+export const SortButtonsBlock: FC<Props> = ({ sortColumns, handleSort }) => {
   return <SortButtons sortColumns={sortColumns} handleSort={handleSort} />;
 };

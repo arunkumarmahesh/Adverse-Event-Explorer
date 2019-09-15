@@ -1,12 +1,14 @@
 import _ from "lodash";
 import { computePercentage } from "./computePercentage";
 import { sortGroups } from "./sortGroups";
+import { SortColumn } from "../../types";
 
 export const convertBodyGroupsSub = (
   subCategories: any,
   headerGroupsObj: any,
   headerGroupsObjZero: any,
-  headerGroupsTotal: number
+  headerGroupsTotal: number,
+  sortColumns: SortColumn[]
 ) => {
   const bodyGroupsSub = Object.entries(subCategories).map(
     (subCategory: any) => {
@@ -49,5 +51,5 @@ export const convertBodyGroupsSub = (
     }
   );
 
-  return sortGroups(bodyGroupsSub);
+  return sortGroups(bodyGroupsSub, sortColumns);
 };

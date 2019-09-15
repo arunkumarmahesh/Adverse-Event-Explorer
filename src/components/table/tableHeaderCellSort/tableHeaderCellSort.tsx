@@ -1,11 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import { Table, Icon, SemanticICONS } from "semantic-ui-react";
 import { SortColumn } from "../../../types";
 
 export interface Props {
-  label: string;
+  currentColumnName: string;
+  children: ReactNode | string;
   sortColumns: SortColumn[];
   exludedColumns?: string[];
+  color?: string;
   handleSort: (
     method: string,
     clickedColumn: string,
@@ -14,40 +16,49 @@ export interface Props {
 }
 
 export const TableHeaderCellSort: FC<Props> = ({
-  label = "test",
+  currentColumnName,
   sortColumns,
   exludedColumns,
-  handleSort
+  color,
+  handleSort,
+  children
 }) => {
   const setSortIcon = (
-    label: string,
+    index: string,
     sortColumns: SortColumn[]
   ): SemanticICONS => {
     let icon: SemanticICONS = "sort";
 
     sortColumns.length > 0 &&
       sortColumns.forEach((column: SortColumn) => {
-        if (column.name === label) {
+        if (column.name === index) {
           icon = column.direction === "asc" ? "sort up" : "sort down";
         }
       });
     return icon;
   };
 
-  const iconName = setSortIcon(label, sortColumns);
+  const iconName = setSortIcon(currentColumnName, sortColumns);
 
   const iconColor = iconName == "sort" ? "silver" : "black";
 
-  if (exludedColumns && exludedColumns.includes(label)) {
-    return <Table.HeaderCell>{label}</Table.HeaderCell>;
+  if (exludedColumns && exludedColumns.includes(currentColumnName)) {
+    return (
+      <Table.HeaderCell style={{ color: color || "inherit" }}>
+        {children}
+      </Table.HeaderCell>
+    );
   } else {
     return (
       <Table.HeaderCell
         onClick={() => {
-          handleSort("update", label, sortColumns);
+          handleSort("update", currentColumnName, sortColumns);
+        }}
+        style={{
+          cursor: "pointer"
         }}
       >
-        <span>{label}</span>
+        <div style={{ color: color || "inherit" }}>{children}</div>
         <Icon name={iconName} style={{ color: iconColor }} />
       </Table.HeaderCell>
     );

@@ -1,14 +1,22 @@
 import React, { FC } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
+import produce from "immer";
 import { Table } from "semantic-ui-react";
-import { AppState } from "../types";
+import { AppState, SortColumn } from "../types";
 import { Filter } from "./components/filter/filter";
-import { AEHeader, TableHeaderGroups, TableFooterGroups } from "../components";
+import {
+  AEHeader,
+  TableHeaderGroups,
+  TableFooterGroups,
+  SortButtons
+} from "../components";
 import { useGroups, useFilter, useSummarize } from "../hooks";
 import { TableBodyGroups } from "./components/tableBodyGroups/tableBodyGroups";
+import { SET_SORT_COLUMNS } from "../store/constants";
 
 export const AdverseGrouped: FC = () => {
+  const dispatch = useDispatch();
   const colors = useSelector((state: AppState) => state.colors);
   const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
   const summarizedDatas = useSummarize(datasOriginal);
@@ -20,17 +28,53 @@ export const AdverseGrouped: FC = () => {
     ageRange,
     prevalenceRange
   ] = useGroups(filteredDatas);
+  const sortColumns = useSelector((state: AppState) => state.sortColumns);
 
-  /*   dispatch({ type: c.SET_AGE_FILTER_RANGE, payload: [minAge, maxAge] });
-  dispatch({ type: c.SET_AGE_FILTER_SELECTED, payload: [minAge, maxAge] }); */
+  const handleSort = (
+    method: string,
+    clickedColumn: string,
+    sortItems?: SortColumn[]
+  ) => {
+    const newSort = produce(sortColumns, draft => {
+      const index = _.findIndex(sortColumns, { name: clickedColumn });
 
-  console.log("############################################", bodyGroups);
+      switch (method) {
+        case "reorder":
+          return sortItems ? sortItems : [];
+        case "update":
+          index !== -1
+            ? (draft[index].direction =
+                draft[index].direction === "desc" ? "asc" : "desc")
+            : draft.push({ name: clickedColumn, direction: "desc" });
+          return draft;
+        case "deleteSingle":
+          _.remove(draft, {
+            name: clickedColumn
+          });
+          return draft;
+        case "deleteAll":
+          return [];
+      }
+    });
+
+    dispatch({
+      type: SET_SORT_COLUMNS,
+      payload: newSort
+    });
+  };
+
   return (
     <div>
       <AEHeader />
       <Filter ageRange={ageRange} prevalenceRange={prevalenceRange} />
+      <SortButtons sortColumns={sortColumns} handleSort={handleSort} />
       <Table>
-        <TableHeaderGroups colors={colors} groups={headerGroups} />
+        <TableHeaderGroups
+          colors={colors}
+          groups={headerGroups}
+          sortColumns={sortColumns}
+          handleSort={handleSort}
+        />
         <TableBodyGroups colors={colors} groups={bodyGroups} />
         <TableFooterGroups colors={colors} groups={footerGroups} />
       </Table>

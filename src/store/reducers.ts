@@ -26,7 +26,7 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
         draft.groupVariable = action.payload;
         return draft;
       case c.SET_SORT_COLUMNS:
-        draft.SortColumn = action.payload;
+        draft.sortColumns = action.payload;
         return draft;
       case c.SET_PREVALENCE_FILTER_RANGE:
         draft.prevalenceFilterRange = action.payload;

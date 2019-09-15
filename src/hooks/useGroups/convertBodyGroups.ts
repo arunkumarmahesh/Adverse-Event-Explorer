@@ -1,12 +1,14 @@
 import _ from "lodash";
 import { computePercentage } from "./computePercentage";
 import { convertBodyGroupsSub } from "./convertBodyGroupsSub";
+import { SortColumn } from "../../types";
 
 export const convertBodyGroups = (
   bodyGroupsObj: any,
   headerGroupsObj: any,
   headerGroupsObjZero: any,
-  headerGroupsTotal: number
+  headerGroupsTotal: number,
+  sortColumns: SortColumn[]
 ) => {
   let prevalenceMax = 0;
 
@@ -69,7 +71,8 @@ export const convertBodyGroups = (
           category[1].subCategories,
           headerGroupsObj,
           headerGroupsObjZero,
-          headerGroupsTotal
+          headerGroupsTotal,
+          sortColumns
         )
       };
 

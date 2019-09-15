@@ -1,7 +1,6 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import _ from "lodash";
 import { AppState, Data, Groups, GroupedValue } from "../../types";
-import * as c from "../../store/constants";
 import { computeCategories } from "./computeCategories";
 import { computeSubCategories } from "./computeSubCategories";
 import { computeHeaderGroups } from "./computeHeaderGroups";
@@ -12,10 +11,8 @@ import { convertBodyGroups } from "./convertBodyGroups";
 import { sortGroups } from "./sortGroups";
 
 export function useGroups(datas: Data[]): any {
-  console.log("++++++++++++++++++++++++++++++++++++++++++++++");
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
-
-  const dispatch = useDispatch();
+  const sortColumns = useSelector((state: AppState) => state.sortColumns);
 
   let headerGroupsObj: Groups = {};
   let headerGroupsTotal = 0;
@@ -88,10 +85,11 @@ export function useGroups(datas: Data[]): any {
     bodyGroupsObj,
     headerGroupsObj,
     headerGroupsObjZero,
-    headerGroupsTotal
+    headerGroupsTotal,
+    sortColumns
   );
 
-  const bodyGroups = sortGroups(convertedBodyGroups);
+  const bodyGroups = sortGroups(convertedBodyGroups, sortColumns);
 
   return [
     headerGroups,

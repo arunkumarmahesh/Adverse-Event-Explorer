@@ -13,7 +13,7 @@ export const initialState: AppState = {
   groupVariable: "ARM",
   summarizedBy: "Events",
   searchTerm: "",
-  SortColumn: [],
+  sortColumns: [],
   prevalenceFilterRange: [0, 0],
   prevalenceFilterSelected: [0, 0],
   ageFilterRange: [0, 0],

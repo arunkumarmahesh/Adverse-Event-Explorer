@@ -1,27 +1,14 @@
 import React, { FC, HTMLAttributes } from "react";
 import _ from "lodash";
 import { Table } from "semantic-ui-react";
-import { GroupedValue, SortColumn } from "../../../types";
-import { TableHeaderCellSort } from "../..";
+import { GroupedValue } from "../../../types";
 
 export interface Props extends HTMLAttributes<HTMLTableElement> {
   colors: string[];
   groups: GroupedValue[];
-  sortColumns: SortColumn[];
-  handleSort: (
-    method: string,
-    clickedColumn: string,
-    sortColumns: SortColumn[]
-  ) => void;
 }
 
-export const TableHeaderGroups: FC<Props> = ({
-  colors,
-  groups,
-  sortColumns,
-  handleSort,
-  ...rest
-}) => {
+export const TableHeaderGroups: FC<Props> = ({ colors, groups, ...rest }) => {
   const groupSize = groups.length + 1;
   return (
     <Table.Header {...rest}>
@@ -42,18 +29,14 @@ export const TableHeaderGroups: FC<Props> = ({
       </Table.Row>
       <Table.Row>
         {groups.map((group, key) => (
-          <TableHeaderCellSort
-            color={colors[key]}
-            key={group.name}
-            currentColumnName={group.name}
-            sortColumns={sortColumns}
-            handleSort={() => {
-              handleSort("update", group.name, sortColumns);
-            }}
+          <Table.HeaderCell
+            key={key}
+            style={{ color: colors[key] }}
+            textAlign="center"
           >
             {group.name} <br />
             n={group.value}
-          </TableHeaderCellSort>
+          </Table.HeaderCell>
         ))}
       </Table.Row>
     </Table.Header>
