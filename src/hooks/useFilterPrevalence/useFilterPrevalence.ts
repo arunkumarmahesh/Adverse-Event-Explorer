@@ -4,9 +4,7 @@ import * as c from "../../store/constants";
 
 export const useFilterPrevalence = (prevalenceRange: [number, number]) => {
   const dispatch = useDispatch();
-  const prevalenceFilterRange = useSelector(
-    (state: AppState) => state.prevalenceFilterRange
-  );
+
   const prevalenceFilterSelected = useSelector(
     (state: AppState) => state.prevalenceFilterSelected
   );
@@ -14,7 +12,7 @@ export const useFilterPrevalence = (prevalenceRange: [number, number]) => {
   const prevalenceFilterOptions: any = {
     label: "Filter by prevalence:",
     selected: prevalenceFilterSelected,
-    range: prevalenceFilterRange,
+    range: prevalenceRange,
     discrete: true,
     multiple: true,
     hangleChange: (value: [number, number]) => {

@@ -18,7 +18,7 @@ export function useGroups(datas: Data[]): any {
   let headerGroupsTotal = 0;
   let footerGroupsObj: Groups = {};
   let footerGroupsTotal = 0;
-  let maxAge = 100;
+  let maxAge = 0;
   let minAge = 0;
 
   let bodyGroupsObj: any = {};

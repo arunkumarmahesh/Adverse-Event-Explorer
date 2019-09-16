@@ -2,17 +2,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "../../types";
 import * as c from "../../store/constants";
 
-export const useFilterAge = () => {
+export const useFilterAge = (ageRange: [number, number]) => {
   const dispatch = useDispatch();
   const ageFilterSelected = useSelector(
     (state: AppState) => state.ageFilterSelected
   );
-  const ageFilterRange = useSelector((state: AppState) => state.ageFilterRange);
-
+  console.log("ageRange", ageRange);
   const ageFilterOptions: any = {
     label: "Filter by age:",
     selected: ageFilterSelected,
-    range: ageFilterRange,
+    range: ageRange,
     discrete: true,
     multiple: true,
     hangleChange: (value: [number, number]) => {

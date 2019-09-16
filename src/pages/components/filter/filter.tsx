@@ -18,8 +18,11 @@ export const Filter: FC<Props> = ({
   resultsCount
 }) => {
   const prevalenceFilterOptions = useFilterPrevalence(prevalenceRange);
-  const ageFilterOptions = useFilterAge();
+  const ageFilterOptions = useFilterAge(ageRange);
 
+  console.log("prevalenceFilterOptions", prevalenceFilterOptions);
+
+  console.log("ageFilterOptions", ageFilterOptions);
   return (
     <div>
       <div className="filter">
