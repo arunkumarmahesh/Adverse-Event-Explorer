@@ -8,6 +8,8 @@ export const computeFooterGroups = (
       ? footerGroupsObj[data[groupVariable]] + 1
       : 1;
   }
+
+  // sort keys to keep always the same order even when filtering
   let ordered: any = {};
   Object.keys(footerGroupsObj)
     .sort()
