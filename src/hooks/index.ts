@@ -13,3 +13,4 @@ export { useSummarize } from "././useSummarize/useSummarize";
 export { useFilterAge } from "./useFilterAge/useFilterAge";
 export { useFilterPrevalence } from "./useFilterPrevalence/useFilterPrevalence";
 export { useSearch } from "./useSearch/useSearch";
+export { useSort } from "./useSort/useSort";

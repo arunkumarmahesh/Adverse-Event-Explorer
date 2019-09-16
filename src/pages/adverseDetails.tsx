@@ -14,7 +14,8 @@ import {
   useDetailDatas,
   useDetailDatasCurrent,
   useDetailDatasPaginated,
-  useScrollTop
+  useScrollTop,
+  useSort
 } from "../hooks";
 import {
   AEHeader,
@@ -24,7 +25,7 @@ import {
   CSVExport,
   SortButtons
 } from "../components";
-import { AppState, SortColumn } from "../types";
+import { AppState } from "../types";
 
 export interface Props extends RouteComponentProps<{ id: string }> {}
 
@@ -43,39 +44,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const resultsPerPage = useSelector(
     (state: AppState) => state.detailResultsPerPage
   );
-
-  const handleSort = (
-    method: string,
-    clickedColumn: string,
-    sortItems: SortColumn[]
-  ) => {
-    const newDetailSort = produce(detailSortColumn, draft => {
-      const index = _.findIndex(detailSortColumn, { name: clickedColumn });
-
-      switch (method) {
-        case "reorder":
-          return sortItems ? sortItems : [];
-        case "update":
-          index !== -1
-            ? (draft[index].direction =
-                draft[index].direction === "desc" ? "asc" : "desc")
-            : draft.push({ name: clickedColumn, direction: "desc" });
-          return draft;
-        case "deleteSingle":
-          _.remove(draft, {
-            name: clickedColumn
-          });
-          return draft;
-        case "deleteAll":
-          return [];
-      }
-    });
-
-    dispatch({
-      type: SET_DETAIL_SORT_COLUMNS,
-      payload: newDetailSort
-    });
-  };
+  const handleSort = useSort(detailSortColumn, SET_DETAIL_SORT_COLUMNS);
 
   const handleResultsPerPageChange = (e: Event, { value }: never) => {
     dispatch({

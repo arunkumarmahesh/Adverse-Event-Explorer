@@ -1,25 +1,30 @@
 import React, { FC } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import _ from "lodash";
-import produce from "immer";
+import { useSelector } from "react-redux";
 import { Table } from "semantic-ui-react";
-import { AppState, SortColumn } from "../types";
+import { AppState } from "../types";
 import { Filter } from "./components/filter/filter";
+import { TableBodyGroups } from "./components/tableBodyGroups/tableBodyGroups";
 import {
   AEHeader,
   TableHeaderGroups,
   TableFooterGroups,
   SortButtons
 } from "../components";
-import { useGroups, useFilter, useSummarize, useSearch } from "../hooks";
-import { TableBodyGroups } from "./components/tableBodyGroups/tableBodyGroups";
+import {
+  useGroups,
+  useFilter,
+  useSummarize,
+  useSearch,
+  useSort
+} from "../hooks";
+
 import { SET_SORT_COLUMNS } from "../store/constants";
 
 export const AdverseGrouped: FC = () => {
-  const dispatch = useDispatch();
   const colors = useSelector((state: AppState) => state.colors);
-  const sortColumns = useSelector((state: AppState) => state.sortColumns);
   const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
+  const sortColumns = useSelector((state: AppState) => state.sortColumns);
+  const handleSort = useSort(sortColumns, SET_SORT_COLUMNS);
   const summarizedDatas = useSummarize(datasOriginal);
   const filteredDatas = useFilter(summarizedDatas);
   const [
@@ -29,40 +34,7 @@ export const AdverseGrouped: FC = () => {
     ageRange,
     prevalenceRange
   ] = useGroups(filteredDatas);
-  const searchedBodyGroups = useSearch(bodyGroups);
-
-  const handleSort = (
-    method: string,
-    clickedColumn: string,
-    sortItems?: SortColumn[]
-  ) => {
-    const newSort = produce(sortColumns, draft => {
-      const index = _.findIndex(sortColumns, { name: clickedColumn });
-
-      switch (method) {
-        case "reorder":
-          return sortItems ? sortItems : [];
-        case "update":
-          index !== -1
-            ? (draft[index].direction =
-                draft[index].direction === "desc" ? "asc" : "desc")
-            : draft.push({ name: clickedColumn, direction: "desc" });
-          return draft;
-        case "deleteSingle":
-          _.remove(draft, {
-            name: clickedColumn
-          });
-          return draft;
-        case "deleteAll":
-          return [];
-      }
-    });
-
-    dispatch({
-      type: SET_SORT_COLUMNS,
-      payload: newSort
-    });
-  };
+  const currentBodyGroups = useSearch(bodyGroups);
 
   return (
     <div>
@@ -76,7 +48,7 @@ export const AdverseGrouped: FC = () => {
           sortColumns={sortColumns}
           handleSort={handleSort}
         />
-        <TableBodyGroups colors={colors} groups={searchedBodyGroups} />
+        <TableBodyGroups colors={colors} groups={currentBodyGroups} />
         <TableFooterGroups colors={colors} groups={footerGroups} />
       </Table>
     </div>
