@@ -65,8 +65,6 @@ export const SliderBlock: FC<Props> = ({
     onChange: handleChange
   };
 
-  // console.log("settings", settings);
-
   return (
     <div>
       <div>{label}</div>

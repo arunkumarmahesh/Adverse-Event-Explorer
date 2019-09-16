@@ -21,7 +21,7 @@ export function useFilter(datas: Data[]) {
             return;
           }
         } */
-        console.log("data", data);
+
         // merge data values
         const dataValues = [
           data["AESER"],
@@ -40,7 +40,7 @@ export function useFilter(datas: Data[]) {
 
         return add && data;
       });
-      console.log("filteredDatas", filteredDatas);
+
       return filteredDatas;
     }
     return datas;

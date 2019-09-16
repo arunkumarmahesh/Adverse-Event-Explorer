@@ -98,9 +98,7 @@ export function useGroups(datas: Data[]): any {
   );
 
   const bodyGroups = sortGroups(convertedBodyGroups, sortColumns);
-  console.log("headerGroups", headerGroups);
-  console.log("bodyGroups", bodyGroups);
-  console.log("footerGroups", footerGroups);
+
   return [
     headerGroups,
     bodyGroups,

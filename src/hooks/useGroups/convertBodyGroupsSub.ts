@@ -43,11 +43,28 @@ export const convertBodyGroupsSub = (
         percentage: computePercentage(subCategoryTotal, headerGroupsTotal)
       });
 
-      return {
+      // compute groupPercentages object
+      let groupPercentages = {};
+      groupsFilled.forEach((group: any) => {
+        groupPercentages = {
+          ...groupPercentages,
+          ...{ [group.name]: group.percentage }
+        };
+      });
+
+      let bodySubGroups = {
         name: subCategory[0],
         groups: groupsFilled,
         percentage: computePercentage(subCategoryTotal, headerGroupsTotal)
       };
+
+      // merge groupPercentage object to bodyGroup to enable sorting for all groups
+      bodySubGroups = {
+        ...bodySubGroups,
+        ...groupPercentages
+      };
+
+      return bodySubGroups;
     }
   );
 
