@@ -9,9 +9,14 @@ import { SearchBy } from "../searchBy/searchBy";
 export interface Props {
   ageRange: [number, number];
   prevalenceRange: [number, number];
+  resultsCount: number;
 }
 
-export const Filter: FC<Props> = ({ ageRange, prevalenceRange }) => {
+export const Filter: FC<Props> = ({
+  ageRange,
+  prevalenceRange,
+  resultsCount
+}) => {
   const prevalenceFilterOptions = useFilterPrevalence(prevalenceRange);
   const ageFilterOptions = useFilterAge();
 
@@ -20,7 +25,7 @@ export const Filter: FC<Props> = ({ ageRange, prevalenceRange }) => {
       <div className="filter">
         <SummarizeBy />
         <GroupBy />
-        <SearchBy />
+        <SearchBy resultsCount={resultsCount} />
       </div>
       <br />
       <div>

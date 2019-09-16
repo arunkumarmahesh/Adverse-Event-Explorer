@@ -34,12 +34,16 @@ export const AdverseGrouped: FC = () => {
     ageRange,
     prevalenceRange
   ] = useGroups(filteredDatas);
-  const currentBodyGroups = useSearch(bodyGroups);
+  const [currentBodyGroups, resultsCount] = useSearch(bodyGroups);
 
   return (
     <div>
       <AEHeader />
-      <Filter ageRange={ageRange} prevalenceRange={prevalenceRange} />
+      <Filter
+        ageRange={ageRange}
+        prevalenceRange={prevalenceRange}
+        resultsCount={resultsCount}
+      />
       <SortButtons sortColumns={sortColumns} handleSort={handleSort} />
       <Table>
         <TableHeaderGroups

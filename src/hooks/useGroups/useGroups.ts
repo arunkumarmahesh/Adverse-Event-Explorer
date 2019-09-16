@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import _ from "lodash";
+import { mapValues } from "lodash";
 import { AppState, Data, Groups, GroupedValue } from "../../types";
 import { computeCategories } from "./computeCategories";
 import { computeSubCategories } from "./computeSubCategories";
@@ -79,7 +79,7 @@ export function useGroups(datas: Data[]): any {
     headerGroupsObj
   );
 
-  const headerGroupsObjZero = _.mapValues(headerGroupsObj, () => 0);
+  const headerGroupsObjZero = mapValues(headerGroupsObj, () => 0);
 
   const [convertedBodyGroups, prevalenceMax] = convertBodyGroups(
     bodyGroupsObj,

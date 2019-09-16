@@ -4,9 +4,11 @@ import { Search, Button, Icon } from "semantic-ui-react";
 import { AppState } from "../../../types";
 import { SET_SEARCH_TERM } from "../../../store/constants";
 
-export interface Props {}
+export interface Props {
+  resultsCount: number;
+}
 
-export const SearchBy: FC<Props> = () => {
+export const SearchBy: FC<Props> = ({ resultsCount }) => {
   const dispatch = useDispatch();
   const searchTerm = useSelector((state: AppState) => state.searchTerm);
 
@@ -34,6 +36,7 @@ export const SearchBy: FC<Props> = () => {
         />
         {searchTerm && searchTerm[1] && (
           <Button
+            basic={true}
             size="mini"
             icon={true}
             labelPosition="right"
@@ -45,11 +48,9 @@ export const SearchBy: FC<Props> = () => {
             }}
           >
             <Icon name="close" />
-            Delete Search
+            {`${resultsCount} matches`}
           </Button>
         )}
-
-        <b>{`${8} matches`}</b>
       </div>
     </div>
   );
