@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from "react";
+import React, { FC } from "react";
 import { Checkbox } from "semantic-ui-react";
 
 export interface Props {
@@ -6,10 +6,7 @@ export interface Props {
   options: string[];
   checked: string[];
   disabled?: boolean;
-  handleChange: (
-    e: FormEvent<HTMLInputElement>,
-    value: any // Semantic UI CheckboxProps are any too
-  ) => void;
+  handleChange: (value: string) => void;
 }
 
 export const CheckBlock: FC<Props> = ({
@@ -18,21 +15,31 @@ export const CheckBlock: FC<Props> = ({
   checked,
   disabled,
   handleChange
-}) => (
-  <div>
+}) => {
+  const checkIfChangeable = (e: any, { value }: any) => {
+    if (checked.length > 1) {
+      handleChange(value);
+    } else {
+      !checked.includes(value) && handleChange(value);
+    }
+  };
+
+  return (
     <div>
-      {label}
-      <sup>E</sup>
+      <div>
+        {label}
+        <sup>E</sup>
+      </div>
+      {options.map((item, key: number) => (
+        <Checkbox
+          key={key}
+          label={item}
+          onChange={checkIfChangeable}
+          value={item}
+          checked={checked.includes(item) ? true : false}
+          disabled={disabled}
+        />
+      ))}
     </div>
-    {options.map((item, key: number) => (
-      <Checkbox
-        key={key}
-        label={item}
-        onChange={handleChange}
-        value={item}
-        checked={checked.includes(item) ? true : false}
-        disabled={disabled}
-      />
-    ))}
-  </div>
-);
+  );
+};

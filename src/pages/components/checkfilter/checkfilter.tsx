@@ -25,7 +25,7 @@ export const CheckFilter: FC<Props> = ({ disabled }) => {
         options={o.seriousFilterOptions}
         checked={serious}
         disabled={disabled}
-        handleChange={(e, { value }) =>
+        handleChange={value =>
           dispatch({ type: c.SET_SERIOUS_FILTER, payload: value })
         }
       />
@@ -34,7 +34,7 @@ export const CheckFilter: FC<Props> = ({ disabled }) => {
         options={o.severityFilterOptions}
         checked={severity}
         disabled={disabled}
-        handleChange={(e, { value }) =>
+        handleChange={value =>
           dispatch({ type: c.SET_SEVERITY_FILTER, payload: value })
         }
       />
@@ -43,7 +43,7 @@ export const CheckFilter: FC<Props> = ({ disabled }) => {
         options={o.relationshipFilterOptions}
         checked={relationship}
         disabled={disabled}
-        handleChange={(e, { value }) =>
+        handleChange={value =>
           dispatch({ type: c.SET_RELATIONSHIP_FILTER, payload: value })
         }
       />
@@ -52,7 +52,7 @@ export const CheckFilter: FC<Props> = ({ disabled }) => {
         options={o.outcomeFilterOptions}
         checked={outcome}
         disabled={disabled}
-        handleChange={(e, { value }) =>
+        handleChange={value =>
           dispatch({ type: c.SET_OUTCOME_FILTER, payload: value })
         }
       />

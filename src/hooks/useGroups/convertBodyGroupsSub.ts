@@ -58,7 +58,7 @@ export const convertBodyGroupsSub = (
         percentage: computePercentage(subCategoryTotal, headerGroupsTotal)
       };
 
-      // merge groupPercentage object to bodyGroup to enable sorting for all groups
+      // merge groupPercentage object to bodySubGroup to enable sorting for all subGroups
       bodySubGroups = {
         ...bodySubGroups,
         ...groupPercentages
