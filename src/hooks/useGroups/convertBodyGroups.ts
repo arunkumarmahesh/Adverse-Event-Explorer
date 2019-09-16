@@ -8,7 +8,8 @@ export const convertBodyGroups = (
   headerGroupsObj: any,
   headerGroupsObjZero: any,
   headerGroupsTotal: number,
-  sortColumns: SortColumn[]
+  sortColumns: SortColumn[],
+  groupVariable: string
 ) => {
   let prevalenceMax = 0;
 
@@ -36,17 +37,21 @@ export const convertBodyGroups = (
       }
 
       // convert groups to array and add datas
-      const groupsFilled = Object.entries(groupsFilledObj).map(group => {
-        return {
-          name: group[0],
-          value: group[1],
-          total: headerGroupsObj[group[0]],
-          percentage: computePercentage(
-            group[1] as number,
-            headerGroupsObj[group[0]]
-          )
-        };
-      });
+      let groupsFilled: any = [];
+      if (groupVariable !== "NONE") {
+        groupsFilled = Object.entries(groupsFilledObj).map(group => {
+          return {
+            name: group[0],
+            value: group[1],
+            total: headerGroupsObj[group[0]],
+            percentage: computePercentage(
+              group[1] as number,
+              headerGroupsObj[group[0]]
+            )
+          };
+        });
+      }
+
       // add group total values
       groupsFilled.push({
         name: "Total",
@@ -75,6 +80,9 @@ export const convertBodyGroups = (
           sortColumns
         )
       };
+
+      console.log("bodyGroups", bodyGroups);
+      console.log("bodyGroups", groupVariable);
 
       // merge groupPercentage object to bodyGroup to enable sorting for all groups
       bodyGroups = {

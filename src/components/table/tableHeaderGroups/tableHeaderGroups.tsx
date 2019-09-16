@@ -22,7 +22,6 @@ export const TableHeaderGroups: FC<Props> = ({
   handleSort,
   ...rest
 }) => {
-  const groupSize = groups.length + 1;
   return (
     <Table.Header {...rest}>
       <Table.Row>
@@ -33,7 +32,7 @@ export const TableHeaderGroups: FC<Props> = ({
         >
           Category
         </Table.HeaderCell>
-        <Table.HeaderCell colSpan={groupSize} textAlign="center">
+        <Table.HeaderCell colSpan={groups.length} textAlign="center">
           Groups
         </Table.HeaderCell>
         <Table.HeaderCell rowSpan="2" textAlign="center">

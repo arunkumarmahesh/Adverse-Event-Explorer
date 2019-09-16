@@ -18,8 +18,8 @@ export function useGroups(datas: Data[]): any {
   let headerGroupsTotal = 0;
   let footerGroupsObj: Groups = {};
   let footerGroupsTotal = 0;
-  let maxAge = 0;
-  let minAge = 100;
+  let maxAge = 100;
+  let minAge = 0;
 
   let bodyGroupsObj: any = {};
 
@@ -47,13 +47,18 @@ export function useGroups(datas: Data[]): any {
     const group = data[groupVariable];
     const subCategory = data.AEDECOD;
 
-    bodyGroupsObj = computeCategories(data, bodyGroupsObj, category, group);
+    bodyGroupsObj = computeCategories(
+      bodyGroupsObj,
+      category,
+      group,
+      groupVariable
+    );
     bodyGroupsObj = computeSubCategories(
-      data,
       bodyGroupsObj,
       category,
       subCategory,
-      group
+      group,
+      groupVariable
     );
 
     // compute age range
@@ -80,14 +85,18 @@ export function useGroups(datas: Data[]): any {
   );
 
   const headerGroupsObjZero = mapValues(headerGroupsObj, () => 0);
-
+  console.log("headerGroupsObj", headerGroupsObj);
+  console.log("bodyGroupsObj", bodyGroupsObj);
+  console.log("footerGroupsObj", footerGroupsObj);
   const [convertedBodyGroups, prevalenceMax] = convertBodyGroups(
     bodyGroupsObj,
     headerGroupsObj,
     headerGroupsObjZero,
     headerGroupsTotal,
-    sortColumns
+    sortColumns,
+    groupVariable
   );
+  console.log("convertedBodyGroups", convertedBodyGroups);
 
   const bodyGroups = sortGroups(convertedBodyGroups, sortColumns);
 

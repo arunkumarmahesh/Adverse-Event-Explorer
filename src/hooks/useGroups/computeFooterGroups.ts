@@ -3,7 +3,7 @@ export const computeFooterGroups = (
   footerGroupsObj: { [key: string]: number },
   groupVariable: string
 ) => {
-  if (data.AEBODSYS !== "") {
+  if (data.AEBODSYS !== "" && groupVariable !== "NONE") {
     footerGroupsObj[data[groupVariable]] = footerGroupsObj[data[groupVariable]]
       ? footerGroupsObj[data[groupVariable]] + 1
       : 1;

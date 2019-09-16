@@ -1,8 +1,8 @@
 export const computeCategories = (
-  data: any,
   bodyGroupsObj: any,
   category: any,
-  group: any
+  group: any,
+  groupVariable: string
 ) => {
   if (bodyGroupsObj[category]) {
     if (bodyGroupsObj[category].groups[group]) {
@@ -17,5 +17,6 @@ export const computeCategories = (
       ...{ [category]: { groups: { [group]: 1 } } }
     };
   }
+
   return bodyGroupsObj;
 };

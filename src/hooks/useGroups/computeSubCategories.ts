@@ -1,9 +1,9 @@
 export const computeSubCategories = (
-  data: any,
   bodyGroupsObj: any,
   category: any,
   subCategory: any,
-  group: any
+  group: any,
+  groupVariable: string
 ) => {
   if (bodyGroupsObj[category].subCategories) {
     if (bodyGroupsObj[category].subCategories[subCategory]) {
