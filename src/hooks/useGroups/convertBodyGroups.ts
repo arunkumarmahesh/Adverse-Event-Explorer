@@ -81,7 +81,7 @@ export const convertBodyGroups = (
         ...bodyGroups,
         ...groupPercentages
       };
-      console.log("bodyGroups", bodyGroups);
+
       return bodyGroups;
     }
   );

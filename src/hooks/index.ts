@@ -9,6 +9,7 @@ export { useFilter } from "./useFilter/useFilter";
 export { useFilterIsActive } from "./useFilterIsActive/useFilterIsActive";
 export { useGroups } from "./useGroups/useGroups";
 export { useScrollTop } from "./useScrollTop/useScrollTop";
-export { useSummarize } from "./useSummarize/useSummarize";
+export { useSummarize } from "././useSummarize/useSummarize";
 export { useFilterAge } from "./useFilterAge/useFilterAge";
 export { useFilterPrevalence } from "./useFilterPrevalence/useFilterPrevalence";
+export { useSearch } from "./useSearch/useSearch";

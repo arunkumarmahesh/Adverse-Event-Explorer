@@ -28,7 +28,7 @@ export function useGroups(datas: Data[]): any {
     headerGroupsObj = computeHeaderGroups(data, headerGroupsObj, groupVariable);
     headerGroupsTotal = headerGroupsTotal + 1;
     // add ScreenFailure if not existing
-    if (!headerGroupsObj["Screen Failure"]) {
+    if (groupVariable === "ARM" && !headerGroupsObj["Screen Failure"]) {
       headerGroupsObj = { ...headerGroupsObj, ...{ "Screen Failure": 0 } };
     }
 
@@ -38,7 +38,7 @@ export function useGroups(datas: Data[]): any {
       footerGroupsTotal = footerGroupsTotal + 1;
     }
     // add ScreenFailure if not existing
-    if (!footerGroupsObj["Screen Failure"]) {
+    if (groupVariable === "ARM" && !footerGroupsObj["Screen Failure"]) {
       footerGroupsObj = { ...footerGroupsObj, ...{ "Screen Failure": 0 } };
     }
 

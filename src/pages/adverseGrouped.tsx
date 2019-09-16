@@ -11,13 +11,14 @@ import {
   TableFooterGroups,
   SortButtons
 } from "../components";
-import { useGroups, useFilter, useSummarize } from "../hooks";
+import { useGroups, useFilter, useSummarize, useSearch } from "../hooks";
 import { TableBodyGroups } from "./components/tableBodyGroups/tableBodyGroups";
 import { SET_SORT_COLUMNS } from "../store/constants";
 
 export const AdverseGrouped: FC = () => {
   const dispatch = useDispatch();
   const colors = useSelector((state: AppState) => state.colors);
+  const sortColumns = useSelector((state: AppState) => state.sortColumns);
   const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
   const summarizedDatas = useSummarize(datasOriginal);
   const filteredDatas = useFilter(summarizedDatas);
@@ -28,7 +29,7 @@ export const AdverseGrouped: FC = () => {
     ageRange,
     prevalenceRange
   ] = useGroups(filteredDatas);
-  const sortColumns = useSelector((state: AppState) => state.sortColumns);
+  const searchedBodyGroups = useSearch(bodyGroups);
 
   const handleSort = (
     method: string,
@@ -75,7 +76,7 @@ export const AdverseGrouped: FC = () => {
           sortColumns={sortColumns}
           handleSort={handleSort}
         />
-        <TableBodyGroups colors={colors} groups={bodyGroups} />
+        <TableBodyGroups colors={colors} groups={searchedBodyGroups} />
         <TableFooterGroups colors={colors} groups={footerGroups} />
       </Table>
     </div>

@@ -1,6 +1,56 @@
 import React, { FC } from "react";
-import { SearchBlock } from "../../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { Search, Button, Icon } from "semantic-ui-react";
+import { AppState } from "../../../types";
+import { SET_SEARCH_TERM } from "../../../store/constants";
 
-export const SearchBy: FC = () => {
-  return <SearchBlock label="Search by category:" />;
+export interface Props {}
+
+export const SearchBy: FC<Props> = () => {
+  const dispatch = useDispatch();
+  const searchTerm = useSelector((state: AppState) => state.searchTerm);
+
+  const handleSearch = (e: any) => {
+    dispatch({
+      type: SET_SEARCH_TERM,
+      payload: e.currentTarget.value
+    });
+  };
+
+  return (
+    <div>
+      <div>Search by category:</div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center"
+        }}
+      >
+        <Search
+          onSearchChange={handleSearch}
+          showNoResults={false}
+          value={searchTerm}
+        />
+        {searchTerm && searchTerm[1] && (
+          <Button
+            size="mini"
+            icon={true}
+            labelPosition="right"
+            onClick={() => {
+              dispatch({
+                type: SET_SEARCH_TERM,
+                payload: ""
+              });
+            }}
+          >
+            <Icon name="close" />
+            Delete Search
+          </Button>
+        )}
+
+        <b>{`${8} matches`}</b>
+      </div>
+    </div>
+  );
 };

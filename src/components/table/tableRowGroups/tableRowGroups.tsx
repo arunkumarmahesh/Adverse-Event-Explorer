@@ -13,7 +13,10 @@ export const TableRowGroups: FC<Props> = ({ data, colors }) => {
   return (
     <Table.Row style={{ background: "#efefef" }}>
       <Table.Cell style={{ paddingLeft: "35px" }}>
-        <Link to={`/${data.name}`}>{data.name}</Link>
+        <Link
+          to={`/${data.name}`}
+          dangerouslySetInnerHTML={{ __html: data.name }}
+        />
       </Table.Cell>
       {data.groups.map((group: any, key: number) => (
         <CellPopup key={key} content={`${group.value}/${group.total}`}>

@@ -1,6 +1,13 @@
 import React, { FC, useState } from "react";
 import { Table, Pagination, Select } from "semantic-ui-react";
-import * as o from "../../../utils/options";
+import { SelectOptions } from "../../../types";
+
+export const resultsPerPageOptions: SelectOptions[] = [
+  { key: "5", value: "5", text: "5" },
+  { key: "10", value: "10", text: "10" },
+  { key: "25", value: "25", text: "25" },
+  { key: "50", value: "50", text: "50" }
+];
 
 export interface Props {
   columnCount: number;
@@ -26,7 +33,7 @@ export const TableFooterDetails: FC<Props> = ({
       <Table.Row>
         <Table.HeaderCell>
           <Select
-            options={o.resultsPerPageOptions}
+            options={resultsPerPageOptions}
             onChange={handleResultsPerPageChange}
             value={resultsPerPage.toString()}
           />
