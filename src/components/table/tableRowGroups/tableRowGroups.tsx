@@ -14,7 +14,7 @@ export const TableRowGroups: FC<Props> = ({ data, colors }) => {
     <Table.Row style={{ background: "#efefef" }}>
       <Table.Cell style={{ paddingLeft: "35px" }}>
         <Link
-          to={`/${data.name}`}
+          to={`/${data.name.replace(/<\/?[^>]+(>|$)/g, "")}`}
           dangerouslySetInnerHTML={{ __html: data.name }}
         />
       </Table.Cell>

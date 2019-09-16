@@ -33,7 +33,10 @@ export const TableCellAccordion: FC<Props> = ({
             icon={expandAll ? "genderless" : "dropdown"}
           ></Accordion.Title>
         </Accordion>
-        <Link to={`/${title}`} dangerouslySetInnerHTML={{ __html: title }} />
+        <Link
+          to={`/${title.replace(/<\/?[^>]+(>|$)/g, "")}`}
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
       </div>
     </Table.Cell>
   );
