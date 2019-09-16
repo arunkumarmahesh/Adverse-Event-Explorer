@@ -81,9 +81,6 @@ export const convertBodyGroups = (
         )
       };
 
-      console.log("bodyGroups", bodyGroups);
-      console.log("bodyGroups", groupVariable);
-
       // merge groupPercentage object to bodyGroup to enable sorting for all groups
       bodyGroups = {
         ...bodyGroups,

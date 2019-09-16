@@ -35,7 +35,7 @@ export const AdverseGrouped: FC = () => {
     prevalenceRange
   ] = useGroups(filteredDatas);
   const [currentBodyGroups, resultsCount] = useSearch(bodyGroups);
-  // console.log("currentBodyGroups", currentBodyGroups);
+
   return (
     <div>
       <AEHeader />

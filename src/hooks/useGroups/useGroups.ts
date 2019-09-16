@@ -85,9 +85,7 @@ export function useGroups(datas: Data[]): any {
   );
 
   const headerGroupsObjZero = mapValues(headerGroupsObj, () => 0);
-  console.log("headerGroupsObj", headerGroupsObj);
-  console.log("bodyGroupsObj", bodyGroupsObj);
-  console.log("footerGroupsObj", footerGroupsObj);
+
   const [convertedBodyGroups, prevalenceMax] = convertBodyGroups(
     bodyGroupsObj,
     headerGroupsObj,
@@ -96,7 +94,6 @@ export function useGroups(datas: Data[]): any {
     sortColumns,
     groupVariable
   );
-  console.log("convertedBodyGroups", convertedBodyGroups);
 
   const bodyGroups = sortGroups(convertedBodyGroups, sortColumns);
 

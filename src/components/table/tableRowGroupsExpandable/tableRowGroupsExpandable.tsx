@@ -49,11 +49,10 @@ export const TableRowGroupsExpandable: FC<Props> = ({ colors, data }) => {
           );
         })}
       </Table.Row>
-      {expandedCategories.includes(data.name) ||
-        (expandAll &&
-          data.subCategories.map((data: any, key: number) => (
-            <TableRowGroups key={key} data={data} colors={colors} />
-          )))}
+      {(expandedCategories.includes(data.name) || expandAll) &&
+        data.subCategories.map((data: any, key: number) => (
+          <TableRowGroups key={key} data={data} colors={colors} />
+        ))}
     </>
   );
 };
