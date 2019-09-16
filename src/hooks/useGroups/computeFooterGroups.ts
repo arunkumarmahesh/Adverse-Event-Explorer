@@ -8,5 +8,11 @@ export const computeFooterGroups = (
       ? footerGroupsObj[data[groupVariable]] + 1
       : 1;
   }
-  return footerGroupsObj;
+  let ordered: any = {};
+  Object.keys(footerGroupsObj)
+    .sort()
+    .forEach(function(key: string) {
+      ordered[key] = footerGroupsObj[key];
+    });
+  return ordered;
 };

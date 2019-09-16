@@ -1,5 +1,3 @@
-import { GroupedValue } from "../../types";
-
 export const convertHeaderGroups = (
   headerGroupsObj: any,
   headerGroupsTotal: number

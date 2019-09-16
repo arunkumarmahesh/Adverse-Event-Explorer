@@ -13,15 +13,15 @@ export function useFilter(datas: Data[]) {
   const setFilter = () => {
     if (isActive) {
       const filteredDatas: Data[] = datas.filter((data: any) => {
-        if (ageFilterSelected !== ageFilterRange) {
+        /*         if (ageFilterSelected !== ageFilterRange) {
           if (
             data.AGE < ageFilterSelected[0] ||
             data.AGE > ageFilterSelected[1]
           ) {
             return;
           }
-        }
-
+        } */
+        console.log("data", data);
         // merge data values
         const dataValues = [
           data["AESER"],
@@ -40,7 +40,7 @@ export function useFilter(datas: Data[]) {
 
         return add && data;
       });
-
+      console.log("filteredDatas", filteredDatas);
       return filteredDatas;
     }
     return datas;

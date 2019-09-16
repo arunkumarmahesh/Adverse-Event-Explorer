@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export const computeHeaderGroups = (
   data: any,
   headerGroupsObj: any,
@@ -9,5 +11,11 @@ export const computeHeaderGroups = (
       : 1;
   }
 
-  return headerGroupsObj;
+  let ordered: any = {};
+  Object.keys(headerGroupsObj)
+    .sort()
+    .forEach(function(key: string) {
+      ordered[key] = headerGroupsObj[key];
+    });
+  return ordered;
 };

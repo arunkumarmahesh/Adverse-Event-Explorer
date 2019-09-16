@@ -7,7 +7,7 @@ export const useFilterAge = (ageRange: [number, number]) => {
   const ageFilterSelected = useSelector(
     (state: AppState) => state.ageFilterSelected
   );
-  console.log("ageRange", ageRange);
+  // console.log("ageRange", ageRange);
   const ageFilterOptions: any = {
     label: "Filter by age:",
     selected: ageFilterSelected,

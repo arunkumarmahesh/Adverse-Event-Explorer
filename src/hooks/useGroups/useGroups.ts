@@ -25,7 +25,9 @@ export function useGroups(datas: Data[]): any {
 
   datas.forEach((data: any) => {
     // compute table header values
+
     headerGroupsObj = computeHeaderGroups(data, headerGroupsObj, groupVariable);
+
     headerGroupsTotal = headerGroupsTotal + 1;
     // add ScreenFailure if not existing
     if (groupVariable === "ARM" && !headerGroupsObj["Screen Failure"]) {
@@ -96,7 +98,9 @@ export function useGroups(datas: Data[]): any {
   );
 
   const bodyGroups = sortGroups(convertedBodyGroups, sortColumns);
-
+  console.log("headerGroups", headerGroups);
+  console.log("bodyGroups", bodyGroups);
+  console.log("footerGroups", footerGroups);
   return [
     headerGroups,
     bodyGroups,

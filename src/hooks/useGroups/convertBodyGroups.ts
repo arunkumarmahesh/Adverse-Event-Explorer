@@ -12,7 +12,7 @@ export const convertBodyGroups = (
   groupVariable: string
 ) => {
   let prevalenceMax = 0;
-
+  console.log("headerGroupsObjZero", headerGroupsObjZero);
   const convertedBodyGroups = Object.entries(bodyGroupsObj).map(
     (category: any) => {
       // compute total adverses of this category
