@@ -16,7 +16,7 @@ export function useFilter(datas: Data[]) {
         let isWithinSelectedAge = true;
         if (ageFilterSelected) {
           if (
-            data.AGE < ageFilterSelected[0] &&
+            data.AGE < ageFilterSelected[0] ||
             data.AGE > ageFilterSelected[1]
           ) {
             isWithinSelectedAge = false;

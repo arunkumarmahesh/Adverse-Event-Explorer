@@ -36,10 +36,7 @@ export const AdverseGrouped: FC = () => {
     prevalenceRange
   ] = useGroups(filteredDatas);
   const [searchedBodyGroups, resultsCount] = useSearch(bodyGroups);
-  const currentBodyGroups = usePrevalenceFilter(
-    searchedBodyGroups,
-    prevalenceRange[1]
-  );
+  const currentBodyGroups = usePrevalenceFilter(searchedBodyGroups);
 
   return (
     <div>
