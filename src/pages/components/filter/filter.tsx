@@ -45,7 +45,6 @@ export const Filter: FC<Props> = ({
     });
   }
 
-  // check if prevalence range has changed
   if (!prevalenceFilterRange) {
     dispatch({
       type: c.SET_PREVALENCE_FILTER_RANGE,
@@ -53,18 +52,12 @@ export const Filter: FC<Props> = ({
     });
   }
 
-  // check if age selected is set
   if (!prevalenceFilterSelected) {
     dispatch({
       type: c.SET_PREVALENCE_FILTER_SELECTED,
       payload: prevalenceRange
     });
   }
-
-  console.log("ageFilterRange", ageFilterRange);
-  console.log("ageFilterSelected", ageFilterSelected);
-  console.log("prevalenceFilterRange", prevalenceFilterRange);
-  console.log("prevalenceFilterSelected", prevalenceFilterSelected);
 
   const handleAgeChange = (value: [number, number]) => {
     dispatch({
@@ -89,11 +82,13 @@ export const Filter: FC<Props> = ({
       </div>
       <br />
       <div>
+        <b>Filter by age:</b>
         <SliderBlock
           range={ageFilterRange || ageRange}
           selected={ageFilterSelected || ageRange}
           handleChange={handleAgeChange}
         />
+        <b>Filter by prevalence:</b>
         <SliderBlock
           range={prevalenceFilterRange || prevalenceRange}
           selected={prevalenceFilterSelected || prevalenceRange}

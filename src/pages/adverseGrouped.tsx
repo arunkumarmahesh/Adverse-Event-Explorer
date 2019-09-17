@@ -15,7 +15,8 @@ import {
   useFilter,
   useSummarize,
   useSearch,
-  useSort
+  useSort,
+  usePrevalenceFilter
 } from "../hooks";
 
 import { SET_SORT_COLUMNS } from "../store/constants";
@@ -34,8 +35,12 @@ export const AdverseGrouped: FC = () => {
     ageRange,
     prevalenceRange
   ] = useGroups(filteredDatas);
-  const [currentBodyGroups, resultsCount] = useSearch(bodyGroups);
-  console.log("currentBodyGroups", currentBodyGroups);
+  const [searchedBodyGroups, resultsCount] = useSearch(bodyGroups);
+  const currentBodyGroups = usePrevalenceFilter(
+    searchedBodyGroups,
+    prevalenceRange[1]
+  );
+
   return (
     <div>
       <AEHeader />

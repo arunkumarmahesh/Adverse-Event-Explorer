@@ -10,20 +10,15 @@ export function useFilter(datas: Data[]) {
     (state: AppState) => state.ageFilterSelected
   );
 
-  const ageFilterRange = useSelector((state: AppState) => state.ageFilterRange);
-
   const setFilter = () => {
     if (isActive) {
-      let count = 0;
       const filteredDatas: Data[] = datas.filter(data => {
         let isWithinSelectedAge = true;
         if (ageFilterSelected) {
           if (
-            data.AGE >= ageFilterSelected[0] &&
-            data.AGE <= ageFilterSelected[1]
+            data.AGE < ageFilterSelected[0] &&
+            data.AGE > ageFilterSelected[1]
           ) {
-            count++;
-          } else {
             isWithinSelectedAge = false;
           }
         }
