@@ -31,11 +31,6 @@ export const convertBodyGroups = (
         headerGroupsTotal
       );
 
-      // compute prevalenceMax
-      if (totalPercentage > prevalenceMax) {
-        prevalenceMax = totalPercentage;
-      }
-
       // convert groups to array and add datas
       let groupsFilled: any = [];
       if (groupVariable !== "NONE") {
@@ -62,11 +57,25 @@ export const convertBodyGroups = (
 
       // compute groupPercentages object
       let groupPercentages = {};
+      let highestPrevalence = 0;
       groupsFilled.forEach((group: any) => {
         groupPercentages = {
           ...groupPercentages,
           ...{ [group.name]: group.percentage }
         };
+        // compute highestPrevalence of this group
+        highestPrevalence =
+          highestPrevalence < group.percentage
+            ? group.percentage
+            : highestPrevalence;
+        // merge highestPrevalence into groupPercentages
+        groupPercentages = {
+          ...groupPercentages,
+          ...{ highestPrevalence: highestPrevalence }
+        };
+        // compute prevalenceMax as highest prevalence of all groups for prevalence range slider
+        prevalenceMax =
+          prevalenceMax < group.percentage ? group.percentage : prevalenceMax;
       });
 
       let bodyGroups = {
