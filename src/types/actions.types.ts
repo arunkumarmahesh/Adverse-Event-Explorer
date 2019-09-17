@@ -8,6 +8,7 @@ export type ActionTypes =
   | SetSortColumn
   | SetPrevalenceFilterRange
   | SetPrevalenceFilterSelected
+  | SetPrevalenceFilterGroup
   | SetAgeFilterRange
   | SetAgeFilterSelected
   | SetSeriousFilter
@@ -47,6 +48,11 @@ export interface SetPrevalenceFilterRange {
 export interface SetPrevalenceFilterSelected {
   type: typeof c.SET_PREVALENCE_FILTER_SELECTED;
   payload: [number, number];
+}
+
+export interface SetPrevalenceFilterGroup {
+  type: typeof c.SET_PREVALENCE_FILTER_GROUP;
+  payload: string;
 }
 
 export interface SetAgeFilterRange {

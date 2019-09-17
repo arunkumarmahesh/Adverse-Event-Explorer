@@ -9,6 +9,7 @@ export interface AppState {
   sortColumns: t.SortColumn[];
   prevalenceFilterRange?: [number, number];
   prevalenceFilterSelected?: [number, number];
+  prevalenceFilterGroup: string;
   ageFilterRange?: [number, number];
   ageFilterSelected?: [number, number];
   seriousFilter: t.SeriousFilter[];

@@ -1,5 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, SyntheticEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Select } from "semantic-ui-react";
 import { CheckFilter } from "../checkfilter/checkfilter";
 import { SummarizeBy } from "../summarizeBy/summarizeBy";
 import { SliderBlock } from "../../../components";
@@ -12,12 +13,14 @@ export interface Props {
   ageRange: [number, number];
   prevalenceRange: [number, number];
   resultsCount: number;
+  headerGroups: any;
 }
 
 export const Filter: FC<Props> = ({
   ageRange,
   prevalenceRange,
-  resultsCount
+  resultsCount,
+  headerGroups
 }) => {
   const dispatch = useDispatch();
   const ageFilterRange = useSelector((state: AppState) => state.ageFilterRange);
@@ -29,6 +32,9 @@ export const Filter: FC<Props> = ({
   );
   const prevalenceFilterSelected = useSelector(
     (state: AppState) => state.prevalenceFilterSelected
+  );
+  const prevalenceFilterGroup = useSelector(
+    (state: AppState) => state.prevalenceFilterGroup
   );
 
   if (!ageFilterRange) {
@@ -45,6 +51,7 @@ export const Filter: FC<Props> = ({
     });
   }
 
+  console.log("prevalenceFilterRange", prevalenceFilterRange);
   if (!prevalenceFilterRange) {
     dispatch({
       type: c.SET_PREVALENCE_FILTER_RANGE,
@@ -66,13 +73,43 @@ export const Filter: FC<Props> = ({
     });
   };
 
-  const handlePrevalenceChange = (value: [number, number]) => {
+  const handlePrevalenceFilterChange = (value: [number, number]) => {
     dispatch({
       type: c.SET_PREVALENCE_FILTER_SELECTED,
       payload: value
     });
   };
 
+  const handlePrevalenceFilterGroupChange = (
+    e: SyntheticEvent<HTMLElement>,
+    { value }: any
+  ) => {
+    dispatch({
+      type: c.SET_PREVALENCE_FILTER_GROUP,
+      payload: value
+    });
+  };
+
+  const generatePrevalenceOptions = (headerGroups: any) => {
+    let options = [];
+    headerGroups.forEach((value: any) => {
+      if (value.name !== "Screen Failure") {
+        options.push({
+          key: value.name,
+          value: value.name,
+          text: value.name
+        });
+      }
+    });
+    options.unshift({ key: "All", value: "highestPrevalence", text: "All" });
+    return options;
+  };
+
+  console.log(
+    "generatePrevalenceOptions(headerGroups)",
+    generatePrevalenceOptions(headerGroups)
+  );
+  console.log("prevalenceFilterGroup", prevalenceFilterGroup);
   return (
     <div>
       <div className="filter">
@@ -89,10 +126,15 @@ export const Filter: FC<Props> = ({
           handleChange={handleAgeChange}
         />
         <b>Filter by prevalence:</b>
+        <Select
+          options={generatePrevalenceOptions(headerGroups)}
+          value={prevalenceFilterGroup}
+          onChange={handlePrevalenceFilterGroupChange}
+        />
         <SliderBlock
           range={prevalenceFilterRange || prevalenceRange}
           selected={prevalenceFilterSelected || prevalenceRange}
-          handleChange={handlePrevalenceChange}
+          handleChange={handlePrevalenceFilterChange}
         />
       </div>
       <br />

@@ -58,6 +58,7 @@ export const convertBodyGroups = (
       // compute groupPercentages object
       let groupPercentages = {};
       let highestPrevalence = 0;
+
       groupsFilled.forEach((group: any) => {
         groupPercentages = {
           ...groupPercentages,
@@ -100,5 +101,6 @@ export const convertBodyGroups = (
     }
   );
 
+  console.log("convertedBodyGroups prevalenceMax", prevalenceMax);
   return [convertedBodyGroups, prevalenceMax];
 };

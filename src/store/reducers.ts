@@ -33,6 +33,9 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
       case c.SET_PREVALENCE_FILTER_SELECTED:
         draft.prevalenceFilterSelected = action.payload;
         return draft;
+      case c.SET_PREVALENCE_FILTER_GROUP:
+        draft.prevalenceFilterGroup = action.payload;
+        return draft;
       case c.SET_AGE_FILTER_RANGE:
         draft.ageFilterRange = action.payload;
         return draft;

@@ -39,6 +39,13 @@ export const setPrevalenceFilterSelected = (
   payload
 });
 
+export const setPrevalenceFilterGroup = (
+  payload: string
+): t.SetPrevalenceFilterGroup => ({
+  type: c.SET_PREVALENCE_FILTER_GROUP,
+  payload
+});
+
 export const setAgeFilterRange = (
   payload: [number, number]
 ): t.SetAgeFilterRange => ({

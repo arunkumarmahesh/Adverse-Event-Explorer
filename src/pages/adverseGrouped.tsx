@@ -45,6 +45,7 @@ export const AdverseGrouped: FC = () => {
         ageRange={ageRange}
         prevalenceRange={prevalenceRange}
         resultsCount={resultsCount}
+        headerGroups={headerGroups}
       />
       <SortButtons sortColumns={sortColumns} handleSort={handleSort} />
       <Table>

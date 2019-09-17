@@ -5,13 +5,17 @@ export const usePrevalenceFilter = (datas: any) => {
   const prevalenceFilterSelected = useSelector(
     (state: AppState) => state.prevalenceFilterSelected
   );
+
+  const prevalenceFilterGroup = useSelector(
+    (state: AppState) => state.prevalenceFilterGroup
+  );
   const filteredDatas: any = datas.filter((data: any) => {
     let add = true;
 
     if (prevalenceFilterSelected) {
       if (
-        data["highestPrevalence"] < prevalenceFilterSelected[0] ||
-        data["highestPrevalence"] > prevalenceFilterSelected[1]
+        data[prevalenceFilterGroup] < prevalenceFilterSelected[0] ||
+        data[prevalenceFilterGroup] > prevalenceFilterSelected[1]
       ) {
         add = false;
       }
