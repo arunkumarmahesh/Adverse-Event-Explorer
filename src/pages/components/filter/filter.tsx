@@ -1,9 +1,7 @@
 import React, { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import _ from "lodash";
 import { CheckFilter } from "../checkfilter/checkfilter";
 import { SummarizeBy } from "../summarizeBy/summarizeBy";
-import { useFilterPrevalence, useFilterAge } from "../../../hooks";
 import { SliderBlock } from "../../../components";
 import { GroupBy } from "../groupBy/groupBy";
 import { SearchBy } from "../searchBy/searchBy";
@@ -33,36 +31,40 @@ export const Filter: FC<Props> = ({
     (state: AppState) => state.prevalenceFilterSelected
   );
 
-  // check if age range has changed
-  if (!_.isEqual(ageRange, ageFilterRange)) {
-    console.log("ä");
+  if (!ageFilterRange) {
     dispatch({
       type: c.SET_AGE_FILTER_RANGE,
       payload: ageRange
     });
-    // check if age selected is set
-    if (!_.isEqual(ageFilterSelected, [0, 0])) {
-      dispatch({
-        type: c.SET_AGE_FILTER_SELECTED,
-        payload: ageRange
-      });
-    }
+  }
+
+  if (!ageFilterSelected) {
+    dispatch({
+      type: c.SET_AGE_FILTER_SELECTED,
+      payload: ageRange
+    });
   }
 
   // check if prevalence range has changed
-  if (!_.isEqual(prevalenceRange, prevalenceFilterRange)) {
+  if (!prevalenceFilterRange) {
     dispatch({
       type: c.SET_PREVALENCE_FILTER_RANGE,
       payload: prevalenceRange
     });
-    // check if age selected is set
-    if (!_.isEqual(ageFilterSelected, [0, 0])) {
-      dispatch({
-        type: c.SET_PREVALENCE_FILTER_SELECTED,
-        payload: prevalenceRange
-      });
-    }
   }
+
+  // check if age selected is set
+  if (!prevalenceFilterSelected) {
+    dispatch({
+      type: c.SET_PREVALENCE_FILTER_SELECTED,
+      payload: prevalenceRange
+    });
+  }
+
+  console.log("ageFilterRange", ageFilterRange);
+  console.log("ageFilterSelected", ageFilterSelected);
+  console.log("prevalenceFilterRange", prevalenceFilterRange);
+  console.log("prevalenceFilterSelected", prevalenceFilterSelected);
 
   const handleAgeChange = (value: [number, number]) => {
     dispatch({
@@ -88,13 +90,13 @@ export const Filter: FC<Props> = ({
       <br />
       <div>
         <SliderBlock
-          range={ageRange}
-          selected={ageRange}
+          range={ageFilterRange || ageRange}
+          selected={ageFilterSelected || ageRange}
           handleChange={handleAgeChange}
         />
         <SliderBlock
-          range={prevalenceRange}
-          selected={prevalenceRange}
+          range={prevalenceFilterRange || prevalenceRange}
+          selected={prevalenceFilterSelected || prevalenceRange}
           handleChange={handlePrevalenceChange}
         />
       </div>

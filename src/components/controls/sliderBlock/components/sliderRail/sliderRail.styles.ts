@@ -8,6 +8,6 @@ export const Rail = styled.div<RailProps>`
   height: 10px;
   margin-top: 35px;
   border-radius: 5px;
-  background-color: #8b9cb6;
+  background-color: red;
   cursor: pointer;
 `;

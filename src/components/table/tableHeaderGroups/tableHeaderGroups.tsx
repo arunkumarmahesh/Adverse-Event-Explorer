@@ -1,5 +1,4 @@
 import React, { FC, HTMLAttributes } from "react";
-import _ from "lodash";
 import { Table } from "semantic-ui-react";
 import { GroupedValue, SortColumn } from "../../../types";
 import { TableHeaderCellSort } from "../..";

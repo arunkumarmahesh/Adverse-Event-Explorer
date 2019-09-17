@@ -19,8 +19,7 @@ export function useGroups(datas: Data[]): any {
   let footerGroupsObj: Groups = {};
   let footerGroupsTotal = 0;
   let maxAge = 0;
-  let minAge = 0;
-
+  let minAge = 200;
   let bodyGroupsObj: any = {};
 
   datas.forEach((data: any) => {

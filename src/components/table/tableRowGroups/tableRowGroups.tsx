@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { Table } from "semantic-ui-react";
-import _ from "lodash";
 import { CellPopup } from "../..";
 
 export interface Props {

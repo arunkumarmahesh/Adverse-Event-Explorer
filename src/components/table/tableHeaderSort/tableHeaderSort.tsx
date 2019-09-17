@@ -1,5 +1,4 @@
 import React, { FC, HTMLAttributes } from "react";
-import _ from "lodash";
 import { Table } from "semantic-ui-react";
 import { TableHeaderCellSort } from "../..";
 import * as t from "../../../types";

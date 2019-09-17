@@ -40,7 +40,7 @@ export const TableHeaderCellSort: FC<Props> = ({
 
   const iconName = setSortIcon(currentColumnName, sortColumns);
 
-  const iconColor = iconName == "sort" ? "silver" : "black";
+  const iconColor = iconName === "sort" ? "silver" : "black";
 
   if (exludedColumns && exludedColumns.includes(currentColumnName)) {
     return (

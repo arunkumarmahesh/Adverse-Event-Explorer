@@ -1,7 +1,6 @@
-import React, { FC, MouseEvent } from "react";
+import React, { FC } from "react";
 import { Table } from "semantic-ui-react";
 import { TableRowGroupsExpandable } from "../../../components";
-import _ from "lodash";
 
 export interface Props {
   colors: string[];

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Table, Pagination, Select } from "semantic-ui-react";
 import { SelectOptions } from "../../../types";
 

@@ -21,7 +21,7 @@ export const SliderBlock: FC<Props> = ({ range, selected, handleChange }) => {
       step={1}
       mode={2}
       values={selected}
-      onChange={handleChange}
+      onSlideEnd={handleChange}
     >
       <Rail>
         {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
@@ -31,7 +31,6 @@ export const SliderBlock: FC<Props> = ({ range, selected, handleChange }) => {
           <SliderHandles handles={handles} getHandleProps={getHandleProps} />
         )}
       </Handles>
-
       <Tracks right={false}>
         {({ tracks, getTrackProps }) => (
           <SliderTracks tracks={tracks} getTrackProps={getTrackProps} />

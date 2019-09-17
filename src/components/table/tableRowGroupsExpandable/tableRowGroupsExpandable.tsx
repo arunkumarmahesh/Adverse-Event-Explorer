@@ -1,5 +1,4 @@
-import React, { FC, useState, MouseEvent } from "react";
-import _ from "lodash";
+import React, { FC, MouseEvent } from "react";
 import { Table } from "semantic-ui-react";
 import { TableCellAccordion, CellPopup, TableRowGroups } from "../..";
 import { AppState } from "../../../types";

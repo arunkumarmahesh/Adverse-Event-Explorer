@@ -7,10 +7,10 @@ export interface AppState {
   groupVariable: t.GroupVariable;
   searchTerm: string;
   sortColumns: t.SortColumn[];
-  prevalenceFilterRange: [number, number];
-  prevalenceFilterSelected: [number, number];
-  ageFilterRange: [number, number];
-  ageFilterSelected: [number, number];
+  prevalenceFilterRange?: [number, number];
+  prevalenceFilterSelected?: [number, number];
+  ageFilterRange?: [number, number];
+  ageFilterSelected?: [number, number];
   seriousFilter: t.SeriousFilter[];
   severityFilter: t.SeverityFilter[];
   relationshipFilter: t.RelationshipFilter[];

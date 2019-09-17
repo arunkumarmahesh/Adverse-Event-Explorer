@@ -1,9 +1,7 @@
-import _ from "lodash";
-
 export const computeHeaderGroups = (
   data: any,
   headerGroupsObj: any,
-  groupVariable: any
+  groupVariable: string
 ) => {
   if (groupVariable !== "NONE") {
     headerGroupsObj[data[groupVariable]] = headerGroupsObj[data[groupVariable]]

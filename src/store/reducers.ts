@@ -1,6 +1,5 @@
 import produce from "immer";
 import { Reducer } from "redux";
-import _ from "lodash";
 import { initialState } from "./initialState";
 import * as t from "../types";
 import * as c from "./constants";
@@ -79,7 +78,6 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
       case c.SET_DETAIL_RESULTS_PER_PAGE:
         draft.detailResultsPerPage = action.payload;
         return draft;
-
       default:
         return draft;
     }
