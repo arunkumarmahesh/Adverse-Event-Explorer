@@ -101,6 +101,5 @@ export const convertBodyGroups = (
     }
   );
 
-  console.log("convertedBodyGroups prevalenceMax", prevalenceMax);
   return [convertedBodyGroups, prevalenceMax];
 };

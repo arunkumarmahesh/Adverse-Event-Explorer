@@ -8,19 +8,22 @@ import { GroupBy } from "../groupBy/groupBy";
 import { SearchBy } from "../searchBy/searchBy";
 import * as c from "../../../store/constants";
 import { AppState } from "../../../types";
+import _ from "lodash";
 
 export interface Props {
   ageRange: [number, number];
   prevalenceRange: [number, number];
   resultsCount: number;
   headerGroups: any;
+  currentBodyGroups: any;
 }
 
 export const Filter: FC<Props> = ({
   ageRange,
   prevalenceRange,
   resultsCount,
-  headerGroups
+  headerGroups,
+  currentBodyGroups
 }) => {
   const dispatch = useDispatch();
   const ageFilterRange = useSelector((state: AppState) => state.ageFilterRange);
@@ -84,6 +87,16 @@ export const Filter: FC<Props> = ({
     e: SyntheticEvent<HTMLElement>,
     { value }: any
   ) => {
+    let highestValue = prevalenceRange[1];
+    if (value !== "highestPrevalence") {
+      const highest: any = _.maxBy(currentBodyGroups, value);
+      highestValue = highest[value];
+    }
+    console.log("highestValue", highestValue);
+    dispatch({
+      type: c.SET_PREVALENCE_FILTER_RANGE,
+      payload: [0, highestValue]
+    });
     dispatch({
       type: c.SET_PREVALENCE_FILTER_GROUP,
       payload: value
@@ -105,10 +118,6 @@ export const Filter: FC<Props> = ({
     return options;
   };
 
-  console.log(
-    "generatePrevalenceOptions(headerGroups)",
-    generatePrevalenceOptions(headerGroups)
-  );
   console.log("prevalenceFilterGroup", prevalenceFilterGroup);
   return (
     <div>
