@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@nivo/bar": "^0.59.2",
     "@types/jest": "24.0.18",
     "@types/lodash": "^4.14.138",
     "@types/node": "12.7.2",
@@ -19,16 +18,17 @@
     "lodash": "^4.17.15",
     "react": "^16.9.0",
     "react-beautiful-dnd": "^11.0.5",
+    "react-compound-slider": "^2.3.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
-    "react-semantic-ui-range": "^0.7.0",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.0",
+    "styled-components": "^4.3.2",
     "typescript": "3.5.3"
   },
   "scripts": {
@@ -53,8 +53,8 @@
     ]
   },
   "devDependencies": {
-    "@types/lunr": "^2.3.2",
     "@types/react-beautiful-dnd": "^11.0.3",
-    "@types/react-router-dom": "^4.3.5"
+    "@types/react-router-dom": "^4.3.5",
+    "@types/styled-components": "^4.1.19"
   }
 }

@@ -5,23 +5,16 @@ import { useFilterIsActive } from "..";
 
 export function useFilter(datas: Data[]) {
   const [isActive, currentCheckFilter] = useFilterIsActive();
-  const ageFilterRange = useSelector((state: AppState) => state.ageFilterRange);
+
   const ageFilterSelected = useSelector(
     (state: AppState) => state.ageFilterSelected
   );
 
+  const ageFilterRange = useSelector((state: AppState) => state.ageFilterRange);
+
   const setFilter = () => {
     if (isActive) {
       const filteredDatas: Data[] = datas.filter((data: any) => {
-        /*         if (ageFilterSelected !== ageFilterRange) {
-          if (
-            data.AGE < ageFilterSelected[0] ||
-            data.AGE > ageFilterSelected[1]
-          ) {
-            return;
-          }
-        } */
-
         // merge data values
         const dataValues = [
           data["AESER"],
@@ -47,7 +40,6 @@ export function useFilter(datas: Data[]) {
   };
 
   return useMemo(() => setFilter(), [
-    ageFilterRange,
     ageFilterSelected,
     isActive,
     currentCheckFilter,
