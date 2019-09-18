@@ -6,5 +6,5 @@ export interface Props {
 }
 
 export const SliderRail: FC<Props> = ({ getRailProps }) => {
-  return <Rail {...getRailProps()} />;
+  return <Rail {...getRailProps()}></Rail>;
 };

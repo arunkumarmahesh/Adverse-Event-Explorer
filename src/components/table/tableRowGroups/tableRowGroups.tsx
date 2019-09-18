@@ -6,7 +6,7 @@ import { CellPopup } from "../..";
 
 export interface Props {
   data: any;
-  colors: any;
+  colors: string[];
 }
 
 export const TableRowGroups: FC<Props> = ({ data, colors }) => {

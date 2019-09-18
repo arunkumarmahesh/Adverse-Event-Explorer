@@ -10,7 +10,7 @@ export interface TickProps {
 
 export const Tick = styled.div<TickProps>`
   position: absolute;
-  margin-top: 52px;
+  margin-top: 42px;
   margin-left: -0.5px;
   width: 1px;
   height: 8px;
@@ -27,7 +27,7 @@ export const TickValue = styled.div<TickValueProps>`
   margin-top: 6px;
   font-size: 10px;
   text-align: center;
-  margin-left: ${props => -(100 / props.count) / 2}%;
+  margin-left: ${props => -(10000 / props.count)}%;
   width: ${props => 100 / props.count}%;
   left: ${props => props.percent}%;
 `;

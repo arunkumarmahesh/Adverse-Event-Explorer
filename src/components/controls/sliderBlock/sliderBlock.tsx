@@ -6,7 +6,7 @@ import {
   SliderTicks,
   SliderRail
 } from "./components";
-import { Slider } from "./slider.styles";
+import { Slider, SliderWrapper } from "./slider.styles";
 
 export interface Props {
   range: [number, number];
@@ -16,29 +16,31 @@ export interface Props {
 
 export const SliderBlock: FC<Props> = ({ range, selected, handleChange }) => {
   return (
-    <Slider
-      domain={range}
-      step={1}
-      mode={2}
-      values={selected}
-      onSlideEnd={handleChange}
-    >
-      <Rail>
-        {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
-      </Rail>
-      <Handles>
-        {({ handles, getHandleProps }) => (
-          <SliderHandles handles={handles} getHandleProps={getHandleProps} />
-        )}
-      </Handles>
-      <Tracks right={false}>
-        {({ tracks, getTrackProps }) => (
-          <SliderTracks tracks={tracks} getTrackProps={getTrackProps} />
-        )}
-      </Tracks>
-      <Ticks count={15}>
-        {({ ticks }) => <SliderTicks ticks={ticks} count={ticks.length} />}
-      </Ticks>
-    </Slider>
+    <SliderWrapper>
+      <Slider
+        domain={range}
+        step={1}
+        mode={2}
+        values={selected}
+        onSlideEnd={handleChange}
+      >
+        <Rail>
+          {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
+        </Rail>
+        <Handles>
+          {({ handles, getHandleProps }) => (
+            <SliderHandles handles={handles} getHandleProps={getHandleProps} />
+          )}
+        </Handles>
+        <Tracks right={false} left={false}>
+          {({ tracks, getTrackProps }) => (
+            <SliderTracks tracks={tracks} getTrackProps={getTrackProps} />
+          )}
+        </Tracks>
+        <Ticks count={15}>
+          {({ ticks }) => <SliderTicks ticks={ticks} count={ticks.length} />}
+        </Ticks>
+      </Slider>
+    </SliderWrapper>
   );
 };

@@ -11,6 +11,7 @@ export interface Props {
 }
 
 export const SliderTicks: FC<Props> = ({ ticks, count }) => {
+  console.log("count", count);
   return (
     <Ticks>
       {ticks.map(({ percent, id, value }) => (

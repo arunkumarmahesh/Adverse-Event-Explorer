@@ -6,6 +6,9 @@ export interface StyleProps {}
 export const Slider = styled(CompoundSlider)<StyleProps>`
   position: relative;
   width: 50%;
-  height: 80px;
-  border: 1px solid steelblue;
+  height: 65px;
+`;
+
+export const SliderWrapper = styled.div`
+  padding: 0 10px;
 `;

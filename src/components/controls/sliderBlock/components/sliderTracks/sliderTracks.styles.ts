@@ -13,7 +13,7 @@ export const Track = styled.div<SliderTrackProps>`
   position: absolute;
   height: 10px;
   z-index: 1;
-  margin-top: 35px;
+  margin-top: 25px;
   background-color: #546c91;
   border-radius: 5px;
   cursor: pointer;

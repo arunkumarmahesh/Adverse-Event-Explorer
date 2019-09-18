@@ -12,7 +12,7 @@ export const Handle = styled.div<HandleProps>`
   left: ${props => props.percent}%;
   position: absolute;
   margin-left: -15px;
-  margin-top: 25px;
+  margin-top: 15px;
   z-index: 2;
   width: 30px;
   height: 30px;
@@ -27,7 +27,6 @@ export const Handle = styled.div<HandleProps>`
 export interface HandleInnerProps {}
 
 export const HandleInner = styled.div<HandleInnerProps>`
-  font-family: "Roboto";
   font-size: 11px;
   margin-top: -20px;
 `;
