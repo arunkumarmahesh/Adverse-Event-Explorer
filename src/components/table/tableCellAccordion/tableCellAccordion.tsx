@@ -1,7 +1,7 @@
 import React, { FC, HTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 import { Table, Accordion } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
+import { formatUrl } from "../../../utils/helpers/formatUrl";
 
 export interface Props extends HTMLAttributes<HTMLTableCellElement> {
   title: string;
@@ -34,7 +34,7 @@ export const TableCellAccordion: FC<Props> = ({
           ></Accordion.Title>
         </Accordion>
         <Link
-          to={`/${title.replace(/<\/?[^>]+(>|$)/g, "")}`}
+          to={formatUrl(title)}
           dangerouslySetInnerHTML={{ __html: title }}
         />
       </div>

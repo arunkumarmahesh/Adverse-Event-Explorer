@@ -54,7 +54,6 @@ export const Filter: FC<Props> = ({
     });
   }
 
-  console.log("prevalenceFilterRange", prevalenceFilterRange);
   if (!prevalenceFilterRange) {
     dispatch({
       type: c.SET_PREVALENCE_FILTER_RANGE,
@@ -92,7 +91,7 @@ export const Filter: FC<Props> = ({
       const highest: any = _.maxBy(currentBodyGroups, value);
       highestValue = highest[value];
     }
-    console.log("highestValue", highestValue);
+
     dispatch({
       type: c.SET_PREVALENCE_FILTER_RANGE,
       payload: [0, highestValue]
@@ -118,7 +117,6 @@ export const Filter: FC<Props> = ({
     return options;
   };
 
-  console.log("prevalenceFilterGroup", prevalenceFilterGroup);
   return (
     <div>
       <div className="filter">

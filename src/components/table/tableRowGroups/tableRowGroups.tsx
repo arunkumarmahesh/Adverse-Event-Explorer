@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { Table } from "semantic-ui-react";
+import { formatUrl } from "../../../utils/helpers/formatUrl";
 import { CellPopup } from "../..";
 
 export interface Props {
@@ -13,7 +14,7 @@ export const TableRowGroups: FC<Props> = ({ data, colors }) => {
     <Table.Row style={{ background: "#efefef" }}>
       <Table.Cell style={{ paddingLeft: "35px" }}>
         <Link
-          to={`/${data.name.replace(/<\/?[^>]+(>|$)/g, "")}`}
+          to={formatUrl(data.name)}
           dangerouslySetInnerHTML={{ __html: data.name }}
         />
       </Table.Cell>

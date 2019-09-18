@@ -1,8 +1,8 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, FormEvent } from "react";
 import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { Table, Button } from "semantic-ui-react";
+import { Table, Button, Checkbox, CheckboxProps } from "semantic-ui-react";
 import {
   SET_DETAIL_SORT_COLUMNS,
   SET_DETAIL_RESULTS_PER_PAGE
@@ -74,6 +74,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
           headerTopics={headerTopics}
           handleSort={handleSort}
         />
+
         <TableBodyDetails datas={paginatedDatas} />
         <TableFooterDetails
           currentPage={currentPage}
