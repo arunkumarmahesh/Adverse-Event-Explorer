@@ -69,6 +69,22 @@ export const Filter: FC<Props> = ({
   }
 
   const handleAgeChange = (value: [number, number]) => {
+    // prevalenceFilterGroup
+    let highestValue = prevalenceRange[1];
+
+    const highest: any = _.maxBy(currentBodyGroups, value);
+    highestValue = highest[prevalenceFilterGroup];
+    console.log("highestValue", highestValue);
+    console.log("prevalenceFilterGroup", prevalenceFilterGroup);
+
+    dispatch({
+      type: c.SET_PREVALENCE_FILTER_RANGE,
+      payload: [0, highestValue]
+    });
+    dispatch({
+      type: c.SET_PREVALENCE_FILTER_SELECTED,
+      payload: [0, highestValue]
+    });
     dispatch({
       type: c.SET_AGE_FILTER_SELECTED,
       payload: value

@@ -113,7 +113,6 @@ export function useGroups(datas: Data[]): any {
       };
     })
     .value();
-  console.log("countedCategories", countedCategories);
 
   // countedSubCategories for events and participants
   const countedSubCategories = _.mapValues(datasGrouped, value =>
