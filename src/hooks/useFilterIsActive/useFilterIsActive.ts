@@ -14,12 +14,6 @@ export const useFilterIsActive = (): [boolean, string[]] => {
   const ageFilterSelected = useSelector(
     (state: AppState) => state.ageFilterSelected
   );
-  const prevalenceFilterRange = useSelector(
-    (state: AppState) => state.prevalenceFilterRange
-  );
-  const prevalenceFilterSelected = useSelector(
-    (state: AppState) => state.prevalenceFilterSelected
-  );
 
   const currentCheckFilter = [
     ...serious,
@@ -35,27 +29,20 @@ export const useFilterIsActive = (): [boolean, string[]] => {
     ...o.outcomeFilterOptions
   ];
 
-  const checkFilterActive = _.isEqual(currentCheckFilter, allCheckFilter)
-    ? false
-    : true;
+  const checkFilterActive =
+    currentCheckFilter.length === allCheckFilter.length ? false : true;
 
   const ageFilterActive = _.isEqual(ageFilterRange, ageFilterSelected)
     ? false
     : true;
-  const prevalenceFilterActive = _.isEqual(
-    prevalenceFilterRange,
-    prevalenceFilterSelected
-  )
-    ? false
-    : true;
 
-  const checkArray = [
-    checkFilterActive.toString(),
-    ageFilterActive.toString(),
-    prevalenceFilterActive.toString()
-  ];
+  console.log("allCheckFilter", allCheckFilter);
+  console.log("currentCheckFilter", currentCheckFilter);
+  console.log("checkFilterActive", checkFilterActive);
+  console.log("ageFilterActive", ageFilterActive);
+  const checkArray = [checkFilterActive.toString(), ageFilterActive.toString()];
 
   const isActive = checkArray.includes("true");
-
+  console.log("isActive", isActive);
   return [isActive, currentCheckFilter];
 };
