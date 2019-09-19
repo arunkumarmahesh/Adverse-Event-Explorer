@@ -1,10 +1,14 @@
 import { useSelector } from "react-redux";
-import { mapValues } from "lodash";
-import { AppState, Data, Groups, GroupedValue } from "../../types";
-import { computeCategories } from "./computeCategories";
-import { computeSubCategories } from "./computeSubCategories";
+import _ from "lodash";
+import {
+  AppState,
+  Data,
+  Groups,
+  GroupedValue,
+  HeaderGroups
+} from "../../types";
+import { computeAgeRange } from "./computeAgeRange";
 import { computeHeaderGroups } from "./computeHeaderGroups";
-import { convertHeaderGroups } from "./convertHeaderGroups";
 import { computeFooterGroups } from "./computeFooterGroups";
 import { convertFooterGroups } from "./convertFooterGroups";
 import { convertBodyGroups } from "./convertBodyGroups";
@@ -12,6 +16,7 @@ import { sortGroups } from "./sortGroups";
 
 export function useGroups(datas: Data[]): any {
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
+  const summarizedBy = useSelector((state: AppState) => state.summarizedBy);
   const sortColumns = useSelector((state: AppState) => state.sortColumns);
 
   let headerGroupsObj: Groups = {};
@@ -20,80 +25,134 @@ export function useGroups(datas: Data[]): any {
   let footerGroupsTotal = 0;
   let maxAge = 0;
   let minAge = 200;
-  let bodyGroupsObj: any = {};
+  let summarizedByDatas = [{}];
 
-  datas.forEach((data: any) => {
-    // compute table header values
+  // used only for header and footer
+  if (summarizedBy === "Events") {
+    summarizedByDatas = _.filter(datas, data => data.AEBODSYS !== "");
+  }
 
-    headerGroupsObj = computeHeaderGroups(data, headerGroupsObj, groupVariable);
+  // used only for header and footer
+  if (summarizedBy === "Participants") {
+    summarizedByDatas = _.uniqBy(datas, "USUBJID");
+  }
 
-    headerGroupsTotal = headerGroupsTotal + 1;
-    // add ScreenFailure if not existing
-    if (groupVariable === "ARM" && !headerGroupsObj["Screen Failure"]) {
-      headerGroupsObj = { ...headerGroupsObj, ...{ "Screen Failure": 0 } };
-    }
-
-    // compute table footer values
-    footerGroupsObj = computeFooterGroups(data, footerGroupsObj, groupVariable);
-    if (data.AEBODSYS !== "") {
-      footerGroupsTotal = footerGroupsTotal + 1;
-    }
-    // add ScreenFailure if not existing
-    if (groupVariable === "ARM" && !footerGroupsObj["Screen Failure"]) {
-      footerGroupsObj = { ...footerGroupsObj, ...{ "Screen Failure": 0 } };
-    }
-
-    // compute table body values
-    const category = data.AEBODSYS;
-    const group = data[groupVariable];
-    const subCategory = data.AEDECOD;
-
-    bodyGroupsObj = computeCategories(
-      bodyGroupsObj,
-      category,
-      group,
-      groupVariable
-    );
-    bodyGroupsObj = computeSubCategories(
-      bodyGroupsObj,
-      category,
-      subCategory,
-      group,
-      groupVariable
+  summarizedByDatas.forEach((data: any) => {
+    [headerGroupsObj, headerGroupsTotal] = computeHeaderGroups(
+      data,
+      headerGroupsObj,
+      groupVariable,
+      headerGroupsTotal
     );
 
-    // compute age range
-    if (data.AGE > maxAge) {
-      maxAge = data.AGE;
-    }
-    if (data.AGE < minAge) {
-      minAge = data.AGE;
-    }
+    [footerGroupsObj, footerGroupsTotal] = computeFooterGroups(
+      data,
+      footerGroupsObj,
+      groupVariable,
+      footerGroupsTotal
+    );
+
+    [minAge, maxAge] = computeAgeRange(data.AGE, minAge, maxAge);
   });
 
-  // Convert header group object to arrays and add total values
-  const headerGroups: GroupedValue[] = convertHeaderGroups(
-    headerGroupsObj,
-    headerGroupsTotal
+  // create a sorted headerGroups object with zero values
+  const headerGroupsObjZero = _.mapValues(
+    _(headerGroupsObj)
+      .toPairs()
+      .sortBy(0)
+      .fromPairs()
+      .value(),
+    () => 0
   );
 
-  // Convert footer group object to arrays and add total values
+  // sort headerGroupsObj and add total values at the end
+  headerGroupsObj = {
+    ..._(headerGroupsObj)
+      .toPairs()
+      .sortBy(0)
+      .fromPairs()
+      .value(),
+    ...{ Total: headerGroupsTotal }
+  };
+
+  // sort footerGroupsObj and add total values at the end
+  footerGroupsObj = _(footerGroupsObj)
+    .toPairs()
+    .sortBy(0)
+    .fromPairs()
+    .value();
+
+  let datasGrouped = {};
+  // group categories for events
+  if (summarizedBy === "Events") {
+    datasGrouped = _.chain(datas)
+      .filter(data => data.AEBODSYS !== "")
+      .groupBy("AEBODSYS")
+      .value();
+  }
+  // group categories for participants
+  if (summarizedBy === "Participants") {
+    datasGrouped = _.chain(datas)
+      .filter(data => data.AEBODSYS !== "")
+      .groupBy("AEBODSYS")
+      .mapValues(values => _.uniqBy(values, "USUBJID"))
+      .value();
+  }
+
+  // count category groups for events and participants
+  const countedCategories = _.chain(datasGrouped)
+    .mapValues(value => {
+      const groupsCounted = _.countBy(value, "ARM");
+      const groupsTotal = _(groupsCounted)
+        .map()
+        .sum();
+      return {
+        ...headerGroupsObjZero,
+        ...groupsCounted,
+        ...{ Total: groupsTotal }
+      };
+    })
+    .value();
+  console.log("countedCategories", countedCategories);
+
+  // countedSubCategories for events and participants
+  const countedSubCategories = _.mapValues(datasGrouped, value =>
+    _.chain(value)
+      .groupBy("AEDECOD")
+      .mapValues(value => {
+        const groupsCounted = _.countBy(value, "ARM");
+        const groupsTotal = _(groupsCounted)
+          .map()
+          .sum();
+        return {
+          ...headerGroupsObjZero,
+          ...groupsCounted,
+          ...{ Total: groupsTotal }
+        };
+      })
+      .value()
+  );
+
+  // compute header groups array
+  const headerGroups: HeaderGroups = _.map(headerGroupsObj, (value, key) => ({
+    name: key,
+    value: value,
+    total: headerGroupsObj["Total"] // TODO: check if really necessary
+  }));
+
+  // compute body groups array
+  const [convertedBodyGroups, prevalenceMax] = convertBodyGroups(
+    countedCategories,
+    headerGroupsObj,
+    sortColumns,
+    countedSubCategories
+  );
+
+  // compute footer groups array
   const footerGroups: GroupedValue[] = convertFooterGroups(
     footerGroupsObj,
     footerGroupsTotal,
-    headerGroupsTotal,
     headerGroupsObj
-  );
-
-  const headerGroupsObjZero = mapValues(headerGroupsObj, () => 0);
-
-  const [convertedBodyGroups, prevalenceMax] = convertBodyGroups(
-    bodyGroupsObj,
-    headerGroupsObj,
-    headerGroupsObjZero,
-    headerGroupsTotal,
-    sortColumns,
-    groupVariable
   );
 
   const bodyGroups = sortGroups(convertedBodyGroups, sortColumns);

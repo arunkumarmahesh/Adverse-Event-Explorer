@@ -20,7 +20,7 @@ export const TableRowGroups: FC<Props> = ({ data, colors }) => {
       </Table.Cell>
       {data.groups.map((group: any, key: number) => (
         <CellPopup key={key} content={`${group.value}/${group.total}`}>
-          <Table.Cell style={{ color: colors[key] }}>
+          <Table.Cell style={{ color: colors[key] }} textAlign="center">
             {`${group.percentage}%`}
           </Table.Cell>
         </CellPopup>

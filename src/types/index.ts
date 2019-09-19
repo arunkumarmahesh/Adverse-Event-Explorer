@@ -28,7 +28,23 @@ export type SelectOptions = {
   text: string;
 };
 
+export type Category = [string, GroupsObj];
+
+export type GroupsObj = { [key: string]: number };
+
 export type Groups = { [key: string]: number };
+
+export type Group = {
+  name: string;
+  value: number;
+  total: number;
+  percentage: number;
+};
+
+export type HeaderGroups = {
+  name: string;
+  value: number;
+}[];
 
 export type GroupedValue = {
   name: string;

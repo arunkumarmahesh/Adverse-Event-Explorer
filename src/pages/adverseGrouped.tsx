@@ -26,8 +26,8 @@ export const AdverseGrouped: FC = () => {
   const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
   const sortColumns = useSelector((state: AppState) => state.sortColumns);
   const handleSort = useSort(sortColumns, SET_SORT_COLUMNS);
-  const summarizedDatas = useSummarize(datasOriginal);
-  const filteredDatas = useFilter(summarizedDatas);
+  // const summarizedDatas = useSummarize(datasOriginal);
+  const filteredDatas = useFilter(datasOriginal);
   const [
     headerGroups,
     bodyGroups,

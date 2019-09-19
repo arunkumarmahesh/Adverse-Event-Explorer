@@ -1,20 +1,20 @@
 export const computeFooterGroups = (
   data: any,
-  footerGroupsObj: { [key: string]: number },
-  groupVariable: string
+  footerGroupsObj: any,
+  groupVariable: string,
+  footerGroupsTotal: number
 ) => {
   if (data.AEBODSYS !== "" && groupVariable !== "NONE") {
     footerGroupsObj[data[groupVariable]] = footerGroupsObj[data[groupVariable]]
       ? footerGroupsObj[data[groupVariable]] + 1
       : 1;
   }
+  if (data.AEBODSYS !== "") {
+    footerGroupsTotal = footerGroupsTotal + 1;
+  }
+  if (groupVariable === "ARM" && !footerGroupsObj["Screen Failure"]) {
+    footerGroupsObj = { ...footerGroupsObj, ...{ "Screen Failure": 0 } };
+  }
 
-  // sort keys to keep always the same order even when filtering
-  let ordered: any = {};
-  Object.keys(footerGroupsObj)
-    .sort()
-    .forEach(function(key: string) {
-      ordered[key] = footerGroupsObj[key];
-    });
-  return ordered;
+  return [footerGroupsObj, footerGroupsTotal];
 };

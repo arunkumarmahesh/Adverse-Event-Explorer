@@ -11,7 +11,7 @@ export const initialState: AppState = {
   colors: ["green", "red", "blue", "orange"],
   datasOriginal: datas,
   groupVariable: "ARM",
-  summarizedBy: "Events",
+  summarizedBy: "Participants",
   searchTerm: "",
   sortColumns: [],
   prevalenceFilterRange: undefined,

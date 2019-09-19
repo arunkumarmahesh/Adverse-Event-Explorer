@@ -1,7 +1,8 @@
 export const computeHeaderGroups = (
   data: any,
   headerGroupsObj: any,
-  groupVariable: string
+  groupVariable: string,
+  headerGroupsTotal: number
 ) => {
   if (groupVariable !== "NONE") {
     headerGroupsObj[data[groupVariable]] = headerGroupsObj[data[groupVariable]]
@@ -9,14 +10,11 @@ export const computeHeaderGroups = (
       : 1;
   }
 
-  // sort keys to keep always the same order even when filtering
-  // otherwise the order depends on the order of the recieved data groups which depending on filter setttings
-  // the correct ordering of bodyGroups depends on the correct ordering of the headergroups
-  let ordered: any = {};
-  Object.keys(headerGroupsObj)
-    .sort()
-    .forEach(function(key: string) {
-      ordered[key] = headerGroupsObj[key];
-    });
-  return ordered;
+  headerGroupsTotal = headerGroupsTotal + 1;
+
+  if (groupVariable === "ARM" && !headerGroupsObj["Screen Failure"]) {
+    headerGroupsObj = { ...headerGroupsObj, ...{ "Screen Failure": 0 } };
+  }
+
+  return [headerGroupsObj, headerGroupsTotal];
 };

@@ -1,24 +1,24 @@
+import _ from "lodash";
 import { computePercentage } from "./computePercentage";
+import { GroupedValue, GroupsObj } from "../../types";
 
 export const convertFooterGroups = (
-  footerGroupsObj: any,
+  footerGroupsObj: GroupsObj,
   footerGroupsTotal: number,
-  headerGroupsTotal: number,
-  headerGroupsObj: any
+  headerGroupsObj: GroupsObj
 ) => {
-  const footerGroups: any = Object.entries(footerGroupsObj).map(
-    (values: any) => ({
-      name: values[0],
-      value: values[1],
-      total: headerGroupsObj[values[0]],
-      percentage: computePercentage(values[1], headerGroupsObj[values[0]])
-    })
-  );
+  const footerGroups: GroupedValue[] = _.map(footerGroupsObj, (value, key) => ({
+    name: key,
+    value: value,
+    total: headerGroupsObj[key],
+    percentage: computePercentage(value, headerGroupsObj[key])
+  }));
+
   footerGroups.push({
     name: "Total",
     value: footerGroupsTotal,
-    total: headerGroupsTotal,
-    percentage: computePercentage(footerGroupsTotal, headerGroupsTotal)
+    total: headerGroupsObj["Total"],
+    percentage: computePercentage(footerGroupsTotal, headerGroupsObj["Total"])
   });
 
   return footerGroups;

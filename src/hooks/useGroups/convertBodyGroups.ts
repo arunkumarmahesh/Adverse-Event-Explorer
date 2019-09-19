@@ -1,105 +1,49 @@
 import _ from "lodash";
-import { computePercentage } from "./computePercentage";
-import { convertBodyGroupsSub } from "./convertBodyGroupsSub";
-import { SortColumn } from "../../types";
+import {
+  convertGroups,
+  computeGroupPercentages
+} from "./convertBodyGroupsHelper";
+import { convertBodySubGroups } from "./convertBodySubGroups";
+import { SortColumn, Group, GroupsObj } from "../../types";
 
 export const convertBodyGroups = (
   bodyGroupsObj: any,
-  headerGroupsObj: any,
-  headerGroupsObjZero: any,
-  headerGroupsTotal: number,
+  headerGroupsObj: GroupsObj,
   sortColumns: SortColumn[],
-  groupVariable: string
+  countedSubCategories: any
 ) => {
-  let prevalenceMax = 0;
+  let prevalenceMax: number | {} = 0;
 
-  const convertedBodyGroups = Object.entries(bodyGroupsObj).map(
-    (category: any) => {
-      // compute total adverses of this category
-      const categoryTotal = _(category[1].groups)
-        .map()
-        .sum();
+  const bodyGroups: any = Object.entries(bodyGroupsObj).map((category: any) => {
+    const groups: Group[] = convertGroups(category, headerGroupsObj);
 
-      // add groups with zero values
-      const groupsFilledObj: any = {
-        ...headerGroupsObjZero,
-        ...category[1].groups
-      };
+    const [groupPercentages, prevalenceMaxGroup] = computeGroupPercentages(
+      groups,
+      prevalenceMax
+    );
 
-      const totalPercentage = computePercentage(
-        categoryTotal,
-        headerGroupsTotal
-      );
+    prevalenceMax =
+      prevalenceMax < prevalenceMaxGroup ? prevalenceMaxGroup : prevalenceMax;
 
-      // convert groups to array and add datas
-      let groupsFilled: any = [];
-      if (groupVariable !== "NONE") {
-        groupsFilled = Object.entries(groupsFilledObj).map(group => {
-          return {
-            name: group[0],
-            value: group[1],
-            total: headerGroupsObj[group[0]],
-            percentage: computePercentage(
-              group[1] as number,
-              headerGroupsObj[group[0]]
-            )
-          };
-        });
-      }
+    let bodyGroups = {
+      name: category[0],
+      groups: groups,
+      subCategories: convertBodySubGroups(
+        category[0],
+        headerGroupsObj,
+        sortColumns,
+        countedSubCategories
+      )
+    };
 
-      // add group total values
-      groupsFilled.push({
-        name: "Total",
-        value: categoryTotal,
-        total: headerGroupsTotal,
-        percentage: totalPercentage
-      });
+    // merge groupPercentage object to bodyGroup to enable sorting for all groups
+    bodyGroups = {
+      ...bodyGroups,
+      ...groupPercentages
+    };
 
-      // compute groupPercentages object
-      let groupPercentages = {};
-      let highestPrevalence = 0;
+    return bodyGroups;
+  });
 
-      groupsFilled.forEach((group: any) => {
-        groupPercentages = {
-          ...groupPercentages,
-          ...{ [group.name]: group.percentage }
-        };
-        // compute highestPrevalence of this group
-        highestPrevalence =
-          highestPrevalence < group.percentage
-            ? group.percentage
-            : highestPrevalence;
-        // merge highestPrevalence into groupPercentages
-        groupPercentages = {
-          ...groupPercentages,
-          ...{ highestPrevalence: highestPrevalence }
-        };
-        // compute prevalenceMax as highest prevalence of all groups for prevalence range slider
-        prevalenceMax =
-          prevalenceMax < group.percentage ? group.percentage : prevalenceMax;
-      });
-
-      let bodyGroups = {
-        name: category[0],
-        groups: groupsFilled,
-        subCategories: convertBodyGroupsSub(
-          category[1].subCategories,
-          headerGroupsObj,
-          headerGroupsObjZero,
-          headerGroupsTotal,
-          sortColumns
-        )
-      };
-
-      // merge groupPercentage object to bodyGroup to enable sorting for all groups
-      bodyGroups = {
-        ...bodyGroups,
-        ...groupPercentages
-      };
-
-      return bodyGroups;
-    }
-  );
-
-  return [convertedBodyGroups, prevalenceMax];
+  return [bodyGroups, prevalenceMax];
 };
