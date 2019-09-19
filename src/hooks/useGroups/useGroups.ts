@@ -102,7 +102,7 @@ export function useGroups(datas: Data[]): any {
   // count category groups for events and participants
   const countedCategories = _.chain(datasGrouped)
     .mapValues(value => {
-      const groupsCounted = _.countBy(value, "ARM");
+      const groupsCounted = _.countBy(value, groupVariable);
       const groupsTotal = _(groupsCounted)
         .map()
         .sum();
@@ -119,7 +119,7 @@ export function useGroups(datas: Data[]): any {
     _.chain(value)
       .groupBy("AEDECOD")
       .mapValues(value => {
-        const groupsCounted = _.countBy(value, "ARM");
+        const groupsCounted = _.countBy(value, groupVariable);
         const groupsTotal = _(groupsCounted)
           .map()
           .sum();
