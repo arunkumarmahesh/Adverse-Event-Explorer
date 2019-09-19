@@ -17,7 +17,7 @@ export const TableFooterGroups: FC<Props> = ({ colors, groups, ...rest }) => {
         </Table.HeaderCell>
         {groups.map((group, key) => (
           <CellPopup key={group.name} content={`${group.value}/${group.total}`}>
-            <Table.HeaderCell style={{ color: colors[key] }}>
+            <Table.HeaderCell style={{ color: colors[key] }} textAlign="center">
               {`${group.percentage}%`}
             </Table.HeaderCell>
           </CellPopup>

@@ -41,7 +41,7 @@ export const TableRowGroupsExpandable: FC<Props> = ({ colors, data }) => {
         {data.groups.map((group: any, key: number) => {
           return (
             <CellPopup key={key} content={`${group.value}/${group.total}`}>
-              <Table.Cell style={{ color: colors[key] }}>
+              <Table.Cell style={{ color: colors[key] }} textAlign="center">
                 {`${group.percentage}%`}
               </Table.Cell>
             </CellPopup>

@@ -54,6 +54,7 @@ export const TableHeaderCellSort: FC<Props> = ({
         onClick={() => {
           handleSort("update", currentColumnName, sortColumns);
         }}
+        textAlign="center"
         style={{
           cursor: "pointer"
         }}
