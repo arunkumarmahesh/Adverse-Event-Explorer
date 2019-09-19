@@ -97,6 +97,10 @@ export const Filter: FC<Props> = ({
       payload: [0, highestValue]
     });
     dispatch({
+      type: c.SET_PREVALENCE_FILTER_SELECTED,
+      payload: [0, highestValue]
+    });
+    dispatch({
       type: c.SET_PREVALENCE_FILTER_GROUP,
       payload: value
     });

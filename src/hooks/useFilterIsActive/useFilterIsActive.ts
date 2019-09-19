@@ -36,13 +36,9 @@ export const useFilterIsActive = (): [boolean, string[]] => {
     ? false
     : true;
 
-  console.log("allCheckFilter", allCheckFilter);
-  console.log("currentCheckFilter", currentCheckFilter);
-  console.log("checkFilterActive", checkFilterActive);
-  console.log("ageFilterActive", ageFilterActive);
   const checkArray = [checkFilterActive.toString(), ageFilterActive.toString()];
 
   const isActive = checkArray.includes("true");
-  console.log("isActive", isActive);
+
   return [isActive, currentCheckFilter];
 };

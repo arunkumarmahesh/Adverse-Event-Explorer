@@ -1,8 +1,10 @@
 import React, { FC } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Icon } from "semantic-ui-react";
 import { CheckFilter } from "../checkfilter/checkfilter";
 import { useFilterIsActive } from "../../../hooks";
+import { AppState } from "../../../types";
 
 export interface Props {
   resultsCount: number;
@@ -11,6 +13,9 @@ export interface Props {
 
 export const DetailsInfoBlock: FC<Props> = ({ resultsCount, category }) => {
   const [isActive] = useFilterIsActive();
+  const ageFilterSelected = useSelector(
+    (state: AppState) => state.ageFilterSelected
+  );
 
   return (
     <>
@@ -26,6 +31,10 @@ export const DetailsInfoBlock: FC<Props> = ({ resultsCount, category }) => {
       {isActive && (
         <>
           <div>The Listing is filtered as shown:</div>
+          <div>
+            Age filter:{" "}
+            <span>{`${ageFilterSelected![0]}- ${ageFilterSelected![1]}`}</span>
+          </div>
           <CheckFilter disabled={true} />
         </>
       )}

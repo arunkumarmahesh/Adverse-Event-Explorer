@@ -5,7 +5,7 @@ import { useFilterIsActive } from "..";
 
 export function useFilter(datas: Data[]) {
   const [isActive, currentCheckFilter] = useFilterIsActive();
-  console.log("useFilter", isActive);
+
   const ageFilterSelected = useSelector(
     (state: AppState) => state.ageFilterSelected
   );
