@@ -2,11 +2,19 @@ import React, { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SelectBlock } from "../../../components";
 import { AppState, SelectOptions } from "../../../types";
-import { SET_GROUP_VARIABLE } from "../../../store/constants";
+import { setGroupVariable } from "../../../store/actions";
+import { useRecalculatePrevalenceRange } from "../../../hooks";
 
-export const GroupBy: FC = () => {
+export interface Props {
+  currentBodyGroups: any;
+}
+export const GroupBy: FC<Props> = ({ currentBodyGroups }) => {
   const dispatch = useDispatch();
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
+  const prevalenceFilterGroup = useSelector(
+    (state: AppState) => state.prevalenceFilterGroup
+  );
+  const recalculatePrevalenceRange = useRecalculatePrevalenceRange();
   const groupVariableOptions: SelectOptions[] = [
     { key: "RACE", value: "RACE", text: "RACE" },
     { key: "SEX", value: "SEX", text: "SEX" },
@@ -20,7 +28,8 @@ export const GroupBy: FC = () => {
       options={groupVariableOptions}
       selected={groupVariable}
       handleChange={(e, { value }) => {
-        dispatch({ type: SET_GROUP_VARIABLE, payload: value });
+        recalculatePrevalenceRange(currentBodyGroups, prevalenceFilterGroup);
+        dispatch(setGroupVariable(value));
       }}
     />
   );

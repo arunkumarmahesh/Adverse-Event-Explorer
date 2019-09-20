@@ -7,14 +7,15 @@ import { SliderBlock } from "../../../components";
 import { GroupBy } from "../groupBy/groupBy";
 import { SearchBy } from "../searchBy/searchBy";
 import * as c from "../../../store/constants";
-import { AppState } from "../../../types";
+import { AppState, HeaderGroups } from "../../../types";
 import _ from "lodash";
+import { useRecalculatePrevalenceRange } from "../../../hooks";
 
 export interface Props {
   ageRange: [number, number];
   prevalenceRange: [number, number];
   resultsCount: number;
-  headerGroups: any;
+  headerGroups: HeaderGroups;
   currentBodyGroups: any;
 }
 
@@ -39,6 +40,7 @@ export const Filter: FC<Props> = ({
   const prevalenceFilterGroup = useSelector(
     (state: AppState) => state.prevalenceFilterGroup
   );
+  const recalculatePrevalenceRange = useRecalculatePrevalenceRange();
 
   if (!ageFilterRange) {
     dispatch({
@@ -69,22 +71,8 @@ export const Filter: FC<Props> = ({
   }
 
   const handleAgeChange = (value: [number, number]) => {
-    // prevalenceFilterGroup
-    let highestValue = prevalenceRange[1];
+    recalculatePrevalenceRange(currentBodyGroups, prevalenceFilterGroup);
 
-    const highest: any = _.maxBy(currentBodyGroups, value);
-    highestValue = highest[prevalenceFilterGroup];
-    console.log("highestValue", highestValue);
-    console.log("prevalenceFilterGroup", prevalenceFilterGroup);
-
-    dispatch({
-      type: c.SET_PREVALENCE_FILTER_RANGE,
-      payload: [0, highestValue]
-    });
-    dispatch({
-      type: c.SET_PREVALENCE_FILTER_SELECTED,
-      payload: [0, highestValue]
-    });
     dispatch({
       type: c.SET_AGE_FILTER_SELECTED,
       payload: value
@@ -102,27 +90,15 @@ export const Filter: FC<Props> = ({
     e: SyntheticEvent<HTMLElement>,
     { value }: any
   ) => {
-    let highestValue = prevalenceRange[1];
-    if (value !== "highestPrevalence") {
-      const highest: any = _.maxBy(currentBodyGroups, value);
-      highestValue = highest[value];
-    }
+    recalculatePrevalenceRange(currentBodyGroups, value);
 
-    dispatch({
-      type: c.SET_PREVALENCE_FILTER_RANGE,
-      payload: [0, highestValue]
-    });
-    dispatch({
-      type: c.SET_PREVALENCE_FILTER_SELECTED,
-      payload: [0, highestValue]
-    });
     dispatch({
       type: c.SET_PREVALENCE_FILTER_GROUP,
       payload: value
     });
   };
 
-  const generatePrevalenceOptions = (headerGroups: any) => {
+  const generatePrevalenceOptions = (headerGroups: HeaderGroups) => {
     let options = [];
     headerGroups.forEach((value: any) => {
       if (value.name !== "Screen Failure") {
@@ -140,8 +116,8 @@ export const Filter: FC<Props> = ({
   return (
     <div>
       <div className="filter">
-        <SummarizeBy />
-        <GroupBy />
+        <SummarizeBy currentBodyGroups={currentBodyGroups} />
+        <GroupBy currentBodyGroups={currentBodyGroups} />
         <SearchBy resultsCount={resultsCount} />
       </div>
       <br />
