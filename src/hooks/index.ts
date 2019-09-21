@@ -12,6 +12,3 @@ export { useScrollTop } from "./useScrollTop/useScrollTop";
 export { useSearch } from "./useSearch/useSearch";
 export { useSort } from "./useSort/useSort";
 export { usePrevalenceFilter } from "./usePrevalenceFilter/usePrevalenceFilter";
-export {
-  useRecalculatePrevalenceRange
-} from "./useRecalculatePrevalenceRange/useRecalculatePrevalenceRange";

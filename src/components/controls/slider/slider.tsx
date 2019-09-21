@@ -6,7 +6,7 @@ import {
   SliderTicks,
   SliderRail
 } from "./components";
-import { Slider, SliderWrapper } from "./slider.styles";
+import { Slider as SUI_SLider, SliderWrapper } from "./slider.styles";
 
 export interface Props {
   range: [number, number];
@@ -14,10 +14,10 @@ export interface Props {
   handleChange: any;
 }
 
-export const SliderBlock: FC<Props> = ({ range, selected, handleChange }) => {
+export const Slider: FC<Props> = ({ range, selected, handleChange }) => {
   return (
     <SliderWrapper>
-      <Slider
+      <SUI_SLider
         domain={range}
         step={1}
         mode={2}
@@ -40,7 +40,7 @@ export const SliderBlock: FC<Props> = ({ range, selected, handleChange }) => {
         <Ticks count={15}>
           {({ ticks }) => <SliderTicks ticks={ticks} count={ticks.length} />}
         </Ticks>
-      </Slider>
+      </SUI_SLider>
     </SliderWrapper>
   );
 };

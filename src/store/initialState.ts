@@ -16,7 +16,7 @@ export const initialState: AppState = {
   sortColumns: [],
   prevalenceFilterRange: undefined,
   prevalenceFilterSelected: undefined,
-  prevalenceFilterGroup: "highestPrevalence",
+  prevalenceFilterGroup: "All",
   ageFilterRange: undefined,
   ageFilterSelected: undefined,
   seriousFilter: seriousFilterOptions,

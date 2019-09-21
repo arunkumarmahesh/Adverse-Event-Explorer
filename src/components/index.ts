@@ -19,7 +19,7 @@ export { CheckBlock } from "./controls/checkBlock/checkBlock";
 export { RadioBlock } from "./controls/radioBlock/radioBlock";
 export { SearchBlock } from "./controls/searchBlock/searchBlock";
 export { SelectBlock } from "./controls/selectBlock/selectBlock";
-export { SliderBlock } from "./controls/sliderBlock/sliderBlock";
+export { Slider } from "./controls/slider/slider";
 export { CSVExport } from "./utils/csvExport/csvExport";
 export {
   TableHeaderCellSort

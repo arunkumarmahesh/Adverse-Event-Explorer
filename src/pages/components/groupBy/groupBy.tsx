@@ -2,8 +2,10 @@ import React, { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SelectBlock } from "../../../components";
 import { AppState, SelectOptions } from "../../../types";
-import { setGroupVariable } from "../../../store/actions";
-import { useRecalculatePrevalenceRange } from "../../../hooks";
+import {
+  setGroupVariable,
+  setPrevalenceFilterGroup
+} from "../../../store/actions";
 
 export interface Props {
   currentBodyGroups: any;
@@ -14,7 +16,7 @@ export const GroupBy: FC<Props> = ({ currentBodyGroups }) => {
   const prevalenceFilterGroup = useSelector(
     (state: AppState) => state.prevalenceFilterGroup
   );
-  const recalculatePrevalenceRange = useRecalculatePrevalenceRange();
+
   const groupVariableOptions: SelectOptions[] = [
     { key: "RACE", value: "RACE", text: "RACE" },
     { key: "SEX", value: "SEX", text: "SEX" },
@@ -28,8 +30,9 @@ export const GroupBy: FC<Props> = ({ currentBodyGroups }) => {
       options={groupVariableOptions}
       selected={groupVariable}
       handleChange={(e, { value }) => {
-        recalculatePrevalenceRange(currentBodyGroups, prevalenceFilterGroup);
         dispatch(setGroupVariable(value));
+        // reset PrevalenceFilterGroup to default
+        dispatch(setPrevalenceFilterGroup("All"));
       }}
     />
   );

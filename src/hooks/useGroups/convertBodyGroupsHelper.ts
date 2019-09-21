@@ -16,22 +16,19 @@ export const computeGroupPercentages = (
 ) => {
   // compute groupPercentages object
   let groupPercentages = {};
-  let highestPrevalence = 0;
+  let All = 0;
 
   groups.forEach((group: Group) => {
     groupPercentages = {
       ...groupPercentages,
       ...{ [group.name]: group.percentage }
     };
-    // compute highestPrevalence of this group
-    highestPrevalence =
-      highestPrevalence < group.percentage
-        ? group.percentage
-        : highestPrevalence;
-    // merge highestPrevalence into groupPercentages
+    // compute All of this group
+    All = All < group.percentage ? group.percentage : All;
+    // merge All into groupPercentages
     groupPercentages = {
       ...groupPercentages,
-      ...{ highestPrevalence: highestPrevalence }
+      ...{ All: All }
     };
     // compute prevalenceMax as highest prevalence of all groups for prevalence range slider
     prevalenceMax =
