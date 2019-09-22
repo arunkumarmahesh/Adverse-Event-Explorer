@@ -24,7 +24,7 @@ export const useStoreParameter = () => {
 
     // https://gc.de/gc/base64/
     // /?store=RXZlbnRzLFNFWCwzMC00MA==
-
+    window.history.pushState("", "", "/");
     dispatch(setSummarizedBy(summarizedBy));
     dispatch(setGroupVariable(groupVariable));
     dispatch(setAgeFilterSelected(ageFilterSelected));

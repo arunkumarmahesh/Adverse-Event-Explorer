@@ -5,6 +5,7 @@ import { resetStore } from "../../../store/actions";
 
 export const StoreManager = () => {
   const dispatch = useDispatch();
+
   return (
     <Button onClick={() => dispatch(resetStore())}>Reset Selections</Button>
   );
