@@ -106,9 +106,15 @@ export function useGroups(datas: Data[]): any {
       const groupsTotal = _(groupsCounted)
         .map()
         .sum();
+      if (groupVariable !== "NONE") {
+        return {
+          ...headerGroupsObjZero,
+          ...groupsCounted,
+          ...{ Total: groupsTotal }
+        };
+      }
       return {
         ...headerGroupsObjZero,
-        ...groupsCounted,
         ...{ Total: groupsTotal }
       };
     })
@@ -123,9 +129,15 @@ export function useGroups(datas: Data[]): any {
         const groupsTotal = _(groupsCounted)
           .map()
           .sum();
+        if (groupVariable !== "NONE") {
+          return {
+            ...headerGroupsObjZero,
+            ...groupsCounted,
+            ...{ Total: groupsTotal }
+          };
+        }
         return {
           ...headerGroupsObjZero,
-          ...groupsCounted,
           ...{ Total: groupsTotal }
         };
       })
