@@ -12,3 +12,4 @@ export { useScrollTop } from "./useScrollTop/useScrollTop";
 export { useSearch } from "./useSearch/useSearch";
 export { useSort } from "./useSort/useSort";
 export { usePrevalenceFilter } from "./usePrevalenceFilter/usePrevalenceFilter";
+export { useStoreParameter } from "./useStoreParameter/useStoreParameter";

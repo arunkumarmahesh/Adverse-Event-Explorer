@@ -15,12 +15,14 @@ import {
   useFilter,
   useSearch,
   useSort,
-  usePrevalenceFilter
+  usePrevalenceFilter,
+  useStoreParameter
 } from "../hooks";
 
 import { SET_SORT_COLUMNS } from "../store/constants";
 
 export const AdverseGrouped: FC = () => {
+  useStoreParameter();
   const colors = useSelector((state: AppState) => state.colors);
   const datasOriginal = useSelector((state: AppState) => state.datasOriginal);
   const sortColumns = useSelector((state: AppState) => state.sortColumns);
