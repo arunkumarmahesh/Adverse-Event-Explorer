@@ -30,7 +30,7 @@ export const FilterAge: FC<Props> = ({ ageRange }) => {
     <div>
       <b>Filter by age:</b>
       <Slider
-        range={ageFilterRange || ageRange}
+        range={ageRange}
         selected={ageFilterSelected || ageRange}
         handleChange={handleAgeChange}
       />

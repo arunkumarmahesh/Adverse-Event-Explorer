@@ -1,19 +1,18 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { Select } from "semantic-ui-react";
 import { Slider } from "../../../components";
 import { HeaderGroups, AppState } from "../../../types";
 import {
-  setPrevalenceFilterRange,
   setPrevalenceFilterSelected,
   setPrevalenceFilterGroup
 } from "../../../store/actions";
 
 export interface Props {
   headerGroups: HeaderGroups;
-  prevalenceRange: [number, number];
   bodyGroups: any;
+  prevalenceRange: [number, number];
 }
 
 export const FilterPrevalence: FC<Props> = ({
@@ -22,13 +21,13 @@ export const FilterPrevalence: FC<Props> = ({
   prevalenceRange
 }) => {
   const dispatch = useDispatch();
-  const prevalenceFilterRange = useSelector(
-    (state: AppState) => state.prevalenceFilterRange
-  );
-  const prevalenceFilterSelected = useSelector(
+
+  const [groupPrevalenceRange, setGroupPrevalenceRange] = useState();
+
+  const prevalenceSelected = useSelector(
     (state: AppState) => state.prevalenceFilterSelected
   );
-  const prevalenceFilterGroup = useSelector(
+  const prevalenceGroup = useSelector(
     (state: AppState) => state.prevalenceFilterGroup
   );
 
@@ -52,14 +51,20 @@ export const FilterPrevalence: FC<Props> = ({
   };
 
   const handlePrevalenceFilterGroupChange = (e: any, { value }: any) => {
+    const object: any = _.maxBy(bodyGroups, value);
+    if (value !== "All") {
+      setGroupPrevalenceRange([0, object[value]]);
+    } else {
+      setGroupPrevalenceRange(undefined);
+    }
+
     dispatch(setPrevalenceFilterGroup(value));
   };
 
-  if (!_.isEqual(prevalenceFilterRange, prevalenceRange)) {
-    dispatch(setPrevalenceFilterRange(prevalenceRange));
-  }
-  if (!prevalenceFilterSelected) {
-    dispatch(setPrevalenceFilterSelected(prevalenceRange));
+  const currentRange = groupPrevalenceRange || prevalenceRange;
+
+  if (!prevalenceSelected) {
+    dispatch(setPrevalenceFilterSelected(currentRange));
   }
 
   return (
@@ -67,12 +72,12 @@ export const FilterPrevalence: FC<Props> = ({
       <b>Filter by prevalence:</b>
       <Select
         options={generatePrevalenceOptions(headerGroups)}
-        value={prevalenceFilterGroup}
+        value={prevalenceGroup}
         onChange={handlePrevalenceFilterGroupChange}
       />
       <Slider
-        range={prevalenceRange}
-        selected={prevalenceFilterSelected || [0, 0]}
+        range={currentRange}
+        selected={prevalenceSelected || [0, 0]}
         handleChange={handlePrevalenceFilterChange}
       />
     </div>

@@ -4,32 +4,28 @@ import _ from "lodash";
 import { AppState } from "../../types";
 
 export const usePrevalenceFilter = (datas: any) => {
-  const prevalenceFilterSelected = useSelector(
+  const prevalenceSelected = useSelector(
     (state: AppState) => state.prevalenceFilterSelected
   );
-  const prevalenceFilterRange = useSelector(
-    (state: AppState) => state.prevalenceFilterRange
-  );
 
-  const prevalenceFilterGroup = useSelector(
+  const prevalenceGroup = useSelector(
     (state: AppState) => state.prevalenceFilterGroup
   );
 
-  let filteredDatas: any = undefined;
+  const filterByPrevalence = (datas: any) => {
+    let filteredDatas: any = undefined;
+    if (prevalenceSelected)
+      filteredDatas = datas.filter((data: any) => {
+        let add = true;
 
-  if (!_.isEqual(prevalenceFilterRange, prevalenceFilterSelected)) {
-    filteredDatas = datas.filter((data: any) => {
-      let add = true;
-
-      if (prevalenceFilterSelected) {
-        if (data[prevalenceFilterGroup] > prevalenceFilterSelected[1]) {
+        if (data[prevalenceGroup] > prevalenceSelected[1]) {
           add = false;
         }
-      }
 
-      return add && data;
-    });
-  }
+        return add && data;
+      });
+    return filteredDatas || datas;
+  };
 
-  return filteredDatas || datas;
+  return filterByPrevalence(datas);
 };
