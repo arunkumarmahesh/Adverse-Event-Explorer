@@ -113,3 +113,7 @@ export const setDetailPagesResultsPerPage = (
   type: c.SET_DETAIL_RESULTS_PER_PAGE,
   payload
 });
+
+export const resetStore = (): t.ResetStore => ({
+  type: c.RESET_STORE
+});

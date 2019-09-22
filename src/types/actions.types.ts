@@ -18,7 +18,8 @@ export type ActionTypes =
   | SetExpandedCategories
   | SetDetailSearchTerm
   | SetDetailSortColumn
-  | SetDetailResultsPerPage;
+  | SetDetailResultsPerPage
+  | ResetStore;
 
 export interface SetSummarizedBy {
   type: typeof c.SET_SUMMARIZED_BY;
@@ -103,4 +104,8 @@ export interface SetDetailSortColumn {
 export interface SetDetailResultsPerPage {
   type: typeof c.SET_DETAIL_RESULTS_PER_PAGE;
   payload: number;
+}
+
+export interface ResetStore {
+  type: typeof c.RESET_STORE;
 }

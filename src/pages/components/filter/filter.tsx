@@ -1,14 +1,14 @@
-import React, { FC, SyntheticEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
+import React, { FC } from "react";
+import { useDispatch } from "react-redux";
 import { CheckFilter } from "../checkfilter/checkfilter";
 import { SummarizeBy } from "../summarizeBy/summarizeBy";
 import { GroupBy } from "../groupBy/groupBy";
 import { SearchBy } from "../searchBy/searchBy";
-import { AppState, HeaderGroups } from "../../../types";
+import { HeaderGroups } from "../../../types";
 import _ from "lodash";
 import { FilterAge } from "./filterAge";
 import { FilterPrevalence } from "./filterPrevalence";
+import { StoreManager } from "../storeManager/storeManager";
 
 export interface Props {
   ageRange: [number, number];
@@ -45,6 +45,7 @@ export const Filter: FC<Props> = ({
 
       <br />
       <CheckFilter />
+      <StoreManager />
     </div>
   );
 };
