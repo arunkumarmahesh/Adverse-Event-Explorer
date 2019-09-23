@@ -17,6 +17,7 @@ export const DetailsInfoBlock: FC<Props> = ({ resultsCount, category }) => {
     (state: AppState) => state.ageFilterSelected
   );
 
+  console.log("ageFilterSelected", ageFilterSelected);
   return (
     <>
       <Link to="/">

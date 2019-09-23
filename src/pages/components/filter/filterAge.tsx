@@ -26,11 +26,15 @@ export const FilterAge: FC<Props> = ({ ageRange }) => {
     dispatch(setAgeFilterRange(ageRange));
   }
 
+  if (!ageFilterSelected) {
+    dispatch(setAgeFilterSelected(ageRange));
+  }
+
   return (
     <div>
       <b>Filter by age:</b>
       <Slider
-        range={ageRange}
+        range={ageFilterRange || ageRange}
         selected={ageFilterSelected || ageRange}
         handleChange={handleAgeChange}
       />

@@ -13,9 +13,9 @@ import "./index.css";
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <AdverseExplorer />
-    </PersistGate>
+    {/*   <PersistGate persistor={persistor}> */}
+    <AdverseExplorer />
+    {/*   </PersistGate> */}
   </Provider>,
   document.getElementById("root")
 );
