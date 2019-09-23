@@ -30,7 +30,7 @@ export const CheckBlock: FC<Props> = ({
         {label}
         <sup>E</sup>
       </div>
-      {options.map((item, key: number) => (
+      {options.map(item => (
         <Checkbox
           key={item}
           label={item}

@@ -20,9 +20,9 @@ export const RadioBlock: FC<Props> = ({
 }) => (
   <div {...rest}>
     <div>{label}</div>
-    {options.map((item, key: number) => (
+    {options.map(item => (
       <Radio
-        key={key}
+        key={item}
         label={item}
         onChange={handleChange}
         value={item}

@@ -22,10 +22,10 @@ export const TableHeaderSort: FC<Props> = ({
   return (
     <Table.Header {...rest}>
       <Table.Row>
-        {headerTopics.map((item: string, key: number) => {
+        {headerTopics.map((item: string) => {
           return (
             <TableHeaderCellSort
-              key={key}
+              key={item}
               currentColumnName={item}
               sortColumns={sortColumns}
               handleSort={() => {

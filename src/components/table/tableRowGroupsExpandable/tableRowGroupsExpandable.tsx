@@ -34,7 +34,10 @@ export const TableRowGroupsExpandable: FC<Props> = ({ colors, data }) => {
         />
         {data.groups.map((group: any, key: number) => {
           return (
-            <CellPopup key={key} content={`${group.value}/${group.total}`}>
+            <CellPopup
+              key={group.name}
+              content={`${group.value}/${group.total}`}
+            >
               <Table.Cell style={{ color: colors[key] }} textAlign="center">
                 {`${group.percentage}%`}
               </Table.Cell>
@@ -43,9 +46,9 @@ export const TableRowGroupsExpandable: FC<Props> = ({ colors, data }) => {
         })}
       </Table.Row>
       {(expandedCategories.includes(data.name) || expandAll) &&
-        data.subCategories.map((data: any, key: number) => (
-          <TableRowGroups key={key} data={data} colors={colors} />
-        ))}
+        data.subCategories.map((data: any) => {
+          return <TableRowGroups key={data.name} data={data} colors={colors} />;
+        })}
     </>
   );
 };
