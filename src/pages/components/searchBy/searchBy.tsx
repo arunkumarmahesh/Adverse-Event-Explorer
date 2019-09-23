@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Search, Button, Icon } from "semantic-ui-react";
 import { AppState } from "../../../types";
-import { SET_SEARCH_TERM } from "../../../store/constants";
 import { setSearchTerm } from "../../../store/actions";
 
 export interface Props {

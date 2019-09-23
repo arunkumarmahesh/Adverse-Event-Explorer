@@ -31,6 +31,7 @@ export const useSearch = (datas: Data[]) => {
             add = true;
             return subData;
           }
+          return undefined;
         });
 
         return add && data;

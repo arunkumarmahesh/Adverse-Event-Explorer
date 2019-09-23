@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent } from "react";
+import React, { FC } from "react";
 import { Table } from "semantic-ui-react";
 import { TableCellAccordion, CellPopup, TableRowGroups } from "../..";
 import { AppState } from "../../../types";

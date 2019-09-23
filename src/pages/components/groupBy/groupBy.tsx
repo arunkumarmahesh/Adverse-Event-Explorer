@@ -7,15 +7,11 @@ import {
   setPrevalenceFilterGroup
 } from "../../../store/actions";
 
-export interface Props {
-  currentBodyGroups: any;
-}
-export const GroupBy: FC<Props> = ({ currentBodyGroups }) => {
+export interface Props {}
+
+export const GroupBy: FC<Props> = () => {
   const dispatch = useDispatch();
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
-  const prevalenceFilterGroup = useSelector(
-    (state: AppState) => state.prevalenceFilterGroup
-  );
 
   const groupVariableOptions: SelectOptions[] = [
     { key: "RACE", value: "RACE", text: "RACE" },

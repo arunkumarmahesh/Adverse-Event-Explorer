@@ -1,4 +1,3 @@
-import _ from "lodash";
 import {
   convertGroups,
   computeGroupPercentages
@@ -16,10 +15,7 @@ export const convertBodySubGroups = (
     (subCategory: any) => {
       const groups: Group[] = convertGroups(subCategory, headerGroupsObj);
 
-      const [groupPercentages, prevalenceMaxGroup] = computeGroupPercentages(
-        groups,
-        0
-      );
+      const [groupPercentages] = computeGroupPercentages(groups, 0);
 
       let bodySubGroups = {
         name: subCategory[0],

@@ -16,6 +16,7 @@ export const TableBodyGroups: FC<Props> = ({ colors, groups }) => {
             <TableRowGroupsExpandable key={key} colors={colors} data={data} />
           );
         }
+        return null;
       })}
     </Table.Body>
   );

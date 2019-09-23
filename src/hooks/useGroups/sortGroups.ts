@@ -7,7 +7,7 @@ export function sortGroups(datas: any, sortColumns: SortColumn[]) {
       datas,
       _.map(sortColumns, item => {
         const fn = (o: any) => {
-          return new Number(o[item.name]);
+          return new Number(o[item.name]); // eslint-disable-line
         };
         return fn;
       }),
@@ -20,7 +20,7 @@ export function sortGroups(datas: any, sortColumns: SortColumn[]) {
       datas,
       [
         function(o: any) {
-          return new Number(o["Total"]);
+          return new Number(o["Total"]); // eslint-disable-line
         },
         "name"
       ],

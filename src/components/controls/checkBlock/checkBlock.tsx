@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Checkbox } from "semantic-ui-react";
-import * as t from "../../../types";
 
 export interface Props {
   label: string;
@@ -33,7 +32,7 @@ export const CheckBlock: FC<Props> = ({
       </div>
       {options.map((item, key: number) => (
         <Checkbox
-          key={key}
+          key={item}
           label={item}
           onChange={checkIfChangeable}
           value={item}

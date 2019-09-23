@@ -1,5 +1,4 @@
 import React, { FC, HTMLAttributes, ReactText } from "react";
-import InfiniteScroll from "react-infinite-scroller";
 import { Table } from "semantic-ui-react";
 import * as t from "../../../types";
 

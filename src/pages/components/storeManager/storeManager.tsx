@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Input, Select, Icon } from "semantic-ui-react";
+import { Button, Input, Select } from "semantic-ui-react";
 import {
   resetStore,
   setStoreNames,

@@ -1,6 +1,4 @@
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import _ from "lodash";
 import { AppState } from "../../types";
 
 export const usePrevalenceFilter = (datas: any) => {

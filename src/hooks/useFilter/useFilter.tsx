@@ -10,7 +10,12 @@ export function useFilter(datas: Data[]) {
     (state: AppState) => state.ageFilterSelected
   );
 
-  const setFilter = () => {
+  const setFilter = (
+    ageFilterSelected: [number, number] | undefined,
+    isActive: boolean,
+    datas: Data[],
+    currentCheckFilter: string[]
+  ) => {
     if (isActive) {
       const filteredDatas: Data[] = datas.filter(data => {
         let isWithinSelectedAge = true;
@@ -42,6 +47,7 @@ export function useFilter(datas: Data[]) {
 
           return add && data;
         }
+        return undefined;
       });
 
       return filteredDatas;
@@ -49,10 +55,8 @@ export function useFilter(datas: Data[]) {
     return datas;
   };
 
-  return useMemo(() => setFilter(), [
-    ageFilterSelected,
-    isActive,
-    currentCheckFilter,
-    datas
-  ]);
+  return useMemo(
+    () => setFilter(ageFilterSelected, isActive, datas, currentCheckFilter),
+    [ageFilterSelected, isActive, currentCheckFilter, datas]
+  );
 }
