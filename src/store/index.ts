@@ -8,15 +8,6 @@ import { initialState } from "./initialState";
 import * as t from "../types";
 import * as c from "./constants";
 
-/* const rootReducer = (state: t.AppState | undefined, action: t.ActionTypes) => {
-  if (action.type === c.RESET_STORE) {
-    storage.removeItem("persist:root");
-
-    state = undefined;
-  }
-  return reducer(state, action);
-}; */
-
 const persistConfig = {
   key: "root",
   storage: storage
@@ -24,7 +15,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-export const store: any = createStore(
+export const store = createStore(
   persistedReducer,
   initialState,
   composeWithDevTools(applyMiddleware(thunk))

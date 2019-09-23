@@ -1,5 +1,6 @@
 import * as t from "../types";
 import * as c from "./constants";
+import { AppState } from "../types";
 
 export const setSummarizedBy = (
   payload: t.SummarizedBy
@@ -120,5 +121,10 @@ export const resetStore = (): t.ResetStore => ({
 
 export const setStoreNames = (payload: string): t.SetStoreNames => ({
   type: c.SET_STORE_NAMES,
+  payload
+});
+
+export const setStoreSelection = (payload: AppState): t.SetStoreSelection => ({
+  type: c.SET_STORE_SELECTION,
   payload
 });

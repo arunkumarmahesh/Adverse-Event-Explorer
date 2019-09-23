@@ -20,7 +20,8 @@ export type ActionTypes =
   | SetDetailSortColumn
   | SetDetailResultsPerPage
   | ResetStore
-  | SetStoreNames;
+  | SetStoreNames
+  | SetStoreSelection;
 
 export interface SetSummarizedBy {
   type: typeof c.SET_SUMMARIZED_BY;
@@ -114,4 +115,9 @@ export interface ResetStore {
 export interface SetStoreNames {
   type: typeof c.SET_STORE_NAMES;
   payload: string;
+}
+
+export interface SetStoreSelection {
+  type: typeof c.SET_STORE_SELECTION;
+  payload: t.AppState;
 }

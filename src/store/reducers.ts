@@ -90,7 +90,9 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
           action.payload
         );
         return draft;
-
+      case c.SET_STORE_SELECTION:
+        draft = { ...action.payload, ...{ storeNames: draft.storeNames } };
+        return draft;
       default:
         return draft;
     }
