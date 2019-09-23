@@ -12,10 +12,10 @@ export interface AppState {
   prevalenceFilterGroup: string;
   ageFilterRange?: [number, number];
   ageFilterSelected?: [number, number];
-  seriousFilter: t.SeriousFilter[];
-  severityFilter: t.SeverityFilter[];
-  relationshipFilter: t.RelationshipFilter[];
-  outcomeFilter: t.OutcomeFilter[];
+  seriousFilter: string[];
+  severityFilter: string[];
+  relationshipFilter: string[];
+  outcomeFilter: string[];
   expandedCategories: string[];
   detailSearchTerm: string;
   detailSortColumn: t.SortColumn[];

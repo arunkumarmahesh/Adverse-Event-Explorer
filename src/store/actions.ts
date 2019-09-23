@@ -61,28 +61,24 @@ export const setAgeFilterSelected = (
   payload
 });
 
-export const setSeriousFilter = (
-  payload: t.SeriousFilter
-): t.SetSeriousFilter => ({
+export const setSeriousFilter = (payload: string): t.SetSeriousFilter => ({
   type: c.SET_SERIOUS_FILTER,
   payload
 });
 
-export const setSeverityFilter = (
-  payload: t.SeverityFilter
-): t.SetSeverityFilter => ({
+export const setSeverityFilter = (payload: string): t.SetSeverityFilter => ({
   type: c.SET_SEVERITY_FILTER,
   payload
 });
 
-export const setRelationship = (
-  payload: t.RelationshipFilter
+export const setRelationshipFilter = (
+  payload: string
 ): t.SetRelationshipFilter => ({
   type: c.SET_RELATIONSHIP_FILTER,
   payload
 });
 
-export const setOutcome = (payload: t.OutcomeFilter): t.SetOutcomeFilter => ({
+export const setOutcomeFilter = (payload: string): t.SetOutcomeFilter => ({
   type: c.SET_OUTCOME_FILTER,
   payload
 });

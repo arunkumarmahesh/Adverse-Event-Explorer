@@ -70,22 +70,22 @@ export interface SetAgeFilterSelected {
 
 export interface SetSeriousFilter {
   type: typeof c.SET_SERIOUS_FILTER;
-  payload: t.SeriousFilter;
+  payload: string;
 }
 
 export interface SetSeverityFilter {
   type: typeof c.SET_SEVERITY_FILTER;
-  payload: t.SeverityFilter;
+  payload: string;
 }
 
 export interface SetRelationshipFilter {
   type: typeof c.SET_RELATIONSHIP_FILTER;
-  payload: t.RelationshipFilter;
+  payload: string;
 }
 
 export interface SetOutcomeFilter {
   type: typeof c.SET_OUTCOME_FILTER;
-  payload: t.OutcomeFilter;
+  payload: string;
 }
 
 export interface SetExpandedCategories {

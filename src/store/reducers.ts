@@ -43,25 +43,25 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
         draft.ageFilterSelected = action.payload;
         return draft;
       case c.SET_SERIOUS_FILTER:
-        draft.seriousFilter = addOrRemoveArrayItem<t.SeriousFilter>(
+        draft.seriousFilter = addOrRemoveArrayItem<string>(
           draft.seriousFilter,
           action.payload
         );
         return draft;
       case c.SET_SEVERITY_FILTER:
-        draft.severityFilter = addOrRemoveArrayItem<t.SeverityFilter>(
+        draft.severityFilter = addOrRemoveArrayItem<string>(
           draft.severityFilter,
           action.payload
         );
         return draft;
       case c.SET_RELATIONSHIP_FILTER:
-        draft.relationshipFilter = addOrRemoveArrayItem<t.RelationshipFilter>(
+        draft.relationshipFilter = addOrRemoveArrayItem<string>(
           draft.relationshipFilter,
           action.payload
         );
         return draft;
       case c.SET_OUTCOME_FILTER:
-        draft.outcomeFilter = addOrRemoveArrayItem<t.OutcomeFilter>(
+        draft.outcomeFilter = addOrRemoveArrayItem<string>(
           draft.outcomeFilter,
           action.payload
         );

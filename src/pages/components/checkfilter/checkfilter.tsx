@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CheckBlock } from "../../../components";
 import * as o from "./checkFilterOptions";
-import * as c from "../../../store/constants";
+import * as a from "../../../store/actions";
 import { AppState } from "../../../types";
 
 export interface Props {
@@ -25,26 +25,22 @@ export const CheckFilter: FC<Props> = ({ disabled }) => {
         options={o.seriousFilterOptions}
         checked={serious}
         disabled={disabled}
-        handleChange={value =>
-          dispatch({ type: c.SET_SERIOUS_FILTER, payload: value })
-        }
+        handleChange={(value: string) => dispatch(a.setSeriousFilter(value))}
       />
       <CheckBlock
         label="Severity"
         options={o.severityFilterOptions}
         checked={severity}
         disabled={disabled}
-        handleChange={value =>
-          dispatch({ type: c.SET_SEVERITY_FILTER, payload: value })
-        }
+        handleChange={(value: string) => dispatch(a.setSeverityFilter(value))}
       />
       <CheckBlock
         label="Relationship"
         options={o.relationshipFilterOptions}
         checked={relationship}
         disabled={disabled}
-        handleChange={value =>
-          dispatch({ type: c.SET_RELATIONSHIP_FILTER, payload: value })
+        handleChange={(value: string) =>
+          dispatch(a.setRelationshipFilter(value))
         }
       />
       <CheckBlock
@@ -52,9 +48,7 @@ export const CheckFilter: FC<Props> = ({ disabled }) => {
         options={o.outcomeFilterOptions}
         checked={outcome}
         disabled={disabled}
-        handleChange={value =>
-          dispatch({ type: c.SET_OUTCOME_FILTER, payload: value })
-        }
+        handleChange={(value: string) => dispatch(a.setOutcomeFilter(value))}
       />
     </div>
   );

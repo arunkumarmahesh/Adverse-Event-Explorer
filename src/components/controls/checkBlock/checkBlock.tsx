@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Checkbox } from "semantic-ui-react";
+import * as t from "../../../types";
 
 export interface Props {
   label: string;
