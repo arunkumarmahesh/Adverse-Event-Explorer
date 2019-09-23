@@ -117,3 +117,8 @@ export const setDetailPagesResultsPerPage = (
 export const resetStore = (): t.ResetStore => ({
   type: c.RESET_STORE
 });
+
+export const setStoreNames = (payload: string): t.SetStoreNames => ({
+  type: c.SET_STORE_NAMES,
+  payload
+});

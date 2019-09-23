@@ -20,4 +20,5 @@ export interface AppState {
   detailSearchTerm: string;
   detailSortColumn: t.SortColumn[];
   detailResultsPerPage: number;
+  storeNames: string[];
 }

@@ -81,6 +81,13 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
       case c.SET_DETAIL_RESULTS_PER_PAGE:
         draft.detailResultsPerPage = action.payload;
         return draft;
+      case c.SET_STORE_NAMES:
+        draft.storeNames = addOrRemoveArrayItem<string>(
+          draft.storeNames,
+          action.payload
+        );
+        return draft;
+
       default:
         return draft;
     }

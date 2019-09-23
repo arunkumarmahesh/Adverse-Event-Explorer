@@ -26,5 +26,6 @@ export const initialState: AppState = {
   expandedCategories: [],
   detailSearchTerm: "",
   detailSortColumn: [],
-  detailResultsPerPage: 10
+  detailResultsPerPage: 10,
+  storeNames: []
 };
