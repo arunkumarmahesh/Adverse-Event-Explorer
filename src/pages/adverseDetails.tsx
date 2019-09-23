@@ -1,12 +1,10 @@
-import React, { FC, useState, FormEvent } from "react";
+import React, { FC, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { Table, Button, Checkbox, CheckboxProps } from "semantic-ui-react";
-import {
-  SET_DETAIL_SORT_COLUMNS,
-  SET_DETAIL_RESULTS_PER_PAGE
-} from "../store/constants";
+import { Table, Button } from "semantic-ui-react";
+import { SET_DETAIL_SORT_COLUMNS } from "../store/constants";
+import { setDetailPagesResultsPerPage } from "../store/actions";
 import { DetailsInfoBlock } from "./components/detailsInfoBlock/detailsInfoBlock";
 import { DetailsSearchBlock } from "./components/detailsSearchBlock/detailsSearchBlock";
 import {
@@ -46,10 +44,7 @@ export const AdverseDetails: FC<Props> = ({ match }) => {
   const handleSort = useSort(detailSortColumn, SET_DETAIL_SORT_COLUMNS);
 
   const handleResultsPerPageChange = (e: Event, { value }: never) => {
-    dispatch({
-      type: SET_DETAIL_RESULTS_PER_PAGE,
-      payload: value
-    });
+    dispatch(setDetailPagesResultsPerPage(value));
   };
 
   const handlePaginationChange = (e: Event, { activePage }: never) => {

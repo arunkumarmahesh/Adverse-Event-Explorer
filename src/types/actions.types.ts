@@ -17,7 +17,7 @@ export type ActionTypes =
   | SetOutcomeFilter
   | SetExpandedCategories
   | SetDetailSearchTerm
-  | SetDetailSortColumn
+  | SetDetailSortColumns
   | SetDetailResultsPerPage
   | ResetStore
   | SetStoreNames
@@ -98,7 +98,7 @@ export interface SetDetailSearchTerm {
   payload: string;
 }
 
-export interface SetDetailSortColumn {
+export interface SetDetailSortColumns {
   type: typeof c.SET_DETAIL_SORT_COLUMNS;
   payload: t.SortColumn[];
 }

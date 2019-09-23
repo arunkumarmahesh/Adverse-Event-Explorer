@@ -9,7 +9,7 @@ import * as t from "../types";
 import * as c from "./constants";
 
 const persistConfig = {
-  key: "root",
+  key: "current",
   storage: storage
 };
 

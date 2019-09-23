@@ -13,6 +13,8 @@ import { computeFooterGroups } from "./computeFooterGroups";
 import { convertFooterGroups } from "./convertFooterGroups";
 import { convertBodyGroups } from "./convertBodyGroups";
 import { sortGroups } from "./sortGroups";
+import { computeCountedCategories } from "./computeCountedCategories";
+import { computeCountedSubCategories } from "./computeCountedSubCategories";
 
 export function useGroups(datas: Data[]): any {
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
@@ -99,49 +101,18 @@ export function useGroups(datas: Data[]): any {
       .value();
   }
 
-  // count category groups for events and participants
-  const countedCategories = _.chain(datasGrouped)
-    .mapValues(value => {
-      const groupsCounted = _.countBy(value, groupVariable);
-      const groupsTotal = _(groupsCounted)
-        .map()
-        .sum();
-      if (groupVariable !== "NONE") {
-        return {
-          ...headerGroupsObjZero,
-          ...groupsCounted,
-          ...{ Total: groupsTotal }
-        };
-      }
-      return {
-        ...headerGroupsObjZero,
-        ...{ Total: groupsTotal }
-      };
-    })
-    .value();
+  // countedCategories for events and participants
+  const countedCategories = computeCountedCategories(
+    datasGrouped,
+    groupVariable,
+    headerGroupsObjZero
+  );
 
   // countedSubCategories for events and participants
-  const countedSubCategories = _.mapValues(datasGrouped, value =>
-    _.chain(value)
-      .groupBy("AEDECOD")
-      .mapValues(value => {
-        const groupsCounted = _.countBy(value, groupVariable);
-        const groupsTotal = _(groupsCounted)
-          .map()
-          .sum();
-        if (groupVariable !== "NONE") {
-          return {
-            ...headerGroupsObjZero,
-            ...groupsCounted,
-            ...{ Total: groupsTotal }
-          };
-        }
-        return {
-          ...headerGroupsObjZero,
-          ...{ Total: groupsTotal }
-        };
-      })
-      .value()
+  const countedSubCategories = computeCountedSubCategories(
+    datasGrouped,
+    groupVariable,
+    headerGroupsObjZero
   );
 
   // compute header groups array

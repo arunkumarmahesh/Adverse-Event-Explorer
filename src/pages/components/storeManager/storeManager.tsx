@@ -81,7 +81,7 @@ export const StoreManager = () => {
     dispatch(setStoreNames(selectedStoreName!));
     dispatch(resetStore());
   };
-  console.log("storeNames", storeNames);
+
   return (
     <div>
       <Button onClick={handleResetStore}>Reset Selection</Button>

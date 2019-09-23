@@ -101,9 +101,9 @@ export const setDetailSearchTerm = (
   payload
 });
 
-export const setDetailSortColumn = (
+export const setDetailSortColumns = (
   payload: t.SortColumn[]
-): t.SetDetailSortColumn => ({
+): t.SetDetailSortColumns => ({
   type: c.SET_DETAIL_SORT_COLUMNS,
   payload
 });

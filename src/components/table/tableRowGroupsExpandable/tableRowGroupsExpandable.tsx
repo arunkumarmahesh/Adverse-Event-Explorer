@@ -3,7 +3,7 @@ import { Table } from "semantic-ui-react";
 import { TableCellAccordion, CellPopup, TableRowGroups } from "../..";
 import { AppState } from "../../../types";
 import { useSelector, useDispatch } from "react-redux";
-import { SET_EXPANDED_CATEGORIES } from "../../../store/constants";
+import { setExpandedCategories } from "../../../store/actions";
 
 export interface Props {
   colors: string[];
@@ -18,14 +18,8 @@ export const TableRowGroupsExpandable: FC<Props> = ({ colors, data }) => {
   const searchTerm = useSelector((state: AppState) => state.searchTerm);
   const expandAll = searchTerm.length > 1;
 
-  const handleExpandCategory = (
-    e: MouseEvent<HTMLDivElement>,
-    { index }: any
-  ) => {
-    dispatch({
-      type: SET_EXPANDED_CATEGORIES,
-      payload: index
-    });
+  const handleExpandCategory = (e: any, { index }: any) => {
+    dispatch(setExpandedCategories(index));
   };
 
   return (
