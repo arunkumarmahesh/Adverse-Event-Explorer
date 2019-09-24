@@ -1,22 +1,48 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Button, Input, Select } from "semantic-ui-react";
-import {
+
+export interface Props<T> {
+  /**
+   * Names of the saved store presets.
+   * @default []
+   */
+  storeNames: string[];
+  /**
+   * Current store object.
+   * @default initialState
+   */
+  store: T;
+  /**
+   * Action to reset store to initialState.
+   */
+  resetStore: () => void;
+  /**
+   * Action to add and delete saved store presets.
+   */
+  setStoreNames: (storeName: string) => void;
+  /**
+   * Action to switch to chosen saved store presets.
+   */
+  setStoreSelection: (store: T) => void;
+  /**
+   * Redux dispatch function
+   */
+  dispatch: Function;
+}
+
+export function StoreManager<T>({
+  storeNames,
+  store,
   resetStore,
   setStoreNames,
-  setStoreSelection
-} from "../../../store/actions";
-import { AppState } from "../../../types";
-
-export const StoreManager = () => {
-  const dispatch = useDispatch();
+  setStoreSelection,
+  dispatch
+}: Props<T>) {
   const [storeName, setStoreName] = useState<string>("");
   const [showErrorMsg, setShowErrorMsg] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
   const errorMsg = "This name already exists";
 
-  const storeNames = useSelector((state: AppState) => state.storeNames);
-  const store = useSelector((state: AppState) => state);
   const [selectedStoreName, setSelectedStoreName] = useState<string>();
 
   const handleResetStore = () => {
@@ -111,4 +137,4 @@ export const StoreManager = () => {
       )}
     </div>
   );
-};
+}

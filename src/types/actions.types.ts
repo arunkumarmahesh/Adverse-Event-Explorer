@@ -119,5 +119,5 @@ export interface SetStoreNames {
 
 export interface SetStoreSelection {
   type: typeof c.SET_STORE_SELECTION;
-  payload: t.AppState;
+  payload: t.AppState | {};
 }

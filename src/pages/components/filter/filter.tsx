@@ -6,7 +6,7 @@ import { SearchBy } from "../searchBy/searchBy";
 import { HeaderGroups } from "../../../types";
 import { FilterAge } from "./filterAge";
 import { FilterPrevalence } from "./filterPrevalence";
-import { StoreManager } from "../storeManager/storeManager";
+import { StoreManagerConnect } from "../storeManagerConnect/storeManagerConnect";
 
 export interface Props {
   ageRange: [number, number];
@@ -41,7 +41,7 @@ export const Filter: FC<Props> = ({
 
       <br />
       <CheckFilter />
-      <StoreManager />
+      <StoreManagerConnect />
     </div>
   );
 };

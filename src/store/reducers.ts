@@ -91,6 +91,7 @@ export const reducer: Reducer<t.AppState, t.ActionTypes> = produce(
         );
         return draft;
       case c.SET_STORE_SELECTION:
+        // @ts-ignorets-ignore
         draft = { ...action.payload, ...{ storeNames: draft.storeNames } };
         return draft;
       default:
