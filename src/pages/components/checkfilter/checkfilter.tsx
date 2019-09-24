@@ -5,6 +5,17 @@ import * as o from "./checkFilterOptions";
 import * as a from "../../../store/actions";
 import { AppState } from "../../../types";
 
+export interface LabelProps {
+  label?: string;
+}
+
+export const SupLabel: FC<LabelProps> = ({ label }) => (
+  <div>
+    {label}
+    <sup>E</sup>
+  </div>
+);
+
 export interface Props {
   disabled?: boolean;
 }
@@ -21,21 +32,21 @@ export const CheckFilter: FC<Props> = ({ disabled }) => {
   return (
     <div className="filter">
       <CheckBlock
-        label="Serious?"
+        label={<SupLabel label="Serious?" />}
         options={o.seriousFilterOptions}
         checked={serious}
         disabled={disabled}
         handleChange={(value: string) => dispatch(a.setSeriousFilter(value))}
       />
       <CheckBlock
-        label="Severity"
+        label={<SupLabel label="Severity" />}
         options={o.severityFilterOptions}
         checked={severity}
         disabled={disabled}
         handleChange={(value: string) => dispatch(a.setSeverityFilter(value))}
       />
       <CheckBlock
-        label="Relationship"
+        label={<SupLabel label="Relationship" />}
         options={o.relationshipFilterOptions}
         checked={relationship}
         disabled={disabled}
@@ -44,7 +55,7 @@ export const CheckFilter: FC<Props> = ({ disabled }) => {
         }
       />
       <CheckBlock
-        label="Outcome"
+        label={<SupLabel label="Outcome" />}
         options={o.outcomeFilterOptions}
         checked={outcome}
         disabled={disabled}

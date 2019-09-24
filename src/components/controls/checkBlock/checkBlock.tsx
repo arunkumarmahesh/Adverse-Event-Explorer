@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import { Checkbox } from "semantic-ui-react";
 
 export interface Props {
-  label: string;
+  label?: string | ReactNode;
   options: string[];
   checked: string[];
   disabled?: boolean;
@@ -26,10 +26,7 @@ export const CheckBlock: FC<Props> = ({
 
   return (
     <div>
-      <div>
-        {label}
-        <sup>E</sup>
-      </div>
+      {label}
       {options.map(item => (
         <Checkbox
           key={item}
