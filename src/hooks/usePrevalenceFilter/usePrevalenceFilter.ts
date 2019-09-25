@@ -16,7 +16,10 @@ export const usePrevalenceFilter = (datas: any) => {
       filteredDatas = datas.filter((data: any) => {
         let add = true;
 
-        if (data[prevalenceGroup] > prevalenceSelected[1]) {
+        if (
+          data[prevalenceGroup] > prevalenceSelected[1] ||
+          data[prevalenceGroup] < prevalenceSelected[0]
+        ) {
           add = false;
         }
 
