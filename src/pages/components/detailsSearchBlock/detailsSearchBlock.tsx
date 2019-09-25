@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchBlock } from "../../../components/controls/searchBlock/searchBlock";
-import { Button } from "semantic-ui-react";
 import { AppState } from "../../../types";
 import { setDetailSearchTerm } from "../../../store/actions";
 

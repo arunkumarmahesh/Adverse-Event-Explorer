@@ -1,6 +1,6 @@
 import React, { FC, HTMLAttributes } from "react";
-import { Search, Button, Icon } from "semantic-ui-react";
-import { SearchWrapper, SearchFlexbox } from "./searchBlock.styles";
+import { Button, Icon } from "semantic-ui-react";
+import { SearchWrapper, SearchFlexbox, Search } from "./searchBlock.styles";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   label?: string;

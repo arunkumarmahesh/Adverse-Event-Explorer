@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { Select } from "semantic-ui-react";
 import { Slider, SelectBlock } from "../../../components";
 import { HeaderGroups, AppState } from "../../../types";
 import {

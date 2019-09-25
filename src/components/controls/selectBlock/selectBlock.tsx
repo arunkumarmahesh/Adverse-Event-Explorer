@@ -1,6 +1,5 @@
-import React, { FC, SyntheticEvent, HTMLAttributes } from "react";
-import { Select } from "semantic-ui-react";
-import { SelectWrapper } from "./selectBlock.styles";
+import React, { FC, HTMLAttributes } from "react";
+import { SelectWrapper, Select } from "./selectBlock.styles";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   label?: string;
@@ -8,10 +7,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   placeholder?: string;
   options: any;
   value: string;
-  handleChange: (
-    e: SyntheticEvent<HTMLElement>,
-    value: any // Semantic UI DropdownProps are any too
-  ) => void;
+  handleChange: (e: any, value: any) => void;
 }
 
 export const SelectBlock: FC<Props> = ({

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Select as UISelect } from "semantic-ui-react";
 
 export interface Props {
   labelPosition?: "top" | "left";
@@ -14,5 +15,8 @@ export const SelectWrapper = styled.div<Props>`
   justify-content: flex-start;
   label {
     font-weight: bold;
+    padding-bottom: 0.3rem;
   }
 `;
+
+export const Select = styled(UISelect)``;
