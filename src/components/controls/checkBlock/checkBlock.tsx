@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import { Checkbox } from "semantic-ui-react";
+import { CheckWrapper, Checkbox } from "./checkBlock.styles";
 
 export interface Props {
   label?: string | ReactNode;
@@ -14,7 +14,8 @@ export const CheckBlock: FC<Props> = ({
   options,
   checked,
   disabled,
-  handleChange
+  handleChange,
+  ...rest
 }) => {
   const checkIfChangeable = (e: any, { value }: any) => {
     if (checked.length > 1) {
@@ -25,8 +26,8 @@ export const CheckBlock: FC<Props> = ({
   };
 
   return (
-    <div>
-      {label}
+    <CheckWrapper {...rest}>
+      {label && <label>{label}</label>}
       {options.map(item => (
         <Checkbox
           key={item}
@@ -37,6 +38,6 @@ export const CheckBlock: FC<Props> = ({
           disabled={disabled}
         />
       ))}
-    </div>
+    </CheckWrapper>
   );
 };

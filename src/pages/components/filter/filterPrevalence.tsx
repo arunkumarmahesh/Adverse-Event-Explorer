@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { Select } from "semantic-ui-react";
-import { Slider } from "../../../components";
+import { Slider, SelectBlock } from "../../../components";
 import { HeaderGroups, AppState } from "../../../types";
 import {
   setPrevalenceFilterSelected,
@@ -69,11 +69,12 @@ export const FilterPrevalence: FC<Props> = ({
 
   return (
     <div>
-      <b>Filter by prevalence:</b>
-      <Select
+      <SelectBlock
+        label="Filter by prevalence:"
+        labelPosition="left"
         options={generatePrevalenceOptions(headerGroups)}
         value={prevalenceGroup}
-        onChange={handlePrevalenceFilterGroupChange}
+        handleChange={handlePrevalenceFilterGroupChange}
       />
       <Slider
         range={currentRange}

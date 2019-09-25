@@ -1,8 +1,8 @@
-import React, { FC, FormEvent, HTMLAttributes } from "react";
-import { Radio } from "semantic-ui-react";
+import React, { FC, ReactNode, FormEvent, HTMLAttributes } from "react";
+import { RadioWrapper, Radio } from "./radioBlock.styles";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
-  label: string;
+  label?: string | ReactNode;
   options: string[];
   checked: string;
   handleChange: (
@@ -18,8 +18,8 @@ export const RadioBlock: FC<Props> = ({
   handleChange,
   ...rest
 }) => (
-  <div {...rest}>
-    <div>{label}</div>
+  <RadioWrapper {...rest}>
+    {label && <label>{label}</label>}
     {options.map(item => (
       <Radio
         key={item}
@@ -29,5 +29,5 @@ export const RadioBlock: FC<Props> = ({
         checked={checked === item ? true : false}
       />
     ))}
-  </div>
+  </RadioWrapper>
 );

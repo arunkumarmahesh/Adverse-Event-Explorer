@@ -6,7 +6,7 @@ import { setSummarizedBy } from "../../../store/actions";
 
 interface Props {}
 
-export const SummarizeBy: FC<Props> = () => {
+export const SummarizeByConnect: FC<Props> = () => {
   const dispatch = useDispatch();
   const summarizedBy = useSelector((state: AppState) => state.summarizedBy);
   const summarizedByOptions: SummarizedBy[] = ["Participants", "Events"];

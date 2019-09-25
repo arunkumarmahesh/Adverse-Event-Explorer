@@ -10,10 +10,10 @@ export interface LabelProps {
 }
 
 export const SupLabel: FC<LabelProps> = ({ label }) => (
-  <div>
+  <>
     {label}
     <sup>E</sup>
-  </div>
+  </>
 );
 
 export interface Props {

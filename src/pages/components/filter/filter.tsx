@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { CheckFilter } from "../checkfilter/checkfilter";
-import { SummarizeBy } from "../summarizeBy/summarizeBy";
-import { GroupBy } from "../groupBy/groupBy";
-import { SearchBy } from "../searchBy/searchBy";
+import { SummarizeByConnect } from "../summarizeByConnect/summarizeByConnect";
+import { GroupByConnect } from "../groupByConnect/groupByConnect";
+import { SearchByConnect } from "../searchByConnect/searchByConnect";
 import { HeaderGroups } from "../../../types";
 import { FilterAge } from "./filterAge";
 import { FilterPrevalence } from "./filterPrevalence";
@@ -26,9 +26,9 @@ export const Filter: FC<Props> = ({
   return (
     <div>
       <div className="filter">
-        <SummarizeBy />
-        <GroupBy />
-        <SearchBy resultsCount={resultsCount} />
+        <SummarizeByConnect />
+        <GroupByConnect />
+        <SearchByConnect resultsCount={resultsCount} />
       </div>
       <br />
 

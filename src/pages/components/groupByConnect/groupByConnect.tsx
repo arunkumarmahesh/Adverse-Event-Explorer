@@ -9,7 +9,7 @@ import {
 
 export interface Props {}
 
-export const GroupBy: FC<Props> = () => {
+export const GroupByConnect: FC<Props> = () => {
   const dispatch = useDispatch();
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
 
@@ -24,7 +24,7 @@ export const GroupBy: FC<Props> = () => {
     <SelectBlock
       label="Group Variable:"
       options={groupVariableOptions}
-      selected={groupVariable}
+      value={groupVariable}
       handleChange={(e, { value }) => {
         dispatch(setGroupVariable(value));
         // reset PrevalenceFilterGroup to default
