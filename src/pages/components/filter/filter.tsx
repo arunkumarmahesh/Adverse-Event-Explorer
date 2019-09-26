@@ -27,7 +27,7 @@ export const Filter: FC<Props> = ({
     <div>
       <div className="filter">
         <SummarizeByConnect />
-        <GroupByConnect />
+        <GroupByConnect prevalenceRange={prevalenceRange} />
         <SearchByConnect resultsCount={resultsCount} />
       </div>
       <br />

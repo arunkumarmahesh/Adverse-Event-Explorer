@@ -5,6 +5,7 @@ import { Button, Icon } from "semantic-ui-react";
 import { CheckFilter } from "../checkfilter/checkfilter";
 import { useFilterIsActive } from "../../../hooks";
 import { AppState } from "../../../types";
+import { StoreManagerConnect } from "../storeManagerConnect/storeManagerConnect";
 
 export interface Props {
   resultsCount: number;
@@ -29,6 +30,7 @@ export const DetailsInfoBlock: FC<Props> = ({ resultsCount, category }) => {
       <div>
         <strong>{`Details for ${resultsCount} ${category} records`}</strong>
       </div>
+      <StoreManagerConnect />
       {isActive && (
         <>
           <div>The Listing is filtered as shown:</div>

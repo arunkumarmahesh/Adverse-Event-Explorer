@@ -5,7 +5,7 @@ export type ActionTypes =
   | SetSummarizedBy
   | SetGroupVariable
   | SetSearchTerm
-  | SetSortColumn
+  | setSortColumns
   | SetPrevalenceFilterRange
   | SetPrevalenceFilterSelected
   | SetPrevalenceFilterGroup
@@ -38,7 +38,7 @@ export interface SetSearchTerm {
   payload: string;
 }
 
-export interface SetSortColumn {
+export interface setSortColumns {
   type: typeof c.SET_SORT_COLUMNS;
   payload: t.SortColumn[];
 }

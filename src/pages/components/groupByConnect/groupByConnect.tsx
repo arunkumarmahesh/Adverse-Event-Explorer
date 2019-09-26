@@ -4,12 +4,16 @@ import { SelectBlock } from "../../../components";
 import { AppState, SelectOptions } from "../../../types";
 import {
   setGroupVariable,
-  setPrevalenceFilterGroup
+  setPrevalenceFilterGroup,
+  setSortColumns,
+  setPrevalenceFilterSelected
 } from "../../../store/actions";
 
-export interface Props {}
+export interface Props {
+  prevalenceRange: [number, number];
+}
 
-export const GroupByConnect: FC<Props> = () => {
+export const GroupByConnect: FC<Props> = ({ prevalenceRange }) => {
   const dispatch = useDispatch();
   const groupVariable = useSelector((state: AppState) => state.groupVariable);
 
@@ -29,6 +33,8 @@ export const GroupByConnect: FC<Props> = () => {
         dispatch(setGroupVariable(value));
         // reset PrevalenceFilterGroup to default
         dispatch(setPrevalenceFilterGroup("All"));
+        dispatch(setPrevalenceFilterSelected(prevalenceRange));
+        dispatch(setSortColumns([]));
       }}
     />
   );

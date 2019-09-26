@@ -21,7 +21,7 @@ export const setSearchTerm = (payload: string): t.SetSearchTerm => ({
   payload
 });
 
-export const setSortColumn = (payload: t.SortColumn[]): t.SetSortColumn => ({
+export const setSortColumns = (payload: t.SortColumn[]): t.setSortColumns => ({
   type: c.SET_SORT_COLUMNS,
   payload
 });
